@@ -12,7 +12,20 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/workoutHome"
-        android:name="com.example.mobile_assignment.workoutHome"
+        android:name="com.example.mobile_assignment.workout.workoutHome"
         android:label="Workout"
         tools:layout="@layout/fragment_workout_home" />
+    <fragment
+        android:id="@+id/addCustomPlan"
+        android:name="com.example.mobile_assignment.workout.addCustomPlan"
+        android:label="addCustomPlan" />
+    <fragment
+        android:id="@+id/addExercise"
+        android:name="com.example.mobile_assignment.workout.addExercise"
+        android:label="fragment_add_exercise"
+        tools:layout="@layout/fragment_add_exercise" />
+    <fragment
+        android:id="@+id/addNewExercise"
+        android:name="com.example.mobile_assignment.workout.AddNewExercise"
+        android:label="AddNewExercise" />
 </navigation>

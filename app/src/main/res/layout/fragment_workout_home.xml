@@ -1,14 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".workoutHome">
+    tools:context=".workout.workoutHome">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="WHATS UP" />
+        android:id="@+id/DailyTargetlbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Daily Target"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/dailyTargetContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/DailyTargetlbl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_corner_background"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Workout Done"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target : 3 Workout"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="14sp" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/workoutProgress"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:indicatorColor="@color/colorProgress"
+                app:trackColor="@color/colorProgressBackground"
+                app:trackThickness="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="2 Plan Left"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/rounded_corner_background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calories Burnt"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorTextPrimary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target : 1500 Kcal"
+                android:textSize="14sp"
+                android:textColor="@color/colorTextSecondary"/>
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/caloriesProgress"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:indicatorColor="@color/colorProgress"
+                app:trackColor="@color/colorProgressBackground"
+                app:trackThickness="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="750 Kcal Left"
+                android:textSize="14sp"
+                android:textColor="@color/colorTextSecondary"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Workout Schedule Section -->
+    <include
+        android:id="@+id/workoutSchedule"
+        layout="@layout/item_workout_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dailyTargetContainer" />
+
+    <TextView
+        android:id="@+id/todayWorkoutPlanLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Today Workout Plan"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workoutSchedule" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWorkouts"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/todayWorkoutPlanLbl"
+        app:layout_constraintBottom_toTopOf="@id/btnAddMore"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnAddMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add More"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
