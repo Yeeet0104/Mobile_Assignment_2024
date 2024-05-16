@@ -2,4 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorSecondary">#03DAC5</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorTextSecondary">#6200EE</color>
+    <color name="colorTextAccent">#03DAC5</color>
+    <color name="colorProgressBackground">#E0E0E0</color>
+    <color name="colorProgress">#6200EE</color>
+    <color name="colorIcon">#7b6f72</color>
+    <color name="colorWorkoutContainerPrimary">#e9edfe</color>
+    <color name="colorWorkoutPlansCon">#ccd4ff</color>
 </resources>
