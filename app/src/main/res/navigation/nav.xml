@@ -15,4 +15,19 @@
         android:name="com.example.mobile_assignment.workoutHome"
         android:label="Workout"
         tools:layout="@layout/fragment_workout_home" />
+    <fragment
+        android:id="@+id/nutritionDetails"
+        android:name="ui.NutritionDetails"
+        android:label="fragment_nutrition_details"
+        tools:layout="@layout/fragment_nutrition_details" />
+    <fragment
+        android:id="@+id/nutritionMain"
+        android:name="ui.NutritionMain"
+        android:label="fragment_nutrition_main"
+        tools:layout="@layout/fragment_nutrition_main" />
+    <fragment
+        android:id="@+id/nutritionSearch"
+        android:name="ui.NutritionSearch"
+        android:label="fragment_nutrition_search"
+        tools:layout="@layout/fragment_nutrition_search" />
 </navigation>
