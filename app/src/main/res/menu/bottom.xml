@@ -13,4 +13,11 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/ic_workout"
         android:title="Workout" />
+
+    <item
+        android:id="@+id/nutritionMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_workout"
+        android:title="Nutrition" />
 </menu>
