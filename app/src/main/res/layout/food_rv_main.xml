@@ -54,10 +54,11 @@
                 android:id="@+id/tvMainFoodId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="F001"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="106dp" />
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvMainFoodName"
