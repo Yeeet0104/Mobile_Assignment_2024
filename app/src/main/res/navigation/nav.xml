@@ -12,10 +12,11 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/workoutHome"
-        android:name="com.example.mobile_assignment.workoutHome"
+        android:name="com.example.mobile_assignment.workout.workoutHome"
         android:label="Workout"
         tools:layout="@layout/fragment_workout_home" />
     <fragment
+
         android:id="@+id/profileFragment"
         android:name="com.example.mobile_assignment.ProfileFragment"
         android:label="fragment_profile"
@@ -30,4 +31,34 @@
         android:name="com.example.mobile_assignment.changePasswordProfileFragment"
         android:label="fragment_change_password_profile"
         tools:layout="@layout/fragment_change_password_profile" />
+
+    <fragment
+        android:id="@+id/addCustomPlan"
+        android:name="com.example.mobile_assignment.workout.addCustomPlan"
+        android:label="addCustomPlan" />
+    <fragment
+        android:id="@+id/addExercise"
+        android:name="com.example.mobile_assignment.workout.addExercise"
+        android:label="fragment_add_exercise"
+        tools:layout="@layout/fragment_add_exercise" />
+    <fragment
+        android:id="@+id/addNewExercise"
+        android:name="com.example.mobile_assignment.workout.AddNewExercise"
+        android:label="AddNewExercise" />
+    <fragment
+        android:id="@+id/nutritionDetails"
+        android:name="ui.NutritionDetails"
+        android:label="fragment_nutrition_details"
+        tools:layout="@layout/fragment_nutrition_details" />
+    <fragment
+        android:id="@+id/nutritionMain"
+        android:name="ui.NutritionMain"
+        android:label="fragment_nutrition_main"
+        tools:layout="@layout/fragment_nutrition_main" />
+    <fragment
+        android:id="@+id/nutritionSearch"
+        android:name="ui.NutritionSearch"
+        android:label="fragment_nutrition_search"
+        tools:layout="@layout/fragment_nutrition_search" />
+
 </navigation>
