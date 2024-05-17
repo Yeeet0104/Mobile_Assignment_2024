@@ -16,6 +16,23 @@
         android:label="Workout"
         tools:layout="@layout/fragment_workout_home" />
     <fragment
+        android:id="@+id/forumHome"
+        android:name="com.example.mobile_assignment.ui.ForumHome"
+        android:label="Forum"
+        tools:layout="@layout/fragment_forum_home" >
+        <action
+            android:id="@+id/action_forumHome_to_forumCreatePost"
+            app:destination="@id/forumCreatePost" />
+    </fragment>
+    <fragment
+        android:id="@+id/forumCreatePost"
+        android:name="com.example.mobile_assignment.ui.ForumCreatePost"
+        android:label="fragment_forum_create_post"
+        tools:layout="@layout/fragment_forum_create_post" >
+        <action
+            android:id="@+id/action_forumCreatePost_to_forumHome"
+            app:destination="@id/forumHome" />
+    </fragment>
 
         android:id="@+id/profileFragment"
         android:name="com.example.mobile_assignment.ProfileFragment"

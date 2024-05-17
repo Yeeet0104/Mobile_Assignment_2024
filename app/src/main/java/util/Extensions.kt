@@ -25,6 +25,7 @@ fun Fragment.toast(text: String) {
     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
+
 // Usage: Show a snackbar from fragment
 fun Fragment.snackbar(text: String) {
     Snackbar.make(view!!, text, Snackbar.LENGTH_SHORT).show()
@@ -49,6 +50,7 @@ fun Fragment.infoDialog(text: String) {
         .setPositiveButton("Dismiss", null)
         .show()
 }
+
 
 // ----------------------------------------------------------------------------
 // Bitmap Extensions
@@ -89,13 +91,16 @@ fun Bitmap.crop(width: Int, height: Int): Bitmap {
 }
 
 // Usage: Convert from Bitmap to Firebase Blob
-@RequiresApi(Build.VERSION_CODES.R)
+
 fun Bitmap.toBlob(): Blob {
     ByteArrayOutputStream().use {
-        compress(Bitmap.CompressFormat.WEBP_LOSSY, 80, it)
-        return Blob.fromBytes(it.toByteArray())
-    }
-}
+        val format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Bitmap.CompressFormat.WEBP_LOSSY
+        } else {
+            Bitmap.CompressFormat.WEBP
+        }
+        compress(format, 80, it)
+
 
 // ----------------------------------------------------------------------------
 // Firebase Blob Extensions
@@ -112,6 +117,7 @@ fun Blob.toBitmap(): Bitmap? {
 // ----------------------------------------------------------------------------
 
 // Usage: Crop to Firebase Blob
+
 @RequiresApi(Build.VERSION_CODES.R)
 fun ImageView.cropToBlob(width: Int, height: Int): Blob {
     return drawable?.toBitmapOrNull()?.crop(width, height)?.toBlob() ?: Blob.fromBytes(ByteArray(0))
@@ -121,3 +127,4 @@ fun ImageView.cropToBlob(width: Int, height: Int): Blob {
 fun ImageView.setImageBlob(blob: Blob) {
     setImageBitmap(blob.toBitmap())
 }
+
