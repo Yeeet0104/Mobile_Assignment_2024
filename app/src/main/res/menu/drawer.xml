@@ -13,4 +13,12 @@
     <item
         android:id="@+id/forumHome"
         android:title="Forum" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:title="Profile" />
+
+      <item
+        android:id="@+id/nutritionMain"
+        android:title="Nutrition" />
 </menu>
