@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_login"
+    tools:context=".signUp1Fragment">
+
+    <ImageView
+        android:id="@+id/img_signUp1"
+        android:layout_width="320dp"
+        android:layout_height="240dp"
+        android:src="@drawable/logo_with_tansparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lbl_signUp1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="REGISTRATION"
+        android:textColor="@color/input_box_background"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_signUp1" />
+
+    <EditText
+        android:id="@+id/edt_signUp1_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_box"
+        android:drawableLeft="@drawable/ic_username"
+        android:drawablePadding="20dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/img_signUp1"
+        app:layout_constraintStart_toStartOf="@+id/img_signUp1"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_signUp1" />
+
+    <EditText
+        android:id="@+id/edt_signUp1_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_box"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="20dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_signUp1_username"
+        app:layout_constraintStart_toStartOf="@+id/edt_signUp1_username"
+        app:layout_constraintTop_toBottomOf="@+id/edt_signUp1_username" />
+
+    <EditText
+        android:id="@+id/edt_signUp1_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_box"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="20dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_signUp1_email"
+        app:layout_constraintStart_toStartOf="@+id/edt_signUp1_email"
+        app:layout_constraintTop_toBottomOf="@+id/edt_signUp1_email" />
+
+    <EditText
+        android:id="@+id/edt_signUp1_conf_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_box"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="20dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_signUp1_password"
+        app:layout_constraintStart_toStartOf="@+id/edt_signUp1_password"
+        app:layout_constraintTop_toBottomOf="@+id/edt_signUp1_password" />
+
+    <Button
+        android:id="@+id/btn_signUp1_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/btn_login"
+        android:text="NEXT"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/edt_signUp1_conf_password"
+        app:layout_constraintStart_toStartOf="@+id/edt_signUp1_conf_password"
+        app:layout_constraintTop_toBottomOf="@+id/edt_signUp1_conf_password" />
+
+    <TextView
+        android:id="@+id/lbl_ask_login1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account?"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/lbl_signUp1_to_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/lbl_signUp1_to_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

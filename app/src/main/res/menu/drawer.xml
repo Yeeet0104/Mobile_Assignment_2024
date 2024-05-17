@@ -10,4 +10,7 @@
     <item
         android:id="@+id/workoutHome"
         android:title="Workout" />
+    <item
+        android:id="@+id/profileFragment"
+        android:title="Profile" />
 </menu>

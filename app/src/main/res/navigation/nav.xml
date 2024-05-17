@@ -15,4 +15,19 @@
         android:name="com.example.mobile_assignment.workoutHome"
         android:label="Workout"
         tools:layout="@layout/fragment_workout_home" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.mobile_assignment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.mobile_assignment.editProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/changePasswordProfileFragment"
+        android:name="com.example.mobile_assignment.changePasswordProfileFragment"
+        android:label="fragment_change_password_profile"
+        tools:layout="@layout/fragment_change_password_profile" />
 </navigation>

@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         abc = AppBarConfiguration(
             setOf(
                 R.id.home2,
-                R.id.workoutHome
+                R.id.workoutHome,
+                R.id.profileFragment
             ),
             binding.root
         )
