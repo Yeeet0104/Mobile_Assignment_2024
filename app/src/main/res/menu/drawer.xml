@@ -10,4 +10,7 @@
     <item
         android:id="@+id/workoutHome"
         android:title="Workout" />
+    <item
+        android:id="@+id/forumHome"
+        android:title="Forum" />
 </menu>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="16dp"
+    android:layout_margin="12dp"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnDeletePost"
+            android:layout_width="25dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/btnEditPost"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/trashcan" />
+
+        <ImageButton
+            android:id="@+id/btnEditPost"
+            android:layout_width="30dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="316dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_edit_post" />
+
+        <TextView
+            android:id="@+id/lblPostTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Post Title Here" />
+
+        <ImageView
+            android:id="@+id/imgUserProfilePost"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblPostTitle"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/lblUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/imgUserProfilePost"
+            app:layout_constraintTop_toTopOf="@+id/imgUserProfilePost"
+            tools:text="Username" />
+
+        <TextView
+            android:id="@+id/lblTimePosted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/lightGray"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/imgUserProfilePost"
+            app:layout_constraintTop_toBottomOf="@+id/lblUsername"
+            tools:text="Time" />
+
+        <TextView
+            android:id="@+id/lblPostContent"
+            android:layout_width="356dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblTimePosted"
+            tools:text="Content" />
+
+        <ImageButton
+            android:id="@+id/btnBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showPostImg"
+            app:srcCompat="@drawable/bookmark2" />
+
+        <ImageButton
+            android:id="@+id/btnComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/btnBookmark"
+            app:layout_constraintTop_toBottomOf="@+id/showPostImg"
+            app:srcCompat="@drawable/ic_comment" />
+
+        <TextView
+            android:id="@+id/lblAddResponse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:text="Add Response"
+            app:layout_constraintStart_toEndOf="@+id/btnComment"
+            app:layout_constraintTop_toBottomOf="@+id/showPostImg" />
+
+        <TextView
+            android:id="@+id/lblCommentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/lblAddResponse"
+            app:layout_constraintTop_toBottomOf="@+id/showPostImg"
+            tools:text="X" />
+
+        <ImageView
+            android:id="@+id/showPostImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblPostContent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
