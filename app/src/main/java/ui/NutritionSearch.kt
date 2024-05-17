@@ -28,16 +28,18 @@ class NutritionSearch : Fragment() {
     ): View? {
         binding = FragmentNutritionSearchBinding.inflate(inflater, container, false)
 
-        nutritionViewModel.loadFoodItems()
+        binding.searchView.requestFocus()
 
-        val adapter = FoodAdapter { h, f ->
-            h.binding.root.setOnClickListener { detail(f.foodId) }
+        val adapter = FoodAdapter { holder, foodItem ->
+            holder.binding.root.setOnClickListener {
+                detail(foodItem.foodId)
+            }
         }
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
-        nutritionViewModel.foodItems.observe(viewLifecycleOwner) { foodItems ->
+        nutritionViewModel.getFoodLD().observe(viewLifecycleOwner) { foodItems ->
             adapter.submitList(foodItems)
         }
 
@@ -49,10 +51,15 @@ class NutritionSearch : Fragment() {
             }
         })
 
+        nutritionViewModel.getResultLD().observe(viewLifecycleOwner) { filteredFoodItems ->
+            adapter.submitList(filteredFoodItems)
+        }
 
 
         return binding.root
     }
+
+
 
     private fun detail(foodId: String) {
         nav.navigate(R.id.nutritionDetails, bundleOf(

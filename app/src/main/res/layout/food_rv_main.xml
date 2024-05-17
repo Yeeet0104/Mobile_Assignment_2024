@@ -9,35 +9,24 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relativeLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tvSearchFoodName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Salad"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvSearchFoodCal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="120kcal"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/tvSearchFoodName" />
+                app:layout_constraintStart_toStartOf="@+id/tvMainFoodName"
+                app:layout_constraintTop_toBottomOf="@+id/tvMainFoodName" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -60,6 +49,24 @@
                 app:layout_constraintStart_toEndOf="@+id/tvSearchFoodCal"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_delete" />
+
+            <TextView
+                android:id="@+id/tvMainFoodId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="F001"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="106dp" />
+
+            <TextView
+                android:id="@+id/tvMainFoodName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Salad"
+                app:layout_constraintStart_toStartOf="@+id/tvMainFoodId"
+                app:layout_constraintTop_toBottomOf="@+id/tvMainFoodId" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

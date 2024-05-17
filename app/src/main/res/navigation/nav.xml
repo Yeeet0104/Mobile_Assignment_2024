@@ -44,5 +44,15 @@
         android:name="ui.NutritionSearch"
         android:label="fragment_nutrition_search"
         tools:layout="@layout/fragment_nutrition_search" />
+    <fragment
+        android:id="@+id/nutritionAdd"
+        android:name="ui.NutritionAdd"
+        android:label="fragment_nutrition_add"
+        tools:layout="@layout/fragment_nutrition_add" />
+    <fragment
+        android:id="@+id/nutritionEdit"
+        android:name="ui.NutritionEdit"
+        android:label="fragment_nutrition_edit"
+        tools:layout="@layout/fragment_nutrition_edit" />
 
 </navigation>
