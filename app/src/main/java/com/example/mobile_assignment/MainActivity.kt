@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.home2,
                 R.id.workoutHome,
-                R.id.nutritionMain,
+                R.id.profileFragment,
+                R.id.nutritionMain
             ),
             binding.root
         )
