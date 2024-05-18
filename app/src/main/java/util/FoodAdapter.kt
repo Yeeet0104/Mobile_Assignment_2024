@@ -38,6 +38,4 @@ class FoodAdapter (
         fn(holder, foodItem)
     }
 
-
-
 }

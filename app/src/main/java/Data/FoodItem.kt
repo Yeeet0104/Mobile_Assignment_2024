@@ -3,6 +3,7 @@ package Data
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 
 data class FoodItem (
@@ -15,17 +16,39 @@ data class FoodItem (
     var fat: Int = 0,
     var image: Blob = Blob.fromBytes(ByteArray(0)),
     var description: String = ""
-
-
 )
 
 data class CalTracker (
     @DocumentId
-    var trackerId: String = "",
-    var userId: String = "",
-    var foodId: String = ""
+    var userId: String = ""
 )
 
+data class TrackerItem (
+    @DocumentId
+    val documentId: String = "",
+    var foodId: String = "",
+    var foodName: String = "",
+    var calories: Int = 0,
+    var image: Blob = Blob.fromBytes(ByteArray(0)),
+
+)
+
+data class DateItem (
+    @DocumentId
+    var date: String = "",
+    var caloriesTarget: Int = 0
+)
+
+
 val FOOD = Firebase.firestore.collection("foodList")
-val TRACKER = Firebase.firestore.collection("trackerList")
+
+fun getDateReference(userId: String, date: String) =
+    FirebaseFirestore.getInstance().collection("trackerList")
+        .document(userId).collection("dates").document(date)
+
+fun getDailyFoodReference(userId: String, date: String) =
+    FirebaseFirestore.getInstance().collection("trackerList")
+        .document(userId).collection("dates").document(date)
+        .collection("trackerItems")
+
 

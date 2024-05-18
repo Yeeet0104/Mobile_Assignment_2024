@@ -1,6 +1,8 @@
 package Data
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +10,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObjects
+import java.time.LocalDateTime
 
 class NutritionVM : ViewModel() {
 
@@ -17,11 +20,11 @@ class NutritionVM : ViewModel() {
 
 
     private val resultLD = MutableLiveData<List<FoodItem>>()
-    private var foodName = ""
 
     init {
         listener = FOOD.addSnapshotListener { snap, _ ->
             foodLD.value = snap?.toObjects(FoodItem::class.java)
+            updateResult()
         }
     }
 
@@ -120,6 +123,59 @@ class NutritionVM : ViewModel() {
                 // Handle failure
             }
     }
+
+    fun getDailyTrackerReference(userId: String, date: String): LiveData<List<TrackerItem>> {
+        val trackerItemsLiveData = MutableLiveData<List<TrackerItem>>()
+
+        db.collection("trackerList")
+            .document(userId)
+            .collection("dates")
+            .document(date)
+            .collection("trackerItems")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    // Handle error
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && !snapshot.isEmpty) {
+                    val trackerItems = snapshot.documents.map { document ->
+                        val item = document.toObject(TrackerItem::class.java)
+                        item?.copy(documentId = document.id) ?: TrackerItem()
+                    }
+                    trackerItemsLiveData.value = trackerItems
+                } else {
+                    trackerItemsLiveData.value = emptyList()
+                }
+            }
+
+        return trackerItemsLiveData
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun deleteTrackerItem(item: TrackerItem) {
+        val userId = "A001" // Get the user ID from wherever it's stored
+        val date = LocalDateTime.now().toLocalDate().toString() // Get the current date
+        val itemId = item.documentId // Get the ID of the item to delete
+
+        // Reference to the tracker item document to delete
+        val docRef = Firebase.firestore.collection("trackerList")
+            .document(userId)
+            .collection("dates")
+            .document(date)
+            .collection("trackerItems")
+            .document(itemId)
+
+        // Delete the document
+        docRef.delete()
+            .addOnSuccessListener {
+                // Document successfully deleted
+            }
+            .addOnFailureListener { e ->
+                // Log the error message or handle it as needed
+            }
+    }
+
 
 
 }

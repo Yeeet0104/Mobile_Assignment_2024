@@ -60,6 +60,14 @@ class NutritionSearch : Fragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        // Reset search when fragment is resumed
+        binding.searchView.setQuery("", false)
+        nutritionViewModel.search("")
+    }
+
+
 
     private fun detail(foodId: String) {
         nav.navigate(R.id.nutritionDetails, bundleOf(
