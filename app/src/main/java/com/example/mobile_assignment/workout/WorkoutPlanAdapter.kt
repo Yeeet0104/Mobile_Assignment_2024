@@ -1,19 +1,22 @@
 package com.example.mobile_assignment.workout
 
+import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.databinding.ItemWorkoutPlanBinding
+import com.example.mobile_assignment.workout.Data.CustomPlan
 
-class WorkoutPlanAdapter (
-    val fn: (ViewHolder, workoutPlan) -> Unit = { _, _ -> }
-) : ListAdapter<workoutPlan, WorkoutPlanAdapter.ViewHolder>(Diff) {
+class WorkoutPlanAdapter(
+    val fn: (ViewHolder, CustomPlan) -> Unit = { _, _ -> }
+) : ListAdapter<CustomPlan, WorkoutPlanAdapter.ViewHolder>(Diff) {
 
-    companion object Diff : DiffUtil.ItemCallback<workoutPlan>() {
-        override fun areItemsTheSame(a: workoutPlan, b: workoutPlan) = a.title == b.title
-        override fun areContentsTheSame(a: workoutPlan, b: workoutPlan) = a == b
+    companion object Diff : DiffUtil.ItemCallback<CustomPlan>() {
+        override fun areItemsTheSame(a: CustomPlan, b: CustomPlan) = a.id == b.id
+        override fun areContentsTheSame(a: CustomPlan, b: CustomPlan) = a == b
     }
 
     class ViewHolder(val binding: ItemWorkoutPlanBinding) : RecyclerView.ViewHolder(binding.root)
@@ -22,15 +25,20 @@ class WorkoutPlanAdapter (
         ViewHolder(ItemWorkoutPlanBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val workout = getItem(position)
+        val customPlan = getItem(position)
 
-        holder.binding.tvWorkoutTime.text = workout.time
-        holder.binding.tvWorkoutTitle.text = workout.title
-        holder.binding.tvWorkoutDetails.text = workout.details
-        holder.binding.btnStartWorkout.setOnClickListener {
-            // Handle button click
+        holder.binding.tvWorkoutTitle.text = customPlan.name
+        holder.binding.tvWorkoutDetails.text = "${customPlan.exerciseIds.size} Exercises | ${customPlan.restDuration} mins"
+        holder.binding.tvWorkoutTime.text = "5:00 PM"
+        customPlan.photo?.let {
+            val imageBytes = it.toBytes()
+            val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            holder.binding.workoutPlanImg.setImageBitmap(bitmap)
         }
-
-        fn(holder, workout)
+        holder.itemView.setOnClickListener {
+            Log.d("WorkoutPlanAdapter", "Selected custom plan: $customPlan")
+            Log.d("WorkoutPlanAdapter", "Selected custom plan: $position")
+            fn(holder, customPlan)
+        }
     }
 }

@@ -4,7 +4,7 @@
     android:id="@+id/Constraintlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.NutritionEdit">
+    tools:context="Forum.ui.NutritionEdit">
 
     <ScrollView
         android:layout_width="match_parent"

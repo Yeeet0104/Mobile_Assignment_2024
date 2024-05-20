@@ -1,18 +1,22 @@
 package com.example.mobile_assignment.workout
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentWorkoutHomeBinding
+import com.example.mobile_assignment.workout.Data.ExerciseViewModel
 
 
 class workoutHome : Fragment() {
     private lateinit var binding : FragmentWorkoutHomeBinding
+    private val exerciseViewModel: ExerciseViewModel by activityViewModels()
     private val nav by lazy { findNavController() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -21,28 +25,39 @@ class workoutHome : Fragment() {
         binding.workoutProgress.max = 3
         binding.workoutProgress.progress = 1
 
-
         binding.caloriesProgress.max = 1500
         binding.caloriesProgress.progress = 750
 
-        val workoutList = listOf(
-            workoutPlan("5:00 AM", "Fullbody Workout", "11 Exercises | 32mins"),
-            workoutPlan("1:00 PM", "Lowebody Workout", "12 Exercises | 40mins"),
-            // Add more workout items as needed
-        )
-        val adapter = WorkoutPlanAdapter { holder, workout ->
-            // You can handle additional interactions here if needed
-        }
-        adapter.submitList(workoutList)
-
-        binding.rvWorkouts.layoutManager = LinearLayoutManager(context)
-        binding.rvWorkouts.adapter = adapter
+        setupRecyclerView()
+        setupObservers()
 
         binding.btnAddMore.setOnClickListener {
             findNavController().navigate(R.id.addCustomPlan)
         }
 
-
+        binding.btnManageExercises.setOnClickListener {
+            findNavController().navigate(R.id.manageExercises)
+        }
         return binding.root
+    }
+
+    private fun setupRecyclerView() {
+        val adapter = WorkoutPlanAdapter { holder, customPlan ->
+            exerciseViewModel.selectCustomPlan(customPlan)
+            nav.navigate(R.id.fragment_workout_plan_details)
+        }
+        binding.rvWorkouts.layoutManager = LinearLayoutManager(context)
+        binding.rvWorkouts.adapter = adapter
+    }
+
+    private fun setupObservers() {
+        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val userId = sharedPref.getString("userId", "U001") ?: "U001"
+
+        exerciseViewModel.customPlans.observe(viewLifecycleOwner, { customPlans ->
+            (binding.rvWorkouts.adapter as WorkoutPlanAdapter).submitList(customPlans)
+        })
+
+        exerciseViewModel.fetchCustomPlans(userId)
     }
 }

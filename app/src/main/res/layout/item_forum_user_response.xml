@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="16dp">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:background="#ccc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblNameResponse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        tools:text="Username" />
+
+    <TextView
+        android:id="@+id/lblTimeResponse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/lightGray"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/lblNameResponse"
+        tools:text="Time" />
+
+    <TextView
+        android:id="@+id/lblResponseContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblTimeResponse"
+        tools:text="Comment" />
+
+    <TextView
+        android:id="@+id/responseLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/commentLike"
+        app:layout_constraintTop_toBottomOf="@+id/lblResponseContent"
+        tools:text="10" />
+
+    <TextView
+        android:id="@+id/responseDislikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/commentDislike"
+        app:layout_constraintTop_toBottomOf="@+id/lblResponseContent"
+        tools:text="8" />
+
+    <View
+        android:layout_width="358dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/separate_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commentDislike" />
+
+    <ToggleButton
+        android:id="@+id/commentLike"
+        android:layout_width="23dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/like_selector"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblResponseContent" />
+
+    <ToggleButton
+        android:id="@+id/commentDislike"
+        android:layout_width="23dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/dislike_selector"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintStart_toEndOf="@+id/responseLikeCount"
+        app:layout_constraintTop_toTopOf="@+id/commentLike" />
+
+    <ImageButton
+        android:id="@+id/btnDeleteComment"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="284dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/trashcan" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
