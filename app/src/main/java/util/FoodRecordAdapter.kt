@@ -1,7 +1,6 @@
 package util
 
-import Data.FoodItem
-import Data.TrackerItem
+import Nutrition.Data.TrackerItem
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.databinding.FoodRvMainBinding
-import com.example.mobile_assignment.databinding.FoodRvSearchBinding
 
 class FoodRecordAdapter (
     private val onDeleteClick: (position: Int) -> Unit,

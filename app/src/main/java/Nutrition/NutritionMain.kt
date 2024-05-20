@@ -1,6 +1,6 @@
-package ui
+package Nutrition
 
-import Data.NutritionVM
+import Nutrition.Data.NutritionVM
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Build
@@ -15,7 +15,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentNutritionMainBinding
-import util.FoodAdapter
 import util.FoodRecordAdapter
 import util.toast
 import java.time.LocalDate

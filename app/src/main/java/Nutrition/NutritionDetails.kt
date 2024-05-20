@@ -1,8 +1,8 @@
-package ui
+package Nutrition
 
-import Data.NutritionVM
-import Data.getDailyFoodReference
-import Data.getDateReference
+import Nutrition.Data.NutritionVM
+import Nutrition.Data.getDailyFoodReference
+import Nutrition.Data.getDateReference
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Build
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -150,7 +149,7 @@ class NutritionDetails : Fragment() {
                 if (document != null && document.exists()) {
                     // DateItem document exists, no need to create a new one
                     val trackerItemRef = getDailyFoodReference(userId, date)
-                    val trackerItem = Data.TrackerItem(
+                    val trackerItem = Nutrition.Data.TrackerItem(
                         foodId = food.foodId,
                         foodName = food.foodName,
                         calories = food.calories,
@@ -171,12 +170,12 @@ class NutritionDetails : Fragment() {
 
                 } else {
                     // DateItem document doesn't exist, create a new one with caloriesTarget set to 2000
-                    val dateItem = Data.DateItem(date = date, caloriesTarget = 2000)
+                    val dateItem = Nutrition.Data.DateItem(date = date, caloriesTarget = 2000)
                     dateRef.set(dateItem)
                         .addOnSuccessListener {
                             // DateItem document successfully written or updated
                             val trackerItemRef = getDailyFoodReference(userId, date)
-                            val trackerItem = Data.TrackerItem(
+                            val trackerItem = Nutrition.Data.TrackerItem(
                                 foodId = food.foodId,
                                 foodName = food.foodName,
                                 calories = food.calories,

@@ -1,4 +1,4 @@
-package Data
+package Nutrition.Data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -9,7 +9,6 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.firestore
-import java.time.LocalDateTime
 
 class NutritionVM : ViewModel() {
 
@@ -228,7 +227,7 @@ class NutritionVM : ViewModel() {
                     // Document for the current date already exists, no need to create a new one
                 } else {
                     // Document for the current date doesn't exist, create a new one
-                    val dateItem = Data.DateItem(date = date, caloriesTarget = 2000)
+                    val dateItem = Nutrition.Data.DateItem(date = date, caloriesTarget = 2000)
                     dateRef.set(dateItem)
                         .addOnFailureListener { e ->
                             // Handle failure to set DateItem

@@ -1,4 +1,4 @@
-package Data
+package Nutrition.Data
 
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.Blob

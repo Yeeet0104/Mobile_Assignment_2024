@@ -1,7 +1,7 @@
-package ui
+package Nutrition
 
-import Data.FoodItem
-import Data.NutritionVM
+import Nutrition.Data.FoodItem
+import Nutrition.Data.NutritionVM
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +13,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentNutritionAddBinding
 import util.cropToBlob
 import util.toast

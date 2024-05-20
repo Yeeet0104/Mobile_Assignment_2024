@@ -1,7 +1,6 @@
 package util
 
-import Data.FoodItem
-import Data.NutritionVM
+import Nutrition.Data.FoodItem
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup

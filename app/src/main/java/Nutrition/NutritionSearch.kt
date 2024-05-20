@@ -1,6 +1,6 @@
-package ui
+package Nutrition
 
-import Data.NutritionVM
+import Nutrition.Data.NutritionVM
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentNutritionSearchBinding
 import util.FoodAdapter

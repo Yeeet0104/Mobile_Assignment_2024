@@ -69,29 +69,29 @@
 
     <fragment
         android:id="@+id/nutritionDetails"
-        android:name="ui.NutritionDetails"
+        android:name="Nutrition.NutritionDetails"
         android:label="Food Details"
         tools:layout="@layout/fragment_nutrition_details" />
 
     <fragment
         android:id="@+id/nutritionMain"
-        android:name="ui.NutritionMain"
+        android:name="Nutrition.NutritionMain"
         android:label="Nutrition"
         tools:layout="@layout/fragment_nutrition_main" />
 
     <fragment
         android:id="@+id/nutritionSearch"
-        android:name="ui.NutritionSearch"
+        android:name="Nutrition.NutritionSearch"
         android:label="Search Food"
         tools:layout="@layout/fragment_nutrition_search" />
     <fragment
         android:id="@+id/nutritionAdd"
-        android:name="ui.NutritionAdd"
+        android:name="Nutrition.NutritionAdd"
         android:label="Add Food"
         tools:layout="@layout/fragment_nutrition_add" />
     <fragment
         android:id="@+id/nutritionEdit"
-        android:name="ui.NutritionEdit"
+        android:name="Nutrition.NutritionEdit"
         android:label="Edit Food"
         tools:layout="@layout/fragment_nutrition_edit" />
 
