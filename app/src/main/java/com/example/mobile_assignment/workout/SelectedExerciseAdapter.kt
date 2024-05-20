@@ -1,6 +1,7 @@
 package com.example.mobile_assignment.workout
 
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -40,6 +41,9 @@ class SelectedExerciseAdapter (
 
         holder.itemView.setOnClickListener {
             viewModel.selectExercise(exercise)
+            Log.d("SelectedExerciseAdapter", "Selected exercise: $exercise")
+            Log.d("SelectedExerciseAdapter", getItem(position).toString())
+            Log.d("SelectedExerciseAdapter", position.toString())
             holder.itemView.findNavController().navigate(R.id.exerciseDetailsFragment)
         }
     }

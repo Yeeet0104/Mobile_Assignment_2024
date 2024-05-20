@@ -1,5 +1,7 @@
 package com.example.mobile_assignment.workout
 
+import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -25,10 +27,18 @@ class WorkoutPlanAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val customPlan = getItem(position)
 
-        holder.binding.tvWorkoutTime.text = customPlan.name
-        holder.binding.tvWorkoutTitle.text = customPlan.targetedBodyPart
-        holder.binding.tvWorkoutDetails.text = customPlan.restDuration
-
-        fn(holder, customPlan)
+        holder.binding.tvWorkoutTitle.text = customPlan.name
+        holder.binding.tvWorkoutDetails.text = "${customPlan.exerciseIds.size} Exercises | ${customPlan.restDuration} mins"
+        holder.binding.tvWorkoutTime.text = "5:00 PM"
+        customPlan.photo?.let {
+            val imageBytes = it.toBytes()
+            val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            holder.binding.workoutPlanImg.setImageBitmap(bitmap)
+        }
+        holder.itemView.setOnClickListener {
+            Log.d("WorkoutPlanAdapter", "Selected custom plan: $customPlan")
+            Log.d("WorkoutPlanAdapter", "Selected custom plan: $position")
+            fn(holder, customPlan)
+        }
     }
 }
