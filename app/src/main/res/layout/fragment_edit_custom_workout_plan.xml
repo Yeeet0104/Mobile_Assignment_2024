@@ -12,7 +12,7 @@
         android:id="@+id/tvAddCustomPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Custom Plans"
+        android:text="Edit Custom Plans"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -135,7 +135,7 @@
         app:layout_constraintTop_toBottomOf="@id/clexerciseInfo" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSelectedExercises"
+        android:id="@+id/rvEditSelectedExercises"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"

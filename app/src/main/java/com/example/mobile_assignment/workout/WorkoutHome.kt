@@ -35,13 +35,16 @@ class workoutHome : Fragment() {
             findNavController().navigate(R.id.addCustomPlan)
         }
 
-
+        binding.btnManageExercises.setOnClickListener {
+            findNavController().navigate(R.id.manageExercises)
+        }
         return binding.root
     }
 
     private fun setupRecyclerView() {
         val adapter = WorkoutPlanAdapter { holder, customPlan ->
-            // Handle additional interactions here if needed
+            exerciseViewModel.selectCustomPlan(customPlan)
+            nav.navigate(R.id.fragment_workout_plan_details)
         }
         binding.rvWorkouts.layoutManager = LinearLayoutManager(context)
         binding.rvWorkouts.adapter = adapter

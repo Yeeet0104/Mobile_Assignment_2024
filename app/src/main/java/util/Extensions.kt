@@ -130,3 +130,23 @@ fun ImageView.setImageBlob(blob: Blob) {
     setImageBitmap(blob.toBitmap())
 }
 
+fun Fragment.showConfirmationDialog(
+    message: String,
+    positiveText: String,
+    negativeText: String,
+    onPositiveClick: () -> Unit,
+    onNegativeClick: () -> Unit = {}
+) {
+    AlertDialog.Builder(requireContext())
+        .setMessage(message)
+        .setPositiveButton(positiveText) { dialog, _ ->
+            onPositiveClick()
+            dialog.dismiss()
+        }
+        .setNegativeButton(negativeText) { dialog, _ ->
+            onNegativeClick()
+            dialog.dismiss()
+        }
+        .create()
+        .show()
+}

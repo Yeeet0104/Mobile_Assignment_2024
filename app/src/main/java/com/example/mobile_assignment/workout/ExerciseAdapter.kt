@@ -12,12 +12,13 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.ItemExerciseBinding
 import com.example.mobile_assignment.workout.Data.Exercise
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
+import java.util.Collections
 
 class ExerciseAdapter (
-    private val viewModel: ExerciseViewModel,
+    val viewModel: ExerciseViewModel,
     val fn: (ViewHolder, Exercise) -> Unit = { _, _ -> }
 ) : ListAdapter<Exercise, ExerciseAdapter.ViewHolder>(Diff) {
-
+    private var selectedExercises = mutableListOf<Exercise>()
     companion object Diff : DiffUtil.ItemCallback<Exercise>() {
         override fun areItemsTheSame(a: Exercise, b: Exercise) = a.id == b.id
         override fun areContentsTheSame(a: Exercise, b: Exercise) = a == b
@@ -45,8 +46,10 @@ class ExerciseAdapter (
         holder.binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.toggleExerciseSelection(exercise)
+                selectedExercises.add(exercise)
             } else {
                 viewModel.toggleExerciseSelection(exercise)
+                selectedExercises.remove(exercise)
             }
         }
 
@@ -56,5 +59,20 @@ class ExerciseAdapter (
         }
 
         fn(holder, exercise)
+    }
+
+    fun moveItem(fromPosition: Int, toPosition: Int) {
+        val currentList = currentList.toMutableList()
+        Collections.swap(currentList, fromPosition, toPosition)
+        submitList(currentList)
+    }
+
+
+    fun setSelectedExercises(exercises: List<Exercise>) {
+        selectedExercises = exercises.toMutableList()
+    }
+
+    fun getSelectedExercises(): List<Exercise> {
+        return selectedExercises
     }
 }
