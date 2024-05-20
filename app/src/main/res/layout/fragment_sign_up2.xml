@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_login"
-    tools:context=".signUp2Fragment" >
+    tools:context="Login.ui.SignUp2Fragment" >
 
     <TextView
         android:id="@+id/lbl_ask_login1_signUp2"

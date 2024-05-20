@@ -1,4 +1,4 @@
-package com.example.mobile_assignment
+package Login.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.mobile_assignment.databinding.FragmentChangePasswordProfileBinding
 import com.example.mobile_assignment.databinding.FragmentLoginBinding
 import com.example.mobile_assignment.databinding.FragmentProfileBinding
 
-class loginFragment : Fragment() {
 
-    private lateinit var binding : FragmentLoginBinding
+class ChangePasswordProfileFragment : Fragment() {
+
+    private lateinit var binding : FragmentChangePasswordProfileBinding
     private val nav by lazy { findNavController() }
 
     override fun onCreateView(
@@ -19,7 +21,7 @@ class loginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentChangePasswordProfileBinding.inflate(inflater, container, false)
 
 
         return binding.root

@@ -100,11 +100,13 @@ fun Bitmap.toBlob(): Blob {
         } else {
             Bitmap.CompressFormat.WEBP
         }
+
         this.compress(format, 80, stream)
         byteArray = stream.toByteArray()
     }
     return Blob.fromBytes(byteArray)
 }
+
 // ----------------------------------------------------------------------------
 // Firebase Blob Extensions
 // ----------------------------------------------------------------------------

@@ -10,11 +10,13 @@
         android:name="com.example.mobile_assignment.home"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/workoutHome"
         android:name="com.example.mobile_assignment.workout.workoutHome"
         android:label="Workout"
         tools:layout="@layout/fragment_workout_home" />
+
     <fragment
         android:id="@+id/forumHome"
         android:name="Forum.ui.ForumHome"
@@ -35,17 +37,17 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.mobile_assignment.ProfileFragment"
+        android:name="Login.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.mobile_assignment.editProfileFragment"
+        android:name="Login.ui.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/changePasswordProfileFragment"
-        android:name="com.example.mobile_assignment.changePasswordProfileFragment"
+        android:name="Login.ui.ChangePasswordProfileFragment"
         android:label="fragment_change_password_profile"
         tools:layout="@layout/fragment_change_password_profile" />
 
@@ -53,25 +55,30 @@
         android:id="@+id/addCustomPlan"
         android:name="com.example.mobile_assignment.workout.addCustomPlan"
         android:label="addCustomPlan" />
+
     <fragment
         android:id="@+id/addExercise"
         android:name="com.example.mobile_assignment.workout.addExercise"
         android:label="fragment_add_exercise"
         tools:layout="@layout/fragment_add_exercise" />
+
     <fragment
         android:id="@+id/addNewExercise"
         android:name="com.example.mobile_assignment.workout.AddNewExercise"
         android:label="AddNewExercise" />
+
     <fragment
         android:id="@+id/nutritionDetails"
         android:name="ui.NutritionDetails"
         android:label="fragment_nutrition_details"
         tools:layout="@layout/fragment_nutrition_details" />
+
     <fragment
         android:id="@+id/nutritionMain"
         android:name="ui.NutritionMain"
         android:label="fragment_nutrition_main"
         tools:layout="@layout/fragment_nutrition_main" />
+
     <fragment
         android:id="@+id/nutritionSearch"
         android:name="ui.NutritionSearch"
@@ -82,9 +89,72 @@
         android:name="Forum.ui.ForumEditPost"
         android:label="fragment_forum_edit_post"
         tools:layout="@layout/fragment_forum_edit_post" />
+  
     <fragment
         android:id="@+id/forumResponse"
         android:name="Forum.ui.ForumResponse"
         android:label="ForumResponse" />
+        android:id="@+id/loginFragment"
+        android:name="Login.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_signUp1Fragment"
+            app:destination="@id/signUp1Fragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="Login.ui.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password">
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_otpFragment"
+            app:destination="@id/otpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp1Fragment"
+        android:name="Login.ui.SignUp1Fragment"
+        android:label="fragment_sign_up1"
+        tools:layout="@layout/fragment_sign_up1">
+        <action
+            android:id="@+id/action_signUp1Fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp2Fragment"
+        android:name="Login.ui.SignUp2Fragment"
+        android:label="fragment_sign_up2"
+        tools:layout="@layout/fragment_sign_up2" />
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="Login.ui.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password">
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="Login.ui.OtpFragment"
+        android:label="fragment_otp"
+        tools:layout="@layout/fragment_otp">
+        <action
+            android:id="@+id/action_otpFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
+        <action
+            android:id="@+id/action_otpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+        android:id="@+id/exerciseDetailsFragment"
+        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
+        android:label="fragment_exercise_details"
+        tools:layout="@layout/fragment_exercise_details" />
 
 </navigation>

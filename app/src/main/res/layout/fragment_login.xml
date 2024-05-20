@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_login"
-    tools:context=".loginFragment">
+    tools:context="Login.ui.LoginFragment">
 
     <ImageView
         android:id="@+id/img_login"
@@ -20,7 +20,6 @@
         android:id="@+id/lbl_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="LOGIN"
         android:textColor="@color/input_box_background"
         android:textSize="34sp"
@@ -31,16 +30,16 @@
         app:layout_constraintTop_toBottomOf="@+id/img_login" />
 
     <EditText
-        android:id="@+id/edt_login_username"
+        android:id="@+id/edt_login_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/input_box"
-        android:drawableLeft="@drawable/ic_username"
+        android:drawableLeft="@drawable/ic_email"
         android:drawablePadding="20dp"
         android:ems="10"
-        android:hint="Username"
-        android:inputType="text"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
         android:paddingTop="8dp"
         android:paddingRight="10dp"
@@ -66,15 +65,15 @@
         android:paddingRight="10dp"
         android:paddingBottom="8dp"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/edt_login_username"
-        app:layout_constraintStart_toStartOf="@+id/edt_login_username"
-        app:layout_constraintTop_toBottomOf="@+id/edt_login_username" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_login_email"
+        app:layout_constraintStart_toStartOf="@+id/edt_login_email"
+        app:layout_constraintTop_toBottomOf="@+id/edt_login_email" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/btn_login"
         android:text="LOGIN"
         android:textSize="20sp"
@@ -82,7 +81,7 @@
         app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="@+id/edt_login_password"
         app:layout_constraintStart_toStartOf="@+id/edt_login_password"
-        app:layout_constraintTop_toBottomOf="@+id/edt_login_password" />
+        app:layout_constraintTop_toBottomOf="@+id/chk_rememberMe" />
 
     <TextView
         android:id="@+id/lbl_forget_password"
@@ -121,5 +120,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chk_rememberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Remember Me"
+        android:textColor="@color/input_box_background"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/edt_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/edt_login_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
