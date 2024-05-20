@@ -1,4 +1,4 @@
-package com.example.mobile_assignment.ui
+package Forum.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentForumHomeBinding
-
 
 class ForumHome : Fragment() {
     private lateinit var binding : FragmentForumHomeBinding
@@ -24,6 +23,5 @@ class ForumHome : Fragment() {
         childFragmentManager.beginTransaction()
             .replace(R.id.forum_container, ForumFragment())
             .commit()
-
     }
  }

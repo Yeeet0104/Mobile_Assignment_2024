@@ -2,15 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="lightGray">#8c8c8c</color>
-
     <color name="input_box_border">#D9D5D5</color>
     <color name="input_box_background">#F3F3F3</color>
     <color name="background_login">#92A3FD</color>
     <color name="btn_color">#6918BC</color>
     <color name="profile_line">#B5B5B5</color>
     <color name="btn_delete_color">#C58BF2</color>
-
+    <color name="lightGray">#8c8c8c</color>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryVariant">#3700B3</color>
     <color name="colorSecondary">#03DAC5</color>

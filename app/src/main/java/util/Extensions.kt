@@ -93,26 +93,29 @@ fun Bitmap.crop(width: Int, height: Int): Bitmap {
 // Usage: Convert from Bitmap to Firebase Blob
 
 fun Bitmap.toBlob(): Blob {
-    ByteArrayOutputStream().use {
+    val byteArray: ByteArray
+    ByteArrayOutputStream().use { stream ->
         val format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Bitmap.CompressFormat.WEBP_LOSSY
         } else {
             Bitmap.CompressFormat.WEBP
         }
-        compress(format, 80, it)
-        return Blob.fromBytes(it.toByteArray())
+
+        this.compress(format, 80, stream)
+        byteArray = stream.toByteArray()
     }
+    return Blob.fromBytes(byteArray)
 }
 
 // ----------------------------------------------------------------------------
 // Firebase Blob Extensions
 // ----------------------------------------------------------------------------
 
-// Usage: Convert from Blob to Bitmap
-fun Blob.toBitmap(): Bitmap? {
-    val bytes = toBytes()
-    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-}
+    // Usage: Convert from Blob to Bitmap
+    fun Blob.toBitmap(): Bitmap? {
+        val bytes = toBytes()
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    }
 
 // ----------------------------------------------------------------------------
 // ImageView Extensions
@@ -120,13 +123,16 @@ fun Blob.toBitmap(): Bitmap? {
 
 // Usage: Crop to Firebase Blob
 
-@RequiresApi(Build.VERSION_CODES.R)
-fun ImageView.cropToBlob(width: Int, height: Int): Blob {
-    return drawable?.toBitmapOrNull()?.crop(width, height)?.toBlob() ?: Blob.fromBytes(ByteArray(0))
-}
+    @RequiresApi(Build.VERSION_CODES.R)
+    fun ImageView.cropToBlob(width: Int, height: Int): Blob {
+        return drawable?.toBitmapOrNull()?.crop(width, height)?.toBlob() ?: Blob.fromBytes(
+            ByteArray(0)
+        )
+    }
 
-// Usage: Load Firebase Blob
-fun ImageView.setImageBlob(blob: Blob) {
-    setImageBitmap(blob.toBitmap())
-}
+    // Usage: Load Firebase Blob
+    fun ImageView.setImageBlob(blob: Blob) {
+        setImageBitmap(blob.toBitmap())
+    }
+
 

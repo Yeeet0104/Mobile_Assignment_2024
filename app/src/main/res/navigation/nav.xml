@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/forumHome"
-        android:name="com.example.mobile_assignment.ui.ForumHome"
+        android:name="Forum.ui.ForumHome"
         android:label="Forum"
         tools:layout="@layout/fragment_forum_home" >
         <action
@@ -28,14 +28,14 @@
     </fragment>
     <fragment
         android:id="@+id/forumCreatePost"
-        android:name="com.example.mobile_assignment.ui.ForumCreatePost"
+        android:name="Forum.ui.ForumCreatePost"
         android:label="fragment_forum_create_post"
         tools:layout="@layout/fragment_forum_create_post" >
         <action
             android:id="@+id/action_forumCreatePost_to_forumHome"
             app:destination="@id/forumHome" />
     </fragment>
-
+    <fragment
         android:id="@+id/profileFragment"
         android:name="Login.ui.ProfileFragment"
         android:label="fragment_profile"
@@ -85,6 +85,15 @@
         android:label="fragment_nutrition_search"
         tools:layout="@layout/fragment_nutrition_search" />
     <fragment
+        android:id="@+id/forumEditPost"
+        android:name="Forum.ui.ForumEditPost"
+        android:label="fragment_forum_edit_post"
+        tools:layout="@layout/fragment_forum_edit_post" />
+  
+    <fragment
+        android:id="@+id/forumResponse"
+        android:name="Forum.ui.ForumResponse"
+        android:label="ForumResponse" />
         android:id="@+id/loginFragment"
         android:name="Login.ui.LoginFragment"
         android:label="fragment_login"

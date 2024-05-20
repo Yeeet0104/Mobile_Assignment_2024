@@ -43,6 +43,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:textColor="@color/black"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,8 +51,8 @@
 
         <ImageView
             android:id="@+id/imgUserProfilePost"
-            android:layout_width="45dp"
-            android:layout_height="40dp"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/imgUserProfilePost"
             app:layout_constraintTop_toTopOf="@+id/imgUserProfilePost"
             tools:text="Username" />
@@ -76,7 +77,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/lightGray"
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/imgUserProfilePost"
             app:layout_constraintTop_toBottomOf="@+id/lblUsername"
             tools:text="Time" />
@@ -87,29 +88,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblTimePosted"
             tools:text="Content" />
 
         <ImageButton
-            android:id="@+id/btnBookmark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/showPostImg"
-            app:srcCompat="@drawable/bookmark2" />
-
-        <ImageButton
             android:id="@+id/btnComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
             android:background="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/btnBookmark"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showPostImg"
             app:srcCompat="@drawable/ic_comment" />
 
@@ -118,18 +109,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="5dp"
             android:text="Add Response"
-            app:layout_constraintStart_toEndOf="@+id/btnComment"
-            app:layout_constraintTop_toBottomOf="@+id/showPostImg" />
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/lblCommentCount"
+            app:layout_constraintTop_toTopOf="@+id/btnComment" />
 
         <TextView
             android:id="@+id/lblCommentCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toEndOf="@+id/lblAddResponse"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="14dp"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/btnComment"
             app:layout_constraintTop_toBottomOf="@+id/showPostImg"
             tools:text="X" />
 
@@ -142,6 +135,60 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblPostContent"
             tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/forumLikeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="3dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/forumLike"
+            app:layout_constraintTop_toTopOf="@+id/forumLike"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/forumDislikeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toEndOf="@+id/forumDislike"
+            app:layout_constraintTop_toTopOf="@+id/forumDislike"
+            tools:text="11" />
+
+        <ToggleButton
+            android:id="@+id/forumLike"
+            android:layout_width="23dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/like_selector"
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintStart_toEndOf="@+id/lblAddResponse"
+            app:layout_constraintTop_toBottomOf="@+id/showPostImg" />
+
+        <ToggleButton
+            android:id="@+id/forumDislike"
+            android:layout_width="23dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/dislike_selector"
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintStart_toEndOf="@+id/forumLikeCount"
+            app:layout_constraintTop_toBottomOf="@+id/showPostImg" />
+
+        <Button
+            android:id="@+id/btnMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="195dp"
+            android:text="Message"
+            app:layout_constraintStart_toEndOf="@+id/imgUserProfilePost"
+            app:layout_constraintTop_toTopOf="@+id/lblUsername" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

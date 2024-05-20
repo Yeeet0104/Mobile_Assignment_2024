@@ -4,7 +4,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.NutritionMain">
+    tools:context="Forum.ui.NutritionMain">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
