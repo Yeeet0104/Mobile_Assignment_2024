@@ -29,7 +29,7 @@ class WorkoutPlanAdapter(
 
         holder.binding.tvWorkoutTitle.text = customPlan.name
         holder.binding.tvWorkoutDetails.text = "${customPlan.exerciseIds.size} Exercises | ${customPlan.restDuration} mins"
-        holder.binding.tvWorkoutTime.text = "5:00 PM"
+        holder.binding.tvWorkoutTime.text = customPlan.timeOfDay
         customPlan.photo?.let {
             val imageBytes = it.toBytes()
             val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)

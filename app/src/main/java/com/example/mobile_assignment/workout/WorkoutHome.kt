@@ -1,6 +1,9 @@
 package com.example.mobile_assignment.workout
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +14,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentWorkoutHomeBinding
+import com.example.mobile_assignment.workout.Data.CustomPlan
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
+import util.convertTimeOfDayToDate
+import java.util.Calendar
 
 
 class workoutHome : Fragment() {
@@ -38,6 +44,8 @@ class workoutHome : Fragment() {
         binding.btnManageExercises.setOnClickListener {
             findNavController().navigate(R.id.manageExercises)
         }
+
+
         return binding.root
     }
 
@@ -54,10 +62,13 @@ class workoutHome : Fragment() {
         val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         val userId = sharedPref.getString("userId", "U001") ?: "U001"
 
-        exerciseViewModel.customPlans.observe(viewLifecycleOwner, { customPlans ->
-            (binding.rvWorkouts.adapter as WorkoutPlanAdapter).submitList(customPlans)
-        })
+        exerciseViewModel.todaysCustomPlans.observe(viewLifecycleOwner) { customPlans ->
+            val unstartedPlans = customPlans.filter { it.status == 0 }
+            (binding.rvWorkouts.adapter as WorkoutPlanAdapter).submitList(unstartedPlans)
+        }
 
         exerciseViewModel.fetchCustomPlans(userId)
     }
+
+
 }
