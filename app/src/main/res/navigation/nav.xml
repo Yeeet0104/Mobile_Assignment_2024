@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/addCustomPlan"
         android:name="com.example.mobile_assignment.workout.addCustomPlan"
-        android:label="addCustomPlan" />
+        android:label="Add Workout Plan" />
 
     <fragment
         android:id="@+id/addExercise"
