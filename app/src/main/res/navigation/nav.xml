@@ -37,17 +37,17 @@
     </fragment>
 
         android:id="@+id/profileFragment"
-        android:name="com.example.mobile_assignment.ProfileFragment"
+        android:name="Login.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.mobile_assignment.editProfileFragment"
+        android:name="Login.ui.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/changePasswordProfileFragment"
-        android:name="com.example.mobile_assignment.changePasswordProfileFragment"
+        android:name="Login.ui.ChangePasswordProfileFragment"
         android:label="fragment_change_password_profile"
         tools:layout="@layout/fragment_change_password_profile" />
 
@@ -85,6 +85,64 @@
         android:label="fragment_nutrition_search"
         tools:layout="@layout/fragment_nutrition_search" />
     <fragment
+        android:id="@+id/loginFragment"
+        android:name="Login.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_signUp1Fragment"
+            app:destination="@id/signUp1Fragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="Login.ui.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password">
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_otpFragment"
+            app:destination="@id/otpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp1Fragment"
+        android:name="Login.ui.SignUp1Fragment"
+        android:label="fragment_sign_up1"
+        tools:layout="@layout/fragment_sign_up1">
+        <action
+            android:id="@+id/action_signUp1Fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp2Fragment"
+        android:name="Login.ui.SignUp2Fragment"
+        android:label="fragment_sign_up2"
+        tools:layout="@layout/fragment_sign_up2" />
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="Login.ui.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password">
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="Login.ui.OtpFragment"
+        android:label="fragment_otp"
+        tools:layout="@layout/fragment_otp">
+        <action
+            android:id="@+id/action_otpFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
+        <action
+            android:id="@+id/action_otpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
         android:id="@+id/exerciseDetailsFragment"
         android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
         android:label="fragment_exercise_details"

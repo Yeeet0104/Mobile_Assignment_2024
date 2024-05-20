@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_login"
-    tools:context="Login.ui.ResetPasswordFragment">
+    tools:context="Login.ui.OtpFragment" >
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView4"
         android:layout_width="320dp"
         android:layout_height="240dp"
         android:src="@drawable/logo_with_tansparent"
@@ -17,20 +17,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lbl_resetPassword"
+        android:id="@+id/lbl_otp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="RESET PASSWORD"
+        android:text="OTP"
         android:textColor="@color/input_box_background"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/lbl_otp_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Inset OTP to reset password."
+        android:textColor="@color/input_box_background"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_otp" />
 
     <EditText
-        android:id="@+id/edt_rp_newPassword"
+        android:id="@+id/edt_otp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -38,53 +50,44 @@
         android:drawableLeft="@drawable/ic_password"
         android:drawablePadding="20dp"
         android:ems="10"
-        android:hint="New Password"
-        android:inputType="textPassword"
+        android:hint="XXXX"
+        android:inputType="number"
         android:paddingLeft="10dp"
         android:paddingTop="8dp"
         android:paddingRight="10dp"
         android:paddingBottom="8dp"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_resetPassword" />
-
-    <EditText
-        android:id="@+id/edt_rp_confPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/input_box"
-        android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="20dp"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:paddingLeft="10dp"
-        android:paddingTop="8dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="8dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/edt_rp_newPassword"
-        app:layout_constraintStart_toStartOf="@+id/edt_rp_newPassword"
-        app:layout_constraintTop_toBottomOf="@+id/edt_rp_newPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_otp_description" />
 
     <Button
-        android:id="@+id/btn_resetPassword"
+        android:id="@+id/btn_otp_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/btn_login"
-        android:text="RESET"
+        android:text="CONFIRM"
         android:textSize="20sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="@+id/edt_rp_confPassword"
-        app:layout_constraintStart_toStartOf="@+id/edt_rp_confPassword"
-        app:layout_constraintTop_toBottomOf="@+id/edt_rp_confPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_otp"
+        app:layout_constraintStart_toStartOf="@+id/edt_otp"
+        app:layout_constraintTop_toBottomOf="@+id/edt_otp" />
 
     <TextView
-        android:id="@+id/lbl_rp_to_login"
+        android:id="@+id/lbl_otp_ask_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account?"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/lbl_otpToLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/lbl_otpToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -96,14 +99,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/lbl_ask_login1_rp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already have an account?"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/lbl_rp_to_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
