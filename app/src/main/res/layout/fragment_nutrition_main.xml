@@ -8,8 +8,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/searchView"
         app:layout_constraintTop_toBottomOf="@+id/searchView">
@@ -33,16 +33,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="1dp"
                 android:text="780 kCal"
+                app:layout_constraintEnd_toStartOf="@+id/textView12"
                 app:layout_constraintStart_toStartOf="@+id/tvCalIntake"
                 app:layout_constraintTop_toBottomOf="@+id/tvCalIntake" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/caloriesProgress"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                app:indicatorColor="@color/colorProgress"
+                app:layout_constraintStart_toStartOf="@+id/tvCal"
+                app:layout_constraintTop_toBottomOf="@+id/tvCal"
+                app:trackColor="@color/colorProgressBackground"
+                app:trackThickness="8dp" />
+
+            <Button
+                android:id="@+id/btnEditTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Target"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/caloriesProgress" />
+
+            <TextView
+                android:id="@+id/tvCalTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2000 kCal"
+                app:layout_constraintBottom_toBottomOf="@+id/tvCal"
+                app:layout_constraintStart_toEndOf="@+id/textView12"
+                app:layout_constraintTop_toTopOf="@+id/tvCal" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                app:layout_constraintBottom_toBottomOf="@+id/tvCal"
+                app:layout_constraintEnd_toStartOf="@+id/tvCalTarget"
+                app:layout_constraintStart_toEndOf="@+id/tvCal"
+                app:layout_constraintTop_toTopOf="@+id/tvCal" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/searchView"
         app:layout_constraintTop_toBottomOf="@+id/searchView">
@@ -53,63 +96,83 @@
 
             <Button
                 android:id="@+id/btnAddFood"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add New Food"
-                app:layout_constraintBottom_toTopOf="@+id/btnHistory"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/btnHistory"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="See History"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnAddFood"
-                app:layout_constraintStart_toStartOf="@+id/btnAddFood"
-                app:layout_constraintTop_toBottomOf="@+id/btnAddFood" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <SearchView
+    <ImageView
         android:id="@+id/searchView"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/searchview_background"
-        android:iconifiedByDefault="false"
-        android:queryBackground="@android:color/transparent"
-        android:queryHint="Enter food here"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <TextView
         android:id="@+id/txtDailyCal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Today's Record"
+        android:text="Calories's Record"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:id="@+id/rvMain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txtDailyCal"
         app:layout_constraintTop_toBottomOf="@+id/txtDailyCal"
         tools:itemCount="4"
         tools:listitem="@layout/food_rv_main" />
+
+    <ImageButton
+        android:id="@+id/ibCalender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_calander"
+        app:layout_constraintBottom_toBottomOf="@+id/txtDailyCal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtDailyCal"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/txtDailyCal"
+        app:layout_constraintStart_toEndOf="@+id/txtDailyCal"
+        app:layout_constraintTop_toTopOf="@+id/txtDailyCal" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
