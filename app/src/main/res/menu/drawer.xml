@@ -19,4 +19,8 @@
         android:id="@+id/nutritionMain"
         android:title="Nutrition" />
 
+    <item
+        android:id="@+id/loginFragment"
+        android:title="Login" />
+
 </menu>

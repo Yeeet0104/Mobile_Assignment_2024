@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_login"
-    tools:context=".signUp1Fragment">
+    tools:context="Login.ui.SignUp1Fragment">
 
     <ImageView
         android:id="@+id/img_signUp1"
@@ -20,7 +20,6 @@
         android:id="@+id/lbl_signUp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="REGISTRATION"
         android:textColor="@color/input_box_background"
         android:textSize="34sp"
@@ -115,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/btn_login"
-        android:text="NEXT"
+        android:text="REGISTER"
         android:textSize="24sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
