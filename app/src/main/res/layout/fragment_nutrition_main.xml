@@ -123,6 +123,7 @@
         android:id="@+id/txtDailyCal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Calories's Record"
         app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -162,6 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="TextView"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/txtDailyCal"
         app:layout_constraintStart_toEndOf="@+id/txtDailyCal"
         app:layout_constraintTop_toTopOf="@+id/txtDailyCal" />

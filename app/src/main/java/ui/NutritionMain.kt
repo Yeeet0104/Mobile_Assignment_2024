@@ -29,7 +29,7 @@ class NutritionMain : Fragment() {
 
     //DATABASE ITEM TEST
     // TODO: Replace with actual user ID
-    private var userId = "A001"
+    private var userId = "U001"
 
     @RequiresApi(Build.VERSION_CODES.O)
     private var date = LocalDateTime.now().toLocalDate().toString()
@@ -77,7 +77,7 @@ class NutritionMain : Fragment() {
                                     // Implement deletion logic here using position
                                     // For example:
                                     val itemToDelete = trackerItems[position]
-                                    nutritionVM.deleteTrackerItem(itemToDelete)
+                                    nutritionVM.deleteTrackerItem(date, itemToDelete)
                                     toast("Deleted ${itemToDelete.foodName}")
                                 }
                             ) { holder, foodItem ->
@@ -123,7 +123,7 @@ class NutritionMain : Fragment() {
                         // Implement deletion logic here using position
                         // For example:
                         val itemToDelete = trackerItems[position]
-                        nutritionVM.deleteTrackerItem(itemToDelete)
+                        nutritionVM.deleteTrackerItem(date, itemToDelete)
                         toast("Deleted ${itemToDelete.foodName}")
                     }
                 ) { holder, foodItem ->
@@ -181,6 +181,7 @@ class NutritionMain : Fragment() {
     override fun onResume() {
         super.onResume()
         nutritionVM.initializeTrackerForNewDay(userId, date)
+        nutritionVM.initializePersonalFoodForNewUser(userId)
     }
 
 

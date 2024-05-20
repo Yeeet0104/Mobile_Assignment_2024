@@ -36,7 +36,7 @@ class NutritionDetails : Fragment() {
     // TODO: Replace with actual user ID and calories target
     @RequiresApi(Build.VERSION_CODES.O)
     private var date = LocalDateTime.now().toLocalDate().toString()
-    private var userId = "A001"
+    private var userId = "U001"
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -215,7 +215,7 @@ class NutritionDetails : Fragment() {
     }
 
     private fun deleteCal() {
-        nutritionViewModel.delete(foodId)
+        nutritionViewModel.delete(userId, foodId)
         toast("Food deleted from database")
         // Optionally, navigate back to the previous screen after deletion
         nav.navigateUp()

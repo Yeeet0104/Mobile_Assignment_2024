@@ -1,15 +1,14 @@
 package Data
 
 import android.os.Build
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.toObjects
 import java.time.LocalDateTime
 
 class NutritionVM : ViewModel() {
@@ -17,12 +16,12 @@ class NutritionVM : ViewModel() {
     private val db = Firebase.firestore
     private val foodLD = MutableLiveData<List<FoodItem>>(emptyList())
     private var listener : ListenerRegistration? = null
-
-
     private val resultLD = MutableLiveData<List<FoodItem>>()
 
+    private var userId = "U001"
+
     init {
-        listener = FOOD.addSnapshotListener { snap, _ ->
+        listener = getPersonalFoodReference(userId).addSnapshotListener { snap, _ ->
             foodLD.value = snap?.toObjects(FoodItem::class.java)
             updateResult()
         }
@@ -91,12 +90,12 @@ class NutritionVM : ViewModel() {
     }
 
 
-    fun addFoodItem(foodItem: FoodItem) {
-        FOOD.document(foodItem.foodId).set(foodItem)
+    fun addFoodItem(userId: String, foodItem: FoodItem) {
+        getPersonalFoodReference(userId).document(foodItem.foodId).set(foodItem)
     }
 
-    fun edit(foodId: String, foodName: String, calories : Int, carbs: Int, protein: Int, fat: Int, description: String) {
-        val foodRef = FOOD.document(foodId)
+    fun edit(userId: String, foodId: String, foodName: String, calories : Int, carbs: Int, protein: Int, fat: Int, description: String) {
+        val foodRef = getPersonalFoodReference(userId).document(foodId)
         foodRef.update(
             mapOf(
                 "foodName" to foodName,
@@ -113,8 +112,8 @@ class NutritionVM : ViewModel() {
         }
     }
 
-    fun delete(foodId: String) {
-        FOOD.document(foodId)
+    fun delete(userId: String, foodId: String) {
+        getPersonalFoodReference(userId).document(foodId)
             .delete()
             .addOnSuccessListener {
                 // Handle success if needed
@@ -153,9 +152,8 @@ class NutritionVM : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun deleteTrackerItem(item: TrackerItem) {
+    fun deleteTrackerItem(date: String, item: TrackerItem) {
         val userId = "A001" // Get the user ID from wherever it's stored
-        val date = LocalDateTime.now().toLocalDate().toString() // Get the current date
         val itemId = item.documentId // Get the ID of the item to delete
 
         // Reference to the tracker item document to delete
@@ -243,6 +241,34 @@ class NutritionVM : ViewModel() {
                 e.printStackTrace()
             }
     }
+
+    fun initializePersonalFoodForNewUser(userId: String) {
+        val personalFoodRef = FirebaseFirestore.getInstance().collection("trackerList")
+            .document(userId).collection("personalFood")
+
+        personalFoodRef.get().addOnSuccessListener { snapshot ->
+            if (snapshot != null && !snapshot.isEmpty) {
+                // Personal food for the user already exists, no need to create a new one
+            } else {
+                // Personal food for the user doesn't exist, create a new one
+                val foodListRef = Firebase.firestore.collection("foodList")
+                foodListRef.get().addOnSuccessListener { foodListSnapshot ->
+                    if (foodListSnapshot != null) {
+                        // Get all documents from "foodList" collection
+                        val foodItems = foodListSnapshot.documents.mapNotNull { document ->
+                            document.toObject(FoodItem::class.java)
+                        }
+
+                        // Write each food item into the new user's "personalFood" collection
+                        for (foodItem in foodItems) {
+                            personalFoodRef.document(foodItem.foodId).set(foodItem)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
 }
 

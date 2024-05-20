@@ -23,6 +23,7 @@ class NutritionAdd : Fragment() {
     private lateinit var binding: FragmentNutritionAddBinding
     private val nav by lazy { findNavController() }
     private val nutritionVM: NutritionVM by activityViewModels()
+    private var userId = "U001"
 
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -104,7 +105,7 @@ class NutritionAdd : Fragment() {
             val food = FoodItem(foodId, name, calories, protein, carbs, fat, photo, description)
 
             // Add the food to the database
-            nutritionVM.addFoodItem(food)
+            nutritionVM.addFoodItem(userId, food)
 
             // Clear the input fields
             reset()

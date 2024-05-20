@@ -19,7 +19,6 @@ import util.FoodAdapter
 class NutritionSearch : Fragment() {
     private lateinit var binding: FragmentNutritionSearchBinding
     private val nav by lazy { findNavController() }
-
     private val nutritionViewModel: NutritionVM by activityViewModels()
 
     override fun onCreateView(
