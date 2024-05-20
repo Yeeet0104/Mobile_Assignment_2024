@@ -84,16 +84,17 @@
         android:name="ui.NutritionSearch"
         android:label="fragment_nutrition_search"
         tools:layout="@layout/fragment_nutrition_search" />
+
     <fragment
         android:id="@+id/forumEditPost"
         android:name="Forum.ui.ForumEditPost"
         android:label="fragment_forum_edit_post"
         tools:layout="@layout/fragment_forum_edit_post" />
-  
     <fragment
         android:id="@+id/forumResponse"
         android:name="Forum.ui.ForumResponse"
         android:label="ForumResponse" />
+    <fragment
         android:id="@+id/loginFragment"
         android:name="Login.ui.LoginFragment"
         android:label="fragment_login"
@@ -169,5 +170,10 @@
         android:id="@+id/editCustomWorkoutPlan"
         android:name="com.example.mobile_assignment.workout.EditCustomWorkoutPlan"
         android:label="EditCustomWorkoutPlan" />
+    <fragment
+        android:id="@+id/exerciseDetailsFragment"
+        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
+        android:label="fragment_exercise_details"
+        tools:layout="@layout/fragment_exercise_details" />
 
 </navigation>

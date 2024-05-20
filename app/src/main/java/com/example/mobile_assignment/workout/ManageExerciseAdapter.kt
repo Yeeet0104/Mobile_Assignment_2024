@@ -54,7 +54,7 @@ class ManageExerciseAdapter(
                 positiveText = "Delete",
                 negativeText = "Cancel",
                 onPositiveClick = {
-                    viewModel.deleteExercise(exercise, )
+                    viewModel.deleteExercise(exercise)
                 }
             )
         }
