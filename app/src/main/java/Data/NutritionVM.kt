@@ -176,7 +176,73 @@ class NutritionVM : ViewModel() {
             }
     }
 
+    fun updateTargetCalories(userId: String, date: String, newTargetCalories: Int) {
+        // Reference to the date document
+        val dateDocRef = db.collection("trackerList")
+            .document(userId)
+            .collection("dates")
+            .document(date)
 
+        // Update the targetCalories field in the date document
+        dateDocRef.update("caloriesTarget", newTargetCalories)
+            .addOnSuccessListener {
+                // Handle success
+            }
+            .addOnFailureListener { e ->
+                // Handle failure
+            }
+    }
+
+    fun getTargetCalories(userId: String, date: String): LiveData<Int> {
+        val targetCaloriesLiveData = MutableLiveData<Int>()
+
+        db.collection("trackerList")
+            .document(userId)
+            .collection("dates")
+            .document(date)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    // Handle error
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    val targetCalories = snapshot.getLong("caloriesTarget")?.toInt() ?: 0
+                    targetCaloriesLiveData.value = targetCalories
+                } else {
+                    targetCaloriesLiveData.value = 0
+                }
+            }
+
+        return targetCaloriesLiveData
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun initializeTrackerForNewDay(userId: String, date: String) {
+        val dateRef = db.collection("trackerList")
+            .document(userId)
+            .collection("dates")
+            .document(date)
+
+        dateRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // Document for the current date already exists, no need to create a new one
+                } else {
+                    // Document for the current date doesn't exist, create a new one
+                    val dateItem = Data.DateItem(date = date, caloriesTarget = 2000)
+                    dateRef.set(dateItem)
+                        .addOnFailureListener { e ->
+                            // Handle failure to set DateItem
+                            e.printStackTrace()
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                // Handle failure to get DateItem
+                e.printStackTrace()
+            }
+    }
 
 }
 

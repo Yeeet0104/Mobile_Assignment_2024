@@ -39,6 +39,7 @@
                     android:ems="10"
                     android:hint="Enter Food Name"
                     android:inputType="text"
+                    android:maxLength="50"
                     android:minHeight="48dp"
                     app:layout_constraintStart_toStartOf="@+id/photo"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -88,6 +89,7 @@
                     android:ems="10"
                     android:hint="130"
                     android:inputType="number"
+                    android:maxLength="4"
                     android:minHeight="48dp"
                     app:layout_constraintStart_toStartOf="@+id/photo"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -117,6 +119,7 @@
                     android:ems="10"
                     android:hint="123"
                     android:inputType="numberSigned"
+                    android:maxLength="4"
                     app:layout_constraintStart_toStartOf="@+id/textView8"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -128,6 +131,7 @@
                     android:ems="10"
                     android:hint="122"
                     android:inputType="numberSigned"
+                    android:maxLength="4"
                     android:minHeight="48dp"
                     app:layout_constraintStart_toStartOf="@+id/textView10"
                     app:layout_constraintTop_toBottomOf="@+id/textView10" />

@@ -17,7 +17,7 @@ class FoodRecordAdapter (
 ): ListAdapter<TrackerItem, FoodRecordAdapter.ViewHolder>(DiffCallback){
 
     companion object DiffCallback : DiffUtil.ItemCallback<TrackerItem>() {
-        override fun areItemsTheSame(a: TrackerItem, b: TrackerItem) = a.foodId == b.foodId
+        override fun areItemsTheSame(a: TrackerItem, b: TrackerItem) = a.foodName == b.foodName
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(a: TrackerItem, b: TrackerItem) = a == b
     }
@@ -34,7 +34,6 @@ class FoodRecordAdapter (
 
         // Bind the data to the views
         holder.binding.imageView.setImageBlob(trackerItem.image)
-        holder.binding.tvMainFoodId.text = trackerItem.foodId
         holder.binding.tvMainFoodName.text = trackerItem.foodName
         holder.binding.tvSearchFoodCal.text = "${trackerItem.calories} kcal"
 

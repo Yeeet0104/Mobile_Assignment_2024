@@ -51,4 +51,8 @@ fun getDailyFoodReference(userId: String, date: String) =
         .document(userId).collection("dates").document(date)
         .collection("trackerItems")
 
+fun getPersonalFoodReference(userId: String) =
+    FirebaseFirestore.getInstance().collection("trackerList")
+        .document(userId).collection("personalFood")
+
 

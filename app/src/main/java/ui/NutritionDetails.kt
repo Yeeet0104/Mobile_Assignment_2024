@@ -3,12 +3,17 @@ package ui
 import Data.NutritionVM
 import Data.getDailyFoodReference
 import Data.getDateReference
+import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -17,6 +22,7 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentNutritionDetailsBinding
 import util.setImageBlob
 import util.toast
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class NutritionDetails : Fragment() {
@@ -27,10 +33,10 @@ class NutritionDetails : Fragment() {
     private val nutritionViewModel: NutritionVM by activityViewModels()
 
     //DATABASE ITEM TEST
+    // TODO: Replace with actual user ID and calories target
     @RequiresApi(Build.VERSION_CODES.O)
-    private var date = LocalDateTime.now()
+    private var date = LocalDateTime.now().toLocalDate().toString()
     private var userId = "A001"
-    private var caloriesTarget  = 2000
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -56,13 +62,53 @@ class NutritionDetails : Fragment() {
         }
 
         binding.btnAddCal.setOnClickListener {
-            addCalories()
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_calories_date, null)
+            val ibAddCalender = dialogView.findViewById<ImageButton>(R.id.ibAddCalender)
+            val tvAddDate = dialogView.findViewById<TextView>(R.id.tvAddDate)
+
+            tvAddDate.text = date
+
+            ibAddCalender.setOnClickListener {
+                val current = LocalDateTime.now()
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(),
+                    { _, year, month, dayOfMonth ->
+                        val selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
+                        date = selectedDate.toString()
+                        tvAddDate.text = date
+                    },
+                    current.year,
+                    current.monthValue - 1,
+                    current.dayOfMonth
+                )
+                datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+                datePickerDialog.show()
+            }
+
+            AlertDialog.Builder(requireContext())
+                .setTitle("Confirmation")
+                .setMessage("Are you sure you want to delete Food Item from database?")
+                .setView(dialogView)
+                .setPositiveButton("Yes") { _, _ ->
+                    addCalories(date)
+                }
+                .setNegativeButton("No", null)
+                .show()
         }
+
         binding.btnEdit.setOnClickListener {
             editCal()
         }
+
         binding.btnDelete.setOnClickListener {
-            deleteCal()
+            AlertDialog.Builder(requireContext())
+                .setTitle("Confirmation")
+                .setMessage("Are you sure you want to delete Food Item from database?")
+                .setPositiveButton("Yes") { _, _ ->
+                    deleteCal()
+                }
+                .setNegativeButton("No", null)
+                .show()
         }
 
         return binding.root
@@ -87,7 +133,7 @@ class NutritionDetails : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addCalories() {
+    fun addCalories(date: String) {
         val food = nutritionViewModel.get(foodId)
         if (food == null) {
             if (isAdded) {
@@ -96,37 +142,73 @@ class NutritionDetails : Fragment() {
             return
         }
 
-        val dateStr = date.toLocalDate().toString()
-
         // Ensure the DateItem document exists
-        val dateItem = Data.DateItem(date = dateStr, caloriesTarget = caloriesTarget)
-        val dateRef = getDateReference(userId, dateStr)
-        dateRef.set(dateItem)
-            .addOnSuccessListener {
-                // DateItem document successfully written or updated
-                val trackerItemRef = getDailyFoodReference(userId, dateStr)
-                val trackerItem = Data.TrackerItem(foodId = food.foodId, foodName = food.foodName, calories = food.calories, image = food.image)
+        val dateRef = getDateReference(userId, date)
 
-                trackerItemRef.add(trackerItem)
-                    .addOnSuccessListener {
-                        // TrackerItem successfully added
-                        toast("Food added to tracker")
-                        nav.navigateUp()
-                    }
-                    .addOnFailureListener { e ->
-                        // Handle failure to add TrackerItem
-                        e.printStackTrace()
-                        toast("Failed to add food to tracker")
-                    }
+        dateRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // DateItem document exists, no need to create a new one
+                    val trackerItemRef = getDailyFoodReference(userId, date)
+                    val trackerItem = Data.TrackerItem(
+                        foodId = food.foodId,
+                        foodName = food.foodName,
+                        calories = food.calories,
+                        image = food.image
+                    )
+
+                    trackerItemRef.add(trackerItem)
+                        .addOnSuccessListener {
+                            // TrackerItem successfully added
+                            toast("Food added to tracker")
+                            nav.navigateUp()
+                        }
+                        .addOnFailureListener { e ->
+                            // Handle failure to add TrackerItem
+                            e.printStackTrace()
+                            toast("Failed to add food to tracker")
+                        }
+
+                } else {
+                    // DateItem document doesn't exist, create a new one with caloriesTarget set to 2000
+                    val dateItem = Data.DateItem(date = date, caloriesTarget = 2000)
+                    dateRef.set(dateItem)
+                        .addOnSuccessListener {
+                            // DateItem document successfully written or updated
+                            val trackerItemRef = getDailyFoodReference(userId, date)
+                            val trackerItem = Data.TrackerItem(
+                                foodId = food.foodId,
+                                foodName = food.foodName,
+                                calories = food.calories,
+                                image = food.image
+                            )
+
+                            trackerItemRef.add(trackerItem)
+                                .addOnSuccessListener {
+                                    // TrackerItem successfully added
+                                    toast("Food added to tracker")
+                                    nav.navigateUp()
+                                }
+                                .addOnFailureListener { e ->
+                                    // Handle failure to add TrackerItem
+                                    e.printStackTrace()
+                                    toast("Failed to add food to tracker")
+                                }
+                        }
+                        .addOnFailureListener { e ->
+                            // Handle failure to set DateItem
+                            e.printStackTrace()
+                            toast("Failed to update tracker date")
+                        }
+                }
             }
             .addOnFailureListener { e ->
-                // Handle failure to set DateItem
+                // Handle failure to get DateItem
                 e.printStackTrace()
-                toast("Failed to update tracker date")
+                toast("Failed to get tracker date")
             }
-
-
     }
+
     private fun editCal() {
         // Navigate to the edit screen passing the foodId
         nav.navigate(R.id.nutritionEdit, bundleOf("foodId" to foodId))
