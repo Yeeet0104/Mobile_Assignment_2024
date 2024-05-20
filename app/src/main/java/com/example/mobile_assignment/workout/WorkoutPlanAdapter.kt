@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.databinding.ItemWorkoutPlanBinding
+import com.example.mobile_assignment.workout.Data.CustomPlan
 
-class WorkoutPlanAdapter (
-    val fn: (ViewHolder, workoutPlan) -> Unit = { _, _ -> }
-) : ListAdapter<workoutPlan, WorkoutPlanAdapter.ViewHolder>(Diff) {
+class WorkoutPlanAdapter(
+    val fn: (ViewHolder, CustomPlan) -> Unit = { _, _ -> }
+) : ListAdapter<CustomPlan, WorkoutPlanAdapter.ViewHolder>(Diff) {
 
-    companion object Diff : DiffUtil.ItemCallback<workoutPlan>() {
-        override fun areItemsTheSame(a: workoutPlan, b: workoutPlan) = a.title == b.title
-        override fun areContentsTheSame(a: workoutPlan, b: workoutPlan) = a == b
+    companion object Diff : DiffUtil.ItemCallback<CustomPlan>() {
+        override fun areItemsTheSame(a: CustomPlan, b: CustomPlan) = a.id == b.id
+        override fun areContentsTheSame(a: CustomPlan, b: CustomPlan) = a == b
     }
 
     class ViewHolder(val binding: ItemWorkoutPlanBinding) : RecyclerView.ViewHolder(binding.root)
@@ -22,15 +23,12 @@ class WorkoutPlanAdapter (
         ViewHolder(ItemWorkoutPlanBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val workout = getItem(position)
+        val customPlan = getItem(position)
 
-        holder.binding.tvWorkoutTime.text = workout.time
-        holder.binding.tvWorkoutTitle.text = workout.title
-        holder.binding.tvWorkoutDetails.text = workout.details
-        holder.binding.btnStartWorkout.setOnClickListener {
-            // Handle button click
-        }
+        holder.binding.tvWorkoutTime.text = customPlan.name
+        holder.binding.tvWorkoutTitle.text = customPlan.targetedBodyPart
+        holder.binding.tvWorkoutDetails.text = customPlan.restDuration
 
-        fn(holder, workout)
+        fn(holder, customPlan)
     }
 }

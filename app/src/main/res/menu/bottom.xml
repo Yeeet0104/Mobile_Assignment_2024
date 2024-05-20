@@ -15,6 +15,13 @@
         android:title="Workout" />
 
     <item
+        android:id="@+id/forumHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_forum"
+        android:title="Forum" />
+
+    <item
         android:id="@+id/profileFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

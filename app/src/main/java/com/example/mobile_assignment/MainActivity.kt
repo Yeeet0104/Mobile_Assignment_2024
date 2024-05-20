@@ -8,10 +8,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mobile_assignment.databinding.ActivityMainBinding
+import com.example.mobile_assignment.ui.ForumFragment
 
 class MainActivity : AppCompatActivity() {
-
-
     private lateinit var binding: ActivityMainBinding
     private val nav by lazy { supportFragmentManager.findFragmentById(R.id.host)!!.findNavController() }
     private lateinit var abc: AppBarConfiguration
@@ -20,17 +19,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         abc = AppBarConfiguration(
             setOf(
                 R.id.home2,
                 R.id.workoutHome,
+                R.id.forumHome,
                 R.id.profileFragment,
                 R.id.nutritionMain,
                 R.id.loginFragment
             ),
             binding.root
         )
+
 
 //        setupActionBarWithNavController(nav, abc)
 //        binding.bv.setupWithNavController(nav)
