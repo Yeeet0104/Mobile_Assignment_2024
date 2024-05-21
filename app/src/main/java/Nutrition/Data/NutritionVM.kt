@@ -1,7 +1,10 @@
 package Nutrition.Data
 
+import android.app.Application
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,12 +14,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.firestore
 
-class NutritionVM(private val userId: String) : ViewModel() {
+class NutritionVM(application: Application) : AndroidViewModel(application) {
 
     private val db = Firebase.firestore
     private val foodLD = MutableLiveData<List<FoodItem>>(emptyList())
     private var listener : ListenerRegistration? = null
     private val resultLD = MutableLiveData<List<FoodItem>>()
+    private val userId: String = getCurrentUserId()
 
     init {
         listener = getPersonalFoodReference(userId).addSnapshotListener { snap, _ ->
@@ -30,6 +34,10 @@ class NutritionVM(private val userId: String) : ViewModel() {
         listener?.remove()
     }
 
+    fun getCurrentUserId(): String {
+        val sharedPref = getApplication<Application>().getSharedPreferences("AUTH", Context.MODE_PRIVATE)
+        return sharedPref.getString("id", "U001") ?: "U001"
+    }
 
     fun init() = Unit
 

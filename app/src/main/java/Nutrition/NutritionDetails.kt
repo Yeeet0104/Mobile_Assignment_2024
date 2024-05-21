@@ -1,8 +1,6 @@
 package Nutrition
 
-import Login.data.AuthVM
 import Nutrition.Data.NutritionVM
-import Nutrition.Data.NutritionVMFactory
 import Nutrition.Data.getDailyFoodReference
 import Nutrition.Data.getDateReference
 import android.app.AlertDialog
@@ -31,7 +29,6 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
-import com.google.zxing.qrcode.encoder.Encoder
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import util.setImageBlob
 import util.toast
@@ -40,15 +37,12 @@ import java.time.LocalDateTime
 
 class NutritionDetails : Fragment() {
     private lateinit var binding: FragmentNutritionDetailsBinding
-    //Shared Preferences
-    private val auth: AuthVM by activityViewModels()
-    val sharedPreferences = auth.getPreferences()
+    private lateinit var nutritionVM: NutritionVM // Move declaration here
 
     //USER ID
-    private var userId = sharedPreferences.getString("id", "") ?: ""
+    private lateinit var userId: String
     private val nav by lazy { findNavController() }
     private val foodId by lazy { arguments?.getString("foodId") ?: "" }
-    private val nutritionVM by activityViewModels<NutritionVM> { NutritionVMFactory(userId) }
 
     private var date = LocalDateTime.now().toLocalDate().toString()
 
@@ -59,6 +53,8 @@ class NutritionDetails : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNutritionDetailsBinding.inflate(inflater, container, false)
+        nutritionVM = activityViewModels<NutritionVM>().value
+        userId = nutritionVM.getCurrentUserId()
 
         nutritionVM.getFoodById(foodId).observe(viewLifecycleOwner) { food ->
             if (food == null) {

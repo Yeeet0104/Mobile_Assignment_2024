@@ -1,8 +1,6 @@
 package Nutrition
 
-import Login.data.AuthVM
 import Nutrition.Data.NutritionVM
-import Nutrition.Data.NutritionVMFactory
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,13 +19,10 @@ import util.toast
 
 class NutritionEdit : Fragment() {
     private val nav by lazy { findNavController() }
-    //Shared Preferences
-    private val auth: AuthVM by activityViewModels()
-    val sharedPreferences = auth.getPreferences()
+    private lateinit var nutritionVM: NutritionVM // Move declaration here
 
     //USER ID
-    private var userId = sharedPreferences.getString("id", "") ?: ""
-    private val nutritionVM by activityViewModels<NutritionVM> { NutritionVMFactory(userId) }
+    private lateinit var userId: String
     private lateinit var binding: FragmentNutritionEditBinding
     private val foodId by lazy { arguments?.getString("foodId") ?: "" }
 
@@ -38,6 +33,9 @@ class NutritionEdit : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNutritionEditBinding.inflate(inflater, container, false)
+        nutritionVM = activityViewModels<NutritionVM>().value
+        userId = nutritionVM.getCurrentUserId()
+
 
         val food = nutritionVM.get(foodId)
         if (food == null) {

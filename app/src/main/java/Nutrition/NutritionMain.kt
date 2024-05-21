@@ -1,19 +1,14 @@
 package Nutrition
 
-import Login.data.AuthVM
 import Nutrition.Data.NutritionVM
-import Nutrition.Data.NutritionVMFactory
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
@@ -25,17 +20,13 @@ import java.time.LocalDateTime
 
 
 class NutritionMain : Fragment() {
-    //Shared Preferences
-    private val auth: AuthVM by activityViewModels()
-    val sharedPreferences = auth.getPreferences()
-
-    //USER ID
-    private var userId = sharedPreferences.getString("id", "") ?: ""
-    private var date = LocalDateTime.now().toLocalDate().toString()
-
     private lateinit var binding: FragmentNutritionMainBinding
     private val nav by lazy { findNavController() }
-    private val nutritionVM by activityViewModels<NutritionVM> { NutritionVMFactory(userId) }
+    private lateinit var nutritionVM: NutritionVM // Move declaration here
+
+    //USER ID
+    private lateinit var userId: String
+    private lateinit var date: String
 
 
     override fun onCreateView(
@@ -43,6 +34,10 @@ class NutritionMain : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNutritionMainBinding.inflate(inflater, container, false)
+
+        nutritionVM = activityViewModels<NutritionVM>().value
+        userId = nutritionVM.getCurrentUserId()
+        date = LocalDateTime.now().toLocalDate().toString()
 
         binding.searchView.setOnClickListener {
             nav.navigate(R.id.nutritionSearch)

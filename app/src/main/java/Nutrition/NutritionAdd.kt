@@ -1,20 +1,16 @@
 package Nutrition
 
-import Login.data.AuthVM
 import Nutrition.Data.FoodItem
 import Nutrition.Data.NutritionVM
-import Nutrition.Data.NutritionVMFactory
 import Nutrition.Data.QRCodeData
 import android.app.AlertDialog
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -32,16 +28,13 @@ import util.toast
 
 
 class NutritionAdd : Fragment() {
-    //Shared Preferences
-    private val auth: AuthVM by activityViewModels()
-    val sharedPreferences = auth.getPreferences()
+    private lateinit var nutritionVM: NutritionVM // Move declaration here
 
     //USER ID
-    private var userId = sharedPreferences.getString("id", "") ?: ""
+    private lateinit var userId: String
 
     private lateinit var binding: FragmentNutritionAddBinding
     private val nav by lazy { findNavController() }
-    private val nutritionVM by activityViewModels<NutritionVM> { NutritionVMFactory(userId) }
 
 
 
@@ -50,6 +43,9 @@ class NutritionAdd : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNutritionAddBinding.inflate(inflater, container, false)
+        nutritionVM = activityViewModels<NutritionVM>().value
+        userId = nutritionVM.getCurrentUserId()
+
 
         reset()
 

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
+    android:label="Nutrition Expert"
     app:startDestination="@id/home2">
 
     <fragment
@@ -21,7 +22,7 @@
         android:id="@+id/forumHome"
         android:name="Forum.ui.ForumHome"
         android:label="Forum"
-        tools:layout="@layout/fragment_forum_home" >
+        tools:layout="@layout/fragment_forum_home">
         <action
             android:id="@+id/action_forumHome_to_forumCreatePost"
             app:destination="@id/forumCreatePost" />
@@ -30,7 +31,7 @@
         android:id="@+id/forumCreatePost"
         android:name="Forum.ui.ForumCreatePost"
         android:label="fragment_forum_create_post"
-        tools:layout="@layout/fragment_forum_create_post" >
+        tools:layout="@layout/fragment_forum_create_post">
         <action
             android:id="@+id/action_forumCreatePost_to_forumHome"
             app:destination="@id/forumHome" />
