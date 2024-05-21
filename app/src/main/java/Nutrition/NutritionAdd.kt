@@ -1,7 +1,9 @@
 package Nutrition
 
+import Login.data.AuthVM
 import Nutrition.Data.FoodItem
 import Nutrition.Data.NutritionVM
+import Nutrition.Data.NutritionVMFactory
 import Nutrition.Data.QRCodeData
 import android.app.AlertDialog
 import android.graphics.BitmapFactory
@@ -30,13 +32,20 @@ import util.toast
 
 
 class NutritionAdd : Fragment() {
+    //Shared Preferences
+    private val auth: AuthVM by activityViewModels()
+    val sharedPreferences = auth.getPreferences()
+
+    //USER ID
+    private var userId = sharedPreferences.getString("id", "") ?: ""
+
     private lateinit var binding: FragmentNutritionAddBinding
     private val nav by lazy { findNavController() }
-    private val nutritionVM: NutritionVM by activityViewModels()
-    private var userId = "U001"
+    private val nutritionVM by activityViewModels<NutritionVM> { NutritionVMFactory(userId) }
 
 
-    @RequiresApi(Build.VERSION_CODES.R)
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {

@@ -11,14 +11,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.firestore
 
-class NutritionVM : ViewModel() {
+class NutritionVM(private val userId: String) : ViewModel() {
 
     private val db = Firebase.firestore
     private val foodLD = MutableLiveData<List<FoodItem>>(emptyList())
     private var listener : ListenerRegistration? = null
     private val resultLD = MutableLiveData<List<FoodItem>>()
-
-    private var userId = "U001"
 
     init {
         listener = getPersonalFoodReference(userId).addSnapshotListener { snap, _ ->

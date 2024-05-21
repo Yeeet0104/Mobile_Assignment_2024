@@ -185,5 +185,10 @@
         android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
         android:label="fragment_exercise_details"
         tools:layout="@layout/fragment_exercise_details" />
+    <fragment
+        android:id="@+id/nutritionChatbot"
+        android:name="Nutrition.NutritionChatbot"
+        android:label="ChatBot"
+        tools:layout="@layout/fragment_nutrition_chatbot" />
 
 </navigation>

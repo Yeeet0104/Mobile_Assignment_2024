@@ -1,6 +1,8 @@
 package Nutrition
 
+import Login.data.AuthVM
 import Nutrition.Data.NutritionVM
+import Nutrition.Data.NutritionVMFactory
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Build
@@ -23,18 +25,19 @@ import java.time.LocalDateTime
 
 
 class NutritionMain : Fragment() {
-    private lateinit var binding: FragmentNutritionMainBinding
-    private val nav by lazy { findNavController() }
-    private val nutritionVM by activityViewModels<NutritionVM>()
+    //Shared Preferences
+    private val auth: AuthVM by activityViewModels()
+    val sharedPreferences = auth.getPreferences()
 
-    //DATABASE ITEM TEST
-    // TODO: Replace with actual user ID
-    private var userId = "U001"
-
-    @RequiresApi(Build.VERSION_CODES.O)
+    //USER ID
+    private var userId = sharedPreferences.getString("id", "") ?: ""
     private var date = LocalDateTime.now().toLocalDate().toString()
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    private lateinit var binding: FragmentNutritionMainBinding
+    private val nav by lazy { findNavController() }
+    private val nutritionVM by activityViewModels<NutritionVM> { NutritionVMFactory(userId) }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,6 +88,10 @@ class NutritionMain : Fragment() {
 
         binding.btnAddFood.setOnClickListener {
             nav.navigate(R.id.nutritionAdd)
+        }
+
+        binding.btnChatbot.setOnClickListener {
+            nav.navigate(R.id.nutritionChatbot)
         }
 
         binding.tvDate.text = date
@@ -138,7 +145,6 @@ class NutritionMain : Fragment() {
                             (binding.rvMain.adapter as FoodRecordAdapter).submitList(trackerItems)
                         }
 
-
                 },
                 current.year,
                 current.monthValue - 1,
@@ -147,8 +153,6 @@ class NutritionMain : Fragment() {
             datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
             datePickerDialog.show()
         }
-
-
 
         binding.btnEditTarget.setOnClickListener {
             val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_target, null)
@@ -180,12 +184,9 @@ class NutritionMain : Fragment() {
             dialog.show()
         }
 
-
-
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
         nutritionVM.initializeTrackerForNewDay(userId, date)

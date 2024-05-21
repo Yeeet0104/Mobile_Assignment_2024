@@ -1,6 +1,8 @@
 package Nutrition
 
+import Login.data.AuthVM
 import Nutrition.Data.NutritionVM
+import Nutrition.Data.NutritionVMFactory
 import Nutrition.Data.getDailyFoodReference
 import Nutrition.Data.getDateReference
 import android.app.AlertDialog
@@ -38,26 +40,27 @@ import java.time.LocalDateTime
 
 class NutritionDetails : Fragment() {
     private lateinit var binding: FragmentNutritionDetailsBinding
+    //Shared Preferences
+    private val auth: AuthVM by activityViewModels()
+    val sharedPreferences = auth.getPreferences()
 
+    //USER ID
+    private var userId = sharedPreferences.getString("id", "") ?: ""
     private val nav by lazy { findNavController() }
     private val foodId by lazy { arguments?.getString("foodId") ?: "" }
-    private val nutritionViewModel: NutritionVM by activityViewModels()
+    private val nutritionVM by activityViewModels<NutritionVM> { NutritionVMFactory(userId) }
 
-    //DATABASE ITEM TEST
-    // TODO: Replace with actual user ID and calories target
-    @RequiresApi(Build.VERSION_CODES.O)
     private var date = LocalDateTime.now().toLocalDate().toString()
-    private var userId = "U001"
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNutritionDetailsBinding.inflate(inflater, container, false)
 
-        nutritionViewModel.getFoodById(foodId).observe(viewLifecycleOwner) { food ->
+        nutritionVM.getFoodById(foodId).observe(viewLifecycleOwner) { food ->
             if (food == null) {
                 nav.navigateUp()
                 toast("Food not found")
@@ -75,7 +78,7 @@ class NutritionDetails : Fragment() {
 
         binding.btnExport.setOnClickListener {
             // Get the current food object
-            val food = nutritionViewModel.get(foodId)
+            val food = nutritionVM.get(foodId)
             if (food != null) {
                 // Create a new object with only the desired fields
                 val foodData = mapOf(
@@ -178,7 +181,7 @@ class NutritionDetails : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        val food = nutritionViewModel.get(foodId)
+        val food = nutritionVM.get(foodId)
         if (food == null) {
             nav.navigateUp()
             return
@@ -195,7 +198,7 @@ class NutritionDetails : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addCalories(date: String) {
-        val food = nutritionViewModel.get(foodId)
+        val food = nutritionVM.get(foodId)
         if (food == null) {
             if (isAdded) {
                 toast("Food not found")
@@ -276,7 +279,7 @@ class NutritionDetails : Fragment() {
     }
 
     private fun deleteCal() {
-        nutritionViewModel.delete(userId, foodId)
+        nutritionVM.delete(userId, foodId)
         toast("Food deleted from database")
         // Optionally, navigate back to the previous screen after deletion
         nav.navigateUp()
