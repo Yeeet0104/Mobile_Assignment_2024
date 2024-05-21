@@ -1,6 +1,7 @@
 package Login.ui
 
 import Login.data.AuthVM
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,6 +23,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding : FragmentLoginBinding
     private val nav by lazy { findNavController() }
     private val auth: AuthVM by activityViewModels()
+    private var roleForSignUp: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,13 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        // Get the roleForSignUp from SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        roleForSignUp = sharedPreferences.getInt("roleForSignUp", 0)
+
+        // Set visibility of lbl_admin_login based on roleForSignUp
+        binding.lblAdminLogin.visibility = if (roleForSignUp == 1) View.VISIBLE else View.GONE
 
         reset()
         binding.btnLogin.setOnClickListener { login() }
@@ -51,6 +60,10 @@ class LoginFragment : Fragment() {
         val password = binding.edtLoginPassword.text.toString().trim()
         val remember = binding.chkRememberMe.isChecked
 
+        // Get the roleForSignUp from SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        roleForSignUp = sharedPreferences.getInt("roleForSignUp", 0)
+
         // Check if Remember Me is checked
         if (!binding.chkRememberMe.isChecked) {
             errorDialog("Please check the Remember Me checkbox to login.")
@@ -65,9 +78,24 @@ class LoginFragment : Fragment() {
         lifecycleScope.launch {
             val success = auth.login(email, hashedPassword, remember)
             if (success) {
-                //nav.popBackStack(R.id.home2, false)
-                //nav.navigateUp()
-                nav.navigate(R.id.home2)
+                val user = auth.getUser() // Assuming auth.getUser() fetches the logged-in user
+
+                // Check role
+                if (roleForSignUp == user?.role) {
+                    toast("Login successful!")
+                    nav.navigate(R.id.profileFragment)
+                } else {
+                    val errorMessage = when (roleForSignUp) {
+                        0 -> if (user?.role == 1) "You are not an admin." else ""
+                        1 -> if (user?.role == 0) "Please login as admin." else ""
+                        else -> "Unexpected role error."
+                    }
+                    if (errorMessage.isNotEmpty()) {
+                        errorDialog(errorMessage)
+                    }
+                }
+//                toast("Login successfully!")
+//                nav.navigate(R.id.profileFragment)
             } else {
                 errorDialog("Invalid Login Credentials.")
             }

@@ -22,7 +22,7 @@ class SplashScreenFragment : Fragment() {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
 
         binding.root.postDelayed({
-            findNavController().navigate(R.id.action_splashScreenFragment_to_home2)
+            findNavController().navigate(R.id.firstPageFragment)
         }, SPLASH_TIME)
 
 

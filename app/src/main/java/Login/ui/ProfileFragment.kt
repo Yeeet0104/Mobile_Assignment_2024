@@ -85,8 +85,8 @@ class   ProfileFragment : Fragment() {
     }
     private fun logout() {
         auth.logout()
-        nav.popBackStack(R.id.home2, false)
-        nav.navigate(R.id.loginFragment)
+        nav.popBackStack(R.id.firstPageFragment, false)
+        nav.navigate(R.id.firstPageFragment)
     }
 
     private fun loadProfile() {

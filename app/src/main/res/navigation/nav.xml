@@ -222,6 +222,14 @@
         android:id="@+id/liveChatNameList"
         android:name="Forum.ui.LiveChatNameList"
         android:label="LiveChatNameList" />
-
+    <fragment
+        android:id="@+id/firstPageFragment"
+        android:name="Login.ui.FirstPageFragment"
+        android:label="fragment_first_page"
+        tools:layout="@layout/fragment_first_page">
+    <action
+        android:id="@+id/action_firstPageFragment_to_loginFragment"
+        app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>
