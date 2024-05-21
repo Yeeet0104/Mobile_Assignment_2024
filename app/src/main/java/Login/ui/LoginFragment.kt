@@ -13,6 +13,7 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 import util.errorDialog
+import java.security.MessageDigest
 
 
 class LoginFragment : Fragment() {
@@ -44,23 +45,53 @@ class LoginFragment : Fragment() {
         binding.edtLoginEmail.requestFocus()
     }
 
+//    private fun login() {
+//        val email    = binding.edtLoginEmail.text.toString().trim()
+//        val password = binding.edtLoginPassword.text.toString().trim()
+//        val remember = binding.chkRememberMe.isChecked
+//
+//        //hash password
+//
+//        //Login -> auth.login(...)
+//        //Clear navigation backstack
+//        lifecycleScope.launch {
+//            val success = auth.login(email, password, remember)
+//            if(success){
+//                nav.popBackStack(R.id.home2, false)
+//                nav.navigateUp()
+//            }else{
+//                errorDialog("Invalid Login Credentials.")
+//            }
+//        }
+//
+//    }
+
     private fun login() {
-        val email    = binding.edtLoginEmail.text.toString().trim()
+        val email = binding.edtLoginEmail.text.toString().trim()
         val password = binding.edtLoginPassword.text.toString().trim()
         val remember = binding.chkRememberMe.isChecked
 
-        //Login -> auth.login(...)
-        //Clear navigation backstack
+        // Hash the entered password
+        val hashedPassword = hashPassword(password)
+
+        // Login -> auth.login(...)
+        // Clear navigation backstack
         lifecycleScope.launch {
-            val success = auth.login(email, password, remember)
-            if(success){
+            val success = auth.login(email, hashedPassword, remember)
+            if (success) {
                 nav.popBackStack(R.id.home2, false)
                 nav.navigateUp()
-            }else{
+            } else {
                 errorDialog("Invalid Login Credentials.")
             }
         }
+    }
 
+    private fun hashPassword(password: String): String {
+        val bytes = password.toByteArray()
+        val md = MessageDigest.getInstance("SHA-256")
+        val digest = md.digest(bytes)
+        return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 
 

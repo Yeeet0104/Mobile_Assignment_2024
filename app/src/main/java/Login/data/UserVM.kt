@@ -159,7 +159,7 @@ class UserVM(val app: Application) : AndroidViewModel(app) {
 
         e += if (user.password == "") "- Password required.\n"
         else if (user.password.length < 5) "- Password too short (min 5 chars).\n"
-        else if (user.password.length > 100) "- Password too long (max 100 chars).\n"
+        //else if (user.password.length > 100) "- Password too long (max 100 chars).\n"
         else ""
 
         e += if (user.username == "") "- Username required.\n"

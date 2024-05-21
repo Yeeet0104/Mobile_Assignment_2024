@@ -17,6 +17,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import java.security.MessageDigest
 
 class ResetPasswordFragment : Fragment() {
 
@@ -36,6 +37,62 @@ class ResetPasswordFragment : Fragment() {
 
         return binding.root
     }
+
+//    private fun resetPassword(){
+//
+//        val newPassword = binding.edtRpNewPassword.text.toString().trim()
+//        val confPassword = binding.edtRpConfPassword.text.toString().trim()
+//
+//        if(newPassword == ""){
+//            errorDialog("New Password cannot be empty.")
+//            binding.edtRpConfPassword.text.clear()
+//            return
+//        }
+//
+//        if(confPassword == ""){
+//            errorDialog("Confirm Password cannot be empty.")
+//            binding.edtRpNewPassword.text.clear()
+//            return
+//        }
+//
+//        if (newPassword.length < 5) {
+//            errorDialog("Password must be at least 5 characters long.")
+//            binding.edtRpNewPassword.text.clear()
+//            binding.edtRpConfPassword.text.clear()
+//            binding.edtRpNewPassword.requestFocus()
+//            return
+//        }
+//
+//        if (newPassword != confPassword) {
+//            errorDialog("New password and Confirm password not same. Please enter again.");
+//            binding.edtRpNewPassword.text.clear()
+//            binding.edtRpConfPassword.text.clear()
+//            binding.edtRpNewPassword.requestFocus()
+//            return
+//        }
+//
+//        // Retrieve userId from shared preferences
+//        val sharedPref = requireActivity().getSharedPreferences("idForOtp", Context.MODE_PRIVATE)
+//        val userId = sharedPref.getString("userId", "")
+//
+//        if (userId.isNullOrEmpty()) {
+//            errorDialog("User ID not found.")
+//            return
+//        }
+//
+//        // Update password in Firestore
+//        auth.get1(userId!!) { user ->
+//            if (user != null) {
+//                user.password = newPassword
+//                auth.set(user)
+//                toast("Password Reset Successfully!")
+//                nav.navigate(R.id.action_resetPasswordFragment_to_loginFragment)
+//            } else {
+//                errorDialog("User not found.")
+//            }
+//        }
+//
+//    }
 
     private fun resetPassword(){
 
@@ -79,10 +136,13 @@ class ResetPasswordFragment : Fragment() {
             return
         }
 
+        // Hash the new password
+        val hashedPassword = hashPassword(newPassword)
+
         // Update password in Firestore
-        auth.get1(userId!!) { user ->
+        auth.get1(userId) { user ->
             if (user != null) {
-                user.password = newPassword
+                user.password = hashedPassword
                 auth.set(user)
                 toast("Password Reset Successfully!")
                 nav.navigate(R.id.action_resetPasswordFragment_to_loginFragment)
@@ -90,7 +150,14 @@ class ResetPasswordFragment : Fragment() {
                 errorDialog("User not found.")
             }
         }
+    }
 
+
+    private fun hashPassword(password: String): String {
+        val bytes = password.toByteArray()
+        val md = MessageDigest.getInstance("SHA-256")
+        val digest = md.digest(bytes)
+        return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 
 }
