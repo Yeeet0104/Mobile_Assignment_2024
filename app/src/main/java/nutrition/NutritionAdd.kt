@@ -1,8 +1,8 @@
-package Nutrition
+package nutrition
 
-import Nutrition.Data.FoodItem
-import Nutrition.Data.NutritionVM
-import Nutrition.Data.QRCodeData
+import nutrition.Data.FoodItem
+import nutrition.Data.NutritionVM
+import nutrition.Data.QRCodeData
 import android.app.AlertDialog
 import android.graphics.BitmapFactory
 import android.os.Bundle

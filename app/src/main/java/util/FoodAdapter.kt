@@ -1,7 +1,6 @@
 package util
 
-import Nutrition.Data.FoodItem
-import android.annotation.SuppressLint
+import nutrition.Data.FoodItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -16,7 +15,6 @@ class FoodAdapter (
 
     companion object DiffCallback : DiffUtil.ItemCallback<FoodItem>() {
         override fun areItemsTheSame(a: FoodItem, b: FoodItem) = a.foodId == b.foodId
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(a: FoodItem, b: FoodItem) = a == b
     }
 

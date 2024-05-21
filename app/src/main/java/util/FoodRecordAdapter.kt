@@ -1,7 +1,6 @@
 package util
 
-import Nutrition.Data.TrackerItem
-import android.annotation.SuppressLint
+import nutrition.Data.TrackerItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -16,7 +15,6 @@ class FoodRecordAdapter (
 
     companion object DiffCallback : DiffUtil.ItemCallback<TrackerItem>() {
         override fun areItemsTheSame(a: TrackerItem, b: TrackerItem) = a.foodName == b.foodName
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(a: TrackerItem, b: TrackerItem) = a == b
     }
 

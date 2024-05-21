@@ -1,10 +1,8 @@
-package Nutrition.Data
+package nutrition.Data
 
-import com.google.firebase.Firebase
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
 
 data class FoodItem (
     @DocumentId
