@@ -10,7 +10,7 @@ data class User (
     val gender: String = "",
     val height: Int = 0,
     val otp: Int = 0,
-    val password: String = "",
+    var password: String = "",
     val role: Int = 0,
     val username: String = "",
     val weight: Int = 0,

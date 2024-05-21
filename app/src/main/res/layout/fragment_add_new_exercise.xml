@@ -28,14 +28,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <EditText
+        android:id="@+id/etCaloriesBurnt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="Calories Burnt"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etExerciseValue" />
+
     <RadioGroup
         android:id="@+id/rgType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/etExerciseName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/etExerciseName">
 
         <RadioButton
             android:id="@+id/rbDuration"
@@ -54,22 +66,23 @@
         android:id="@+id/etExerciseValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Duration (e.g., 30s)"
         android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/rgType"
+        android:hint="Duration (e.g., 30s)"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/rgType" />
 
     <EditText
         android:id="@+id/etYouTubeId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="YouTube Video ID"
         android:layout_margin="16dp"
+        android:hint="YouTube Video ID"
         android:textIsSelectable="true"
-        app:layout_constraintTop_toBottomOf="@id/etExerciseValue"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etCaloriesBurnt" />
 
     <ImageView
         android:id="@+id/ivnewExerciseImage"

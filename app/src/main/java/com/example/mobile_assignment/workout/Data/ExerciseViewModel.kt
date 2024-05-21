@@ -16,6 +16,9 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
     private val db = FirebaseFirestore.getInstance()
@@ -28,10 +31,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     private val _selectedExercises = MutableLiveData<List<Exercise>>()
     val selectedExercises: LiveData<List<Exercise>> get() = _selectedExercises
-
-//    private val _addExerciseStatus = MutableLiveData<Boolean>()
-//    val addExerciseStatus: LiveData<Boolean> get() = _addExerciseStatus
-
+    
     private val _customPlans = MutableLiveData<List<CustomPlan>>()
     val customPlans: LiveData<List<CustomPlan>> get() = _customPlans
 
@@ -40,6 +40,17 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     private val _selectedImageUri = MutableLiveData<Uri?>()
     val selectedImageUri: LiveData<Uri?> get() = _selectedImageUri
+
+
+    private val _selectedDays = MutableLiveData<List<String>>()
+    val selectedDays: LiveData<List<String>> get() = _selectedDays
+
+    private val _selectedTime = MutableLiveData<String>()
+    val selectedTime: LiveData<String> get() = _selectedTime
+
+    private val _todaysCustomPlans = MutableLiveData<List<CustomPlan>>()
+    val todaysCustomPlans: LiveData<List<CustomPlan>> get() = _todaysCustomPlans
+
     private var listener: ListenerRegistration? = null
 
     init {
@@ -57,30 +68,31 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     fun setSelectedImageUri(uri: Uri?) {
         _selectedImageUri.value = uri
     }
+    fun clearSelectedImageUri() {
+        _selectedImageUri.value = null
+    }
     fun addExercise(exercise: Exercise) {
         db.collection("exercises")
             .document(exercise.id)
             .set(exercise)
             .addOnSuccessListener {
-//                _addExerciseStatus.value = true
+
             }
             .addOnFailureListener {
-//                _addExerciseStatus.value = false
+
             }
     }
     fun fetchCustomPlans(userId: String) {
-        db.collection("customPlans")
-            .document(userId)
-            .collection("plans")
-            .addSnapshotListener { snap, e ->
-                if (e != null) {
+        db.collection("customPlans").document(userId).collection("plans")
+            .addSnapshotListener { snapshot, error ->
+                if (error != null || snapshot == null) {
                     return@addSnapshotListener
                 }
-                if (snap != null && !snap.isEmpty) {
-                    _customPlans.value = snap.toObjects(CustomPlan::class.java)
-                } else {
-                    _customPlans.value = emptyList()
-                }
+
+                val customPlans = snapshot.toObjects(CustomPlan::class.java)
+                _customPlans.value = customPlans
+
+                filterAndSortTodaysCustomPlans(customPlans)
             }
     }
     fun generateCustomId(callback: (String) -> Unit) {
@@ -104,7 +116,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         db.collection("customPlans")
             .document(userId)
             .collection("plans")
-            .document(customPlan.id)
+            .document(customPlan.id) // Use the plan name as the document ID
             .set(customPlan)
             .addOnSuccessListener {
                 onSuccess()
@@ -113,7 +125,6 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
                 onFailure(e)
             }
     }
-
     fun toggleExerciseSelection(exercise: Exercise) {
         val currentList = _selectedExercises.value?.toMutableList() ?: mutableListOf()
         if (currentList.contains(exercise)) {
@@ -128,35 +139,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     fun isSelected(exercise: Exercise): Boolean {
         return _selectedExercises.value?.contains(exercise) ?: false
     }
-//    fun fetchExercisesByIds(exerciseIds: List<String>): LiveData<List<Exercise>> {
-//        val exercisesLiveData = MutableLiveData<List<Exercise>>()
-//        if (exerciseIds.isEmpty()) {
-//            exercisesLiveData.value = emptyList()
-//            return exercisesLiveData
-//        }
-//
-//        Log.d("ExerciseViewModel", "Fetching exercises with IDs: ${exerciseIds.joinToString()}")
-//
-//        db.collection("exercises")
-//            .whereIn(FieldPath.documentId(), exerciseIds)
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                if (!documents.isEmpty) {
-//                    val exercises = documents.toObjects(Exercise::class.java)
-//                    Log.d("ExerciseViewModel", "Fetched exercises: ${exercises.joinToString { it.name }}")
-//                    exercisesLiveData.value = exercises
-//                } else {
-//                    Log.d("ExerciseViewModel", "No exercises found.")
-//                    exercisesLiveData.value = emptyList()
-//                }
-//            }
-//            .addOnFailureListener { e ->
-//                Log.e("ExerciseViewModel", "Failed to fetch exercises", e)
-//                exercisesLiveData.value = emptyList()
-//            }
-//
-//        return exercisesLiveData
-//    }
+
     fun selectCustomPlan(customPlan: CustomPlan) {
         _selectedCustomPlan.value = customPlan
     }
@@ -219,7 +202,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     fun clearSelectedExercise() {
         _selectedExercise.value = null
     }
-    private fun getCurrentUserId(): String {
+    fun getCurrentUserId(): String {
         val sharedPref = getApplication<Application>().getSharedPreferences("userID", Context.MODE_PRIVATE)
         return sharedPref.getString("userId", "U001") ?: "U001"
     }
@@ -277,6 +260,33 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
             .addOnFailureListener { e ->
                 onFailure(e)
             }
+    }
+
+    // Function to update selected days
+    fun setSelectedDays(days: List<String>) {
+        _selectedDays.value = days
+    }
+
+    // Function to update selected time
+    fun setSelectedTime(time: String) {
+        _selectedTime.value = time
+    }
+
+    // Function to clear selected days and time
+    fun clearSelectedDaysAndTime() {
+        _selectedDays.value = emptyList()
+        _selectedTime.value = ""
+    }
+    private fun filterAndSortTodaysCustomPlans(customPlans: List<CustomPlan>) {
+        val today = SimpleDateFormat("EEEE", Locale.getDefault()).format(Calendar.getInstance().time)
+        val filteredPlans = customPlans.filter { it.daysOfWeek.contains(today) }
+            .sortedBy { it.timeOfDay }
+
+        _todaysCustomPlans.value = filteredPlans
+    }
+
+    fun getExerciseInfo(ExerciseID : String) : Exercise? {
+        return _exercises.value?.find { it.id == ExerciseID }
     }
 
 }

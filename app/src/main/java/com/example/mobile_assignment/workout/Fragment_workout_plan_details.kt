@@ -104,7 +104,7 @@ class fragment_workout_plan_details : Fragment() {
             customPlan?.let {
                 binding.tvPlanName.text = it.name
                 binding.tvPlanDetails.text =
-                    "${it.exerciseIds.size} Exercises | ${it.restDuration} mins"
+                    "${it.exerciseIds.size} Exercises"
 
                 it.photo?.let { blob ->
                     binding.ivPlanImage.setImageBitmap(blob.toBitmap())
