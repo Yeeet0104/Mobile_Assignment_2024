@@ -1,14 +1,12 @@
-package Nutrition
+package nutrition
 
-import Nutrition.Data.NutritionVM
-import android.os.Build
+import nutrition.Data.NutritionVM
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -74,7 +72,6 @@ class NutritionEdit : Fragment() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.R)
     private fun save() {
         val foodName = binding.edtFoodName.text.toString()
         val carbs = binding.edtProtein.text.toString().toIntOrNull() ?: 0

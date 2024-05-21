@@ -1,13 +1,12 @@
-package Nutrition
+package nutrition
 
-import Nutrition.Data.NutritionVM
-import Nutrition.Data.getDailyFoodReference
-import Nutrition.Data.getDateReference
+import nutrition.Data.NutritionVM
+import nutrition.Data.getDailyFoodReference
+import nutrition.Data.getDateReference
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -17,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -63,7 +61,7 @@ class NutritionDetails : Fragment() {
                 return@observe
             }
 
-            binding.ivFood.setImageBlob(food!!.image)
+            binding.ivFood.setImageBlob(food.image)
             binding.tvFoodName.text = food.foodName
             binding.tvCalories.text = "${food.calories} kcal"
             binding.tvProtein.text = "${food.protein} g"
@@ -192,7 +190,6 @@ class NutritionDetails : Fragment() {
         binding.tvDescription.text = food.description
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun addCalories(date: String) {
         val food = nutritionVM.get(foodId)
         if (food == null) {
@@ -210,7 +207,7 @@ class NutritionDetails : Fragment() {
                 if (document != null && document.exists()) {
                     // DateItem document exists, no need to create a new one
                     val trackerItemRef = getDailyFoodReference(userId, date)
-                    val trackerItem = Nutrition.Data.TrackerItem(
+                    val trackerItem = nutrition.Data.TrackerItem(
                         foodId = food.foodId,
                         foodName = food.foodName,
                         calories = food.calories,
@@ -231,12 +228,12 @@ class NutritionDetails : Fragment() {
 
                 } else {
                     // DateItem document doesn't exist, create a new one with caloriesTarget set to 2000
-                    val dateItem = Nutrition.Data.DateItem(date = date, caloriesTarget = 2000)
+                    val dateItem = nutrition.Data.DateItem(date = date, caloriesTarget = 2000)
                     dateRef.set(dateItem)
                         .addOnSuccessListener {
                             // DateItem document successfully written or updated
                             val trackerItemRef = getDailyFoodReference(userId, date)
-                            val trackerItem = Nutrition.Data.TrackerItem(
+                            val trackerItem = nutrition.Data.TrackerItem(
                                 foodId = food.foodId,
                                 foodName = food.foodName,
                                 calories = food.calories,

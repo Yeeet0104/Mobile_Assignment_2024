@@ -1,7 +1,7 @@
 package util
 
-import Nutrition.Data.OpenAIRequest
-import Nutrition.Data.OpenAIResponse
+import nutrition.Data.OpenAIRequest
+import nutrition.Data.OpenAIResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Headers

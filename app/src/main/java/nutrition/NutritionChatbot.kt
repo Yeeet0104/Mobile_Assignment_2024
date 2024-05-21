@@ -1,8 +1,8 @@
-package Nutrition
+package nutrition
 
-import Nutrition.Data.ChatMessage
-import Nutrition.Data.OpenAIRequest
-import Nutrition.Data.OpenAIResponse
+import nutrition.Data.ChatMessage
+import nutrition.Data.OpenAIRequest
+import nutrition.Data.OpenAIResponse
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import util.FoodChatAdapter
 import util.RetrofitInstance
+import util.toast
 
 class NutritionChatbot : Fragment() {
     private lateinit var binding: FragmentNutritionChatbotBinding
@@ -64,6 +65,7 @@ class NutritionChatbot : Fragment() {
 
             override fun onFailure(call: Call<OpenAIResponse>, t: Throwable) {
                 // Handle failure
+                toast("Quota exceeded. Please add funds into your OpenAI account.")
             }
         })
     }
