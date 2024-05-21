@@ -38,7 +38,7 @@ android {
     viewBinding {
         enable = true
     }
-    packaging {
+    packaging { //for email, it will create 2 file
         resources {
             excludes.add("/META-INF/NOTICE.md")
             excludes.add("/META-INF/LICENSE.md")

@@ -64,11 +64,12 @@ class ForgetPasswordFragment : Fragment() {
             val userId = user.id
             val otpCode = user.otp.toString() // Retrieve the OTP from the user object
 
-            val subject = "Your OTP - $otpCode"
+            val subject = "OTP Verification - $otpCode"
             val content = """
-            <p>Your <b>OTP</b> is:</p>
+            <p>Please use the following one time password (OTP) to reset your password. Your <b>OTP</b> is:</p>
             <h1 style="color: red">$otpCode</h1>
-            <p>Thank you.</p>
+            <p>Do not share this OTP with anyone.</p>
+            <p>Thank you!</p>
         """.trimIndent()
 
             // send otp to email
