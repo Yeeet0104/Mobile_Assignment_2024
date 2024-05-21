@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".workout.fragment_workout_plan_details">
+    tools:context=".workout.Ui.fragment_workout_plan_details">
 
     <ImageView
         android:id="@+id/ivPlanImage"
@@ -61,21 +61,21 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@id/btnStartWorkout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLblExercises"
         tools:listitem="@layout/item_selected_exercise" />
 
-    <Button
-        android:id="@+id/btnStartWorkout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Start Workout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/btnStartWorkout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:text="Start Workout"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
     <TextView
         android:id="@+id/tvLblExercises"
@@ -87,6 +87,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvScheduleWorkout" />
 
+    <ImageView
+        android:id="@+id/btnExportQr"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/baseline_create_24"
+
+        app:layout_constraintBottom_toBottomOf="@+id/tvPlanName"
+        app:layout_constraintEnd_toStartOf="@+id/btnEditWorkoutPlan"
+        app:layout_constraintTop_toTopOf="@+id/tvPlanName">
+
+    </ImageView>
     <ImageView
         android:id="@+id/btnEditWorkoutPlan"
         android:layout_width="30dp"

@@ -1,4 +1,4 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,7 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentManageExercisesBinding
 import com.example.mobile_assignment.workout.Data.Exercise
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
+import com.example.mobile_assignment.workout.ManageExerciseAdapter
 
 
 class manageExercises : Fragment() {

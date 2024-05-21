@@ -1,4 +1,4 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.navArgs
 import com.example.mobile_assignment.databinding.FragmentExerciseDetailsBinding
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
 
@@ -23,10 +22,11 @@ class ExerciseDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentExerciseDetailsBinding.inflate(inflater, container, false)
 
-        exerciseViewModel.selectedExercise.observe(viewLifecycleOwner, { exercise ->
+        exerciseViewModel.selectedExercise.observe(viewLifecycleOwner) { exercise ->
             exercise?.let {
                 binding.tvExerciseName.text = it.name
-                binding.tvExerciseDuration.text = if (it.duration != 0) "Duration: ${it.duration}" else "Reps: ${it.reps}"
+                binding.tvExerciseDuration.text =
+                    if (it.duration != 0) "Duration: ${it.duration}" else "Reps: ${it.reps}"
 
                 val stepsText = it.steps.joinToString(separator = "\n") { step -> "• $step" }
                 binding.tvSteps.text = stepsText
@@ -47,7 +47,7 @@ class ExerciseDetailsFragment : Fragment() {
                     loadUrl(youtubeUrl)
                 }
             }
-        })
+        }
 
         return binding.root
     }

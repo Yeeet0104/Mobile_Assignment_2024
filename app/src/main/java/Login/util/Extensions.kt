@@ -17,10 +17,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Blob
 import java.io.ByteArrayOutputStream
 
+
 // Usage: Show a toast from fragment
 //fun Fragment.toast(text: String) {
 //    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 //}
+
 
 // Usage: Show a snackbar from fragment
 fun Fragment.snackbar(text: String) {

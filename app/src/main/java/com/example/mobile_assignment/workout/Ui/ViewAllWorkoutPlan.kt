@@ -1,5 +1,6 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
+import Login.data.AuthVM
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentViewAllWorkoutPlanBinding
 import com.example.mobile_assignment.workout.Data.CustomPlan
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
+import com.example.mobile_assignment.workout.WorkoutPlanAdapter
 
 
 class viewAllWorkoutPlan : Fragment() {
@@ -21,6 +23,7 @@ class viewAllWorkoutPlan : Fragment() {
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
     private lateinit var workoutPlanAdapter: WorkoutPlanAdapter
     private var fullWorkoutPlanList: List<CustomPlan> = listOf()
+    private val auth: AuthVM by activityViewModels()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentViewAllWorkoutPlanBinding.inflate(inflater, container, false)
 
@@ -60,17 +63,19 @@ class viewAllWorkoutPlan : Fragment() {
     }
 
     private fun setupObservers() {
-        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-        val userId = sharedPref.getString("userId", "U001") ?: "U001"
 
         exerciseViewModel.customPlans.observe(viewLifecycleOwner) { customPlans ->
             fullWorkoutPlanList = customPlans
             workoutPlanAdapter.submitList(customPlans)
         }
 
-        exerciseViewModel.fetchCustomPlans(userId)
+        exerciseViewModel.fetchCustomPlans(getCurrentUserId())
     }
-
+    private fun getCurrentUserId(): String {
+        val sharedPreferences = auth.getPreferences()
+        val userId = sharedPreferences.getString("id", "")
+        return userId ?: "U001"
+    }
     private fun filterWorkoutPlans(query: String) {
         val filteredList = if (query.isEmpty()) {
             fullWorkoutPlanList

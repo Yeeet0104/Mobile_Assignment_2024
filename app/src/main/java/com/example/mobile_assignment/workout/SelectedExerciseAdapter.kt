@@ -12,8 +12,7 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.ItemSelectedExerciseBinding
 import com.example.mobile_assignment.workout.Data.Exercise
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
-
-class SelectedExerciseAdapter (
+class  SelectedExerciseAdapter (
     private val viewModel: ExerciseViewModel
 ) : ListAdapter<Exercise, SelectedExerciseAdapter.ViewHolder>(Diff) {
 
@@ -31,7 +30,11 @@ class SelectedExerciseAdapter (
         val exercise = getItem(position)
 
         holder.binding.tvExerciseName.text = exercise.name
-        holder.binding.tvExerciseDuration.text = exercise.duration.toString()
+        if(exercise.duration != 0) {
+            holder.binding.tvExerciseDuration.text ="Durations : " + exercise.duration.toString()
+        }else{
+            holder.binding.tvExerciseDuration.text = "Reps : " + exercise.reps.toString()
+        }
 
         exercise.photo?.let {
             val imageBytes = it.toBytes()

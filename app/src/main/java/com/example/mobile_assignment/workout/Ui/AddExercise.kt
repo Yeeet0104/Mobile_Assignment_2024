@@ -1,7 +1,7 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
+import Login.data.AuthVM
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentAddExerciseBinding
 import com.example.mobile_assignment.workout.Data.Exercise
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
 import android.widget.SearchView
-import com.google.firebase.database.core.Context
+import com.example.mobile_assignment.workout.ExerciseAdapter
 
 class addExercise : Fragment() {
     private lateinit var binding: FragmentAddExerciseBinding
@@ -22,6 +21,7 @@ class addExercise : Fragment() {
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
     private var allExercises = listOf<Exercise>()
     private var isEdit = false
+    private val auth: AuthVM by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,10 +50,6 @@ class addExercise : Fragment() {
             }
         }
 
-//        binding.btnAddNewExercise.setOnClickListener {
-//            findNavController().navigate(R.id.addNewExercise)
-//        }
-
         return binding.root
     }
 
@@ -69,10 +65,10 @@ class addExercise : Fragment() {
     }
 
     private fun setupObservers() {
-        exerciseViewModel.exercises.observe(viewLifecycleOwner, { exercises ->
+        exerciseViewModel.exercises.observe(viewLifecycleOwner) { exercises ->
             allExercises = exercises
             exerciseAdapter.submitList(exercises)
-        })
+        }
 
     }
     private fun setupSearchView() {
@@ -97,7 +93,8 @@ class addExercise : Fragment() {
     }
 
     private fun getCurrentUserId(): String {
-        val sharedPref = requireActivity().getPreferences(android.content.Context.MODE_PRIVATE)
-        return sharedPref.getString("userId", "U001") ?: "U001"
+        val sharedPreferences = auth.getPreferences()
+        val userId = sharedPreferences.getString("id", "")
+        return userId ?: "U001"
     }
 }

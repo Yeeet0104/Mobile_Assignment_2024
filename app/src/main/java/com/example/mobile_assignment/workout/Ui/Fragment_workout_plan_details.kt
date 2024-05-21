@@ -1,6 +1,14 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
+import Login.data.AuthVM
+import android.content.ContentValues
+import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,15 +26,20 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentWorkoutPlanDetailsBinding
 import com.example.mobile_assignment.workout.Data.Exercise
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
+import com.example.mobile_assignment.workout.SelectedExerciseAdapter
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.common.BitMatrix
 import util.showConfirmationDialog
 import util.toBitmap
 import util.toast
+import java.io.IOException
+import com.google.zxing.BarcodeFormat
 
 class fragment_workout_plan_details : Fragment() {
 
     private lateinit var binding: FragmentWorkoutPlanDetailsBinding
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
-
+    private val auth: AuthVM by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,13 +49,15 @@ class fragment_workout_plan_details : Fragment() {
         setupRecyclerView()
         displayWorkoutPlanDetails()
 
-        binding.btnStartWorkout.setOnClickListener {
-            // Handle start workout logic here
-        }
+//        binding.btnStartWorkout.setOnClickListener {
+//            // Handle start workout logic here
+//        }
         binding.btnEditWorkoutPlan.setOnClickListener {
             findNavController().navigate(R.id.editCustomWorkoutPlan)
         }
-
+        binding.btnExportQr.setOnClickListener {
+            exportWorkoutPlanAsQR()
+        }
         // Adding MenuProvider to handle options menu
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -96,8 +111,9 @@ class fragment_workout_plan_details : Fragment() {
         customPlan?.id?.let { exerciseViewModel.refreshSelectedCustomPlan(it, userId) }
     }
     private fun getCurrentUserId(): String {
-        val sharedPref = requireActivity().getPreferences(android.content.Context.MODE_PRIVATE)
-        return sharedPref.getString("userId", "U001") ?: "U001"
+        val sharedPreferences = auth.getPreferences()
+        val userId = sharedPreferences.getString("id", "")
+        return userId ?: "U001"
     }
     private fun displayWorkoutPlanDetails() {
         exerciseViewModel.selectedCustomPlan.observe(viewLifecycleOwner) { customPlan ->
@@ -130,6 +146,64 @@ class fragment_workout_plan_details : Fragment() {
                     toast("Failed to delete workout plan: ${e.message}")
                 }
             )
+        }
+    }
+    private fun exportWorkoutPlanAsQR() {
+        val customPlan = exerciseViewModel.selectedCustomPlan.value
+        val userId = getCurrentUserId()
+
+        if (customPlan != null) {
+            val qrContent = "userId:${userId},workoutPlanId:${customPlan.id}"
+            val qrBitmap = generateQRCode(qrContent)
+            if (qrBitmap != null) {
+                saveImage(requireContext(), qrBitmap)
+            } else {
+                toast("Failed to generate QR code.")
+            }
+        }
+    }
+    private fun generateQRCode(content: String): Bitmap? {
+        return try {
+            val bitMatrix: BitMatrix = MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, 300, 300)
+            val width = bitMatrix.width
+            val height = bitMatrix.height
+            val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    bmp.setPixel(x, y, if (bitMatrix[x, y]) android.graphics.Color.BLACK else android.graphics.Color.WHITE)
+                }
+            }
+            bmp
+        } catch (e: Exception) {
+            null
+        }
+    }
+    private fun saveImage(context: Context, bitmap: Bitmap) {
+        val filename = "QR_${System.currentTimeMillis()}.jpg"
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            }
+        }
+
+        val uri: Uri? = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        if (uri == null) {
+            toast("Failed to create new MediaStore record.")
+            return
+        }
+
+        try {
+            context.contentResolver.openOutputStream(uri)?.use { out ->
+                if (!bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)) {
+                    toast("Failed to save bitmap.")
+                } else {
+                    toast("Qr Code generated and saved to gallery.")
+                }
+            }
+        } catch (e: IOException) {
+            toast("Failed to write bitmap: ${e.message}")
         }
     }
 }

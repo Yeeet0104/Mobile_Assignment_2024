@@ -1,26 +1,20 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
-import android.app.AlarmManager
-import android.app.AlertDialog
-import android.app.PendingIntent
+import Login.data.AuthVM
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentWorkoutHomeBinding
-import com.example.mobile_assignment.workout.Data.CustomPlan
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
-import util.convertTimeOfDayToDate
-import util.toast
-import java.util.Calendar
+import com.example.mobile_assignment.workout.WorkoutPlanAdapter
+import com.example.mobile_assignment.workout.Data.WorkoutSharedViewModel
 
 
 class workoutHome : Fragment() {
@@ -28,14 +22,13 @@ class workoutHome : Fragment() {
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
     private val workoutSharedViewModel: WorkoutSharedViewModel by activityViewModels()
     private val nav by lazy { findNavController() }
-
+    private val auth: AuthVM by activityViewModels()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentWorkoutHomeBinding.inflate(inflater, container, false)
 
-        binding.workoutProgress.progress = 1
-
-        binding.caloriesProgress.max = 1500
-        binding.caloriesProgress.progress = 750
+        binding.workoutProgress.progress = 0
+        binding.caloriesProgress.max = 0
+        binding.caloriesProgress.progress = 0
 
         setupRecyclerView()
         setupObservers()
@@ -50,7 +43,11 @@ class workoutHome : Fragment() {
         binding.workoutViewAll.workoutViewAllContainer.setOnClickListener {
             findNavController().navigate(R.id.viewAllWorkoutPlan)
         }
-
+        if (getCurrentRole() == 1){
+            binding.btnManageExercises.visibility = View.VISIBLE
+        }else{
+            binding.btnManageExercises.visibility = View.GONE
+        }
         return binding.root
     }
 
@@ -72,8 +69,9 @@ class workoutHome : Fragment() {
     }
 
     private fun setupObservers() {
-        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-        val userId = sharedPref.getString("userId", "U001") ?: "U001"
+
+//        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+//        val userId = sharedPref.getString("userId", "U001") ?: "U001"
 
         exerciseViewModel.todaysCustomPlans.observe(viewLifecycleOwner) { customPlans ->
             binding.workoutProgress.max = customPlans.size
@@ -111,8 +109,17 @@ class workoutHome : Fragment() {
             (binding.rvWorkouts.adapter as WorkoutPlanAdapter).submitList(customPlans)
         }
 
-        exerciseViewModel.fetchCustomPlans(userId)
+        exerciseViewModel.fetchCustomPlans(getCurrentUserId())
     }
 
-
+    private fun getCurrentUserId(): String {
+        val sharedPreferences = auth.getPreferences()
+        val userId = sharedPreferences.getString("id", "")
+        return userId ?: "U001"
+    }
+    private fun getCurrentRole(): Int {
+        val sharedPreferences = auth.getPreferences()
+        val role = sharedPreferences.getInt("role", 0)
+        return role ?: 0
+    }
 }

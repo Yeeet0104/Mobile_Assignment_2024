@@ -1,18 +1,16 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
+import Login.data.AuthVM
 import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
@@ -23,9 +21,10 @@ import com.example.mobile_assignment.databinding.FragmentEditCustomWorkoutPlanBi
 import com.example.mobile_assignment.workout.Data.CustomPlan
 import com.example.mobile_assignment.workout.Data.Exercise
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
+import com.example.mobile_assignment.workout.MultiSelectSpinner
+import com.example.mobile_assignment.workout.SelectedExerciseAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import util.cropToBlob
-import util.setImageBlob
 import util.toBitmap
 import util.toUri
 import util.toast
@@ -35,7 +34,7 @@ class EditCustomWorkoutPlan : Fragment() {
     private lateinit var binding: FragmentEditCustomWorkoutPlanBinding
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
     private val db = FirebaseFirestore.getInstance()
-
+    private val auth: AuthVM by activityViewModels()
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -230,7 +229,8 @@ class EditCustomWorkoutPlan : Fragment() {
     }
 
     private fun getCurrentUserId(): String {
-        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-        return sharedPref.getString("userId", "U001") ?: "U001"
+        val sharedPreferences = auth.getPreferences()
+        val userId = sharedPreferences.getString("id", "")
+        return userId ?: "U001"
     }
 }
