@@ -1,4 +1,4 @@
-package com.example.mobile_assignment.ui
+package Forum.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,16 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mobile_assignment.data.Post
+import Forum.data.Post
 import com.example.mobile_assignment.databinding.FragmentForumBinding
 import com.example.mobile_assignment.R
-import com.example.mobile_assignment.data.PostVM
+import Forum.data.PostVM
 import util.ForumAdapter
 
-class ForumFragment : Fragment() {
+class ForumFragment : Fragment(), ForumAdapter.OnEditPostClickListener, ForumAdapter.OnCommentClickListener {
     private lateinit var binding: FragmentForumBinding
     private lateinit var forumAdapter: ForumAdapter
     private val viewModel: PostVM by activityViewModels()
+    private val nav by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +28,7 @@ class ForumFragment : Fragment() {
         binding = FragmentForumBinding.inflate(inflater, container, false)
 
         // Initialize the adapter and RecyclerView
-        forumAdapter = ForumAdapter()
+        forumAdapter = ForumAdapter(this, viewModel, this, this)
         binding.rvForum.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = forumAdapter
@@ -44,8 +45,28 @@ class ForumFragment : Fragment() {
             forumAdapter.submitList(posts)
         }
 
-        binding.txtNewPost.setOnClickListener {
-            findNavController().navigate(R.id.action_forumHome_to_forumCreatePost)
+        // Observe the comment count for each post
+        viewModel.postList.value?.forEach { post ->
+            viewModel.getCommentCountLiveData(post.postId).observe(viewLifecycleOwner) { commentCount ->
+                forumAdapter.setCommentCount(post.postId, commentCount)
+            }
         }
+
+        binding.txtNewPost.setOnClickListener {
+            findNavController().navigate(R.id.forumCreatePost)
+        }
+    }
+    override fun onEditPostClick(postId: String) {
+        val bundle = Bundle().apply {
+            putString("postId", postId)
+        }
+        findNavController().navigate(R.id.forumEditPost, bundle)
+    }
+
+    override fun onCommentClick(postId: String) {
+        val bundle = Bundle().apply {
+            putString("postId", postId)
+        }
+        findNavController().navigate(R.id.forumResponse, bundle)
     }
 }

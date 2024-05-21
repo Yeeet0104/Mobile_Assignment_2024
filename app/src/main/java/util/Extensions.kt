@@ -1,9 +1,12 @@
 package util
 
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
+import android.text.format.DateUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -12,9 +15,16 @@ import androidx.core.graphics.drawable.toBitmapOrNull
 import androidx.core.graphics.scale
 import androidx.fragment.app.Fragment
 import com.example.mobile_assignment.R
+import com.example.mobile_assignment.workout.Data.CustomPlan
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Blob
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 // ----------------------------------------------------------------------------
 // Fragment Extensions
@@ -93,26 +103,29 @@ fun Bitmap.crop(width: Int, height: Int): Bitmap {
 // Usage: Convert from Bitmap to Firebase Blob
 
 fun Bitmap.toBlob(): Blob {
-    ByteArrayOutputStream().use {
+    val byteArray: ByteArray
+    ByteArrayOutputStream().use { stream ->
         val format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Bitmap.CompressFormat.WEBP_LOSSY
         } else {
             Bitmap.CompressFormat.WEBP
         }
-        compress(format, 80, it)
-        return Blob.fromBytes(it.toByteArray())
+
+        this.compress(format, 80, stream)
+        byteArray = stream.toByteArray()
     }
+    return Blob.fromBytes(byteArray)
 }
 
 // ----------------------------------------------------------------------------
 // Firebase Blob Extensions
 // ----------------------------------------------------------------------------
 
-// Usage: Convert from Blob to Bitmap
-fun Blob.toBitmap(): Bitmap? {
-    val bytes = toBytes()
-    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-}
+    // Usage: Convert from Blob to Bitmap
+    fun Blob.toBitmap(): Bitmap? {
+        val bytes = toBytes()
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    }
 
 // ----------------------------------------------------------------------------
 // ImageView Extensions
@@ -120,13 +133,78 @@ fun Blob.toBitmap(): Bitmap? {
 
 // Usage: Crop to Firebase Blob
 
-@RequiresApi(Build.VERSION_CODES.R)
-fun ImageView.cropToBlob(width: Int, height: Int): Blob {
-    return drawable?.toBitmapOrNull()?.crop(width, height)?.toBlob() ?: Blob.fromBytes(ByteArray(0))
+    @RequiresApi(Build.VERSION_CODES.R)
+    fun ImageView.cropToBlob(width: Int, height: Int): Blob {
+        return drawable?.toBitmapOrNull()?.crop(width, height)?.toBlob() ?: Blob.fromBytes(
+            ByteArray(0)
+        )
+    }
+
+    // Usage: Load Firebase Blob
+    fun ImageView.setImageBlob(blob: Blob) {
+        setImageBitmap(blob.toBitmap())
+    }
+
+
+fun Fragment.showConfirmationDialog(
+    message: String,
+    positiveText: String,
+    negativeText: String,
+    onPositiveClick: () -> Unit,
+    onNegativeClick: () -> Unit = {}
+) {
+    AlertDialog.Builder(requireContext())
+        .setMessage(message)
+        .setPositiveButton(positiveText) { dialog, _ ->
+            onPositiveClick()
+            dialog.dismiss()
+        }
+        .setNegativeButton(negativeText) { dialog, _ ->
+            onNegativeClick()
+            dialog.dismiss()
+        }
+        .create()
+        .show()
 }
 
-// Usage: Load Firebase Blob
-fun ImageView.setImageBlob(blob: Blob) {
-    setImageBitmap(blob.toBitmap())
+fun Blob.toUri(context: Context): Uri? {
+    return try {
+        val file = File(context.cacheDir, "temp_image_${System.currentTimeMillis()}.jpg")
+        val outputStream = FileOutputStream(file)
+        outputStream.write(this.toBytes())
+        outputStream.flush()
+        outputStream.close()
+        Uri.fromFile(file)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
 }
 
+ fun convertTimeOfDayToDate(timeOfDay: String): Date? {
+    return try {
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val time = dateFormat.parse(timeOfDay)
+        val calendar = Calendar.getInstance()
+        calendar.time = time
+        val now = Calendar.getInstance()
+        calendar.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH))
+        calendar.time
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
+fun getRelativeTimeSpanStringForWorkout(customPlan: CustomPlan): CharSequence {
+    val workoutTime = convertTimeOfDayToDate(customPlan.timeOfDay)
+    return if (workoutTime != null) {
+        DateUtils.getRelativeTimeSpanString(
+            workoutTime.time,
+            System.currentTimeMillis(),
+            DateUtils.MINUTE_IN_MILLIS,
+            DateUtils.FORMAT_SHOW_TIME
+        )
+    } else {
+        "Unknown time"
+    }
+}

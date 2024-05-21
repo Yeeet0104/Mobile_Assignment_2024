@@ -6,14 +6,16 @@ import com.google.firebase.firestore.Exclude
 
 data class CustomPlan(
     @DocumentId
-    val id: String = "", // Document ID field
-    val userId: String = "", // User ID field
+    val id: String = "",
     val name: String = "",
     val targetedBodyPart: String = "",
     val restDuration: String = "",
-    val exerciseIds: List<String> = listOf()
+    var exerciseIds: List<String> = listOf(),
+    val photo: Blob? = null, // Add this field
+    val daysOfWeek: List<String> = listOf(), // New field for days of the week
+    val timeOfDay: String = "",// New field for time of day
+    var status: Int = 0 // 0 for not started, 1 for started
 )
-
 data class Exercise(
     @DocumentId
     var id: String = "",

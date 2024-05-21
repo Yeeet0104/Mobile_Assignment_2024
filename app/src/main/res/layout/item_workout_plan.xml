@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
@@ -8,6 +10,7 @@
     android:layout_marginBottom="8dp"
     android:background="@color/colorWorkoutPlansCon"
     android:elevation="2dp"
+    android:fadingEdge="vertical"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -15,10 +18,11 @@
         android:id="@+id/tvWorkoutTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="5:00 AM"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvWorkoutTitle"
@@ -26,15 +30,27 @@
         android:layout_height="wrap_content"
         android:text="Fullbody Workout"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutTime" />
 
     <TextView
         android:id="@+id/tvWorkoutDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="11 Exercises | 32mins"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutTitle" />
+
+    <ImageView
+        android:id="@+id/workoutPlanImg"
+        android:layout_width="wrap_content"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/btnStartWorkout"
@@ -45,5 +61,9 @@
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:text="Start"
-        android:textColor="@android:color/white" />
-</LinearLayout>
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutDetails" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

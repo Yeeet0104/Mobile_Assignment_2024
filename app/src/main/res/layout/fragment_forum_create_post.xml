@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ForumCreatePost">
+    tools:context="Forum.ui.ForumCreatePost">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_width="362dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="50dp"
             android:ems="10"
             android:hint="Title"
             android:inputType="textMultiLine"
@@ -37,7 +37,7 @@
 
         <EditText
             android:id="@+id/edtPostContent"
-            android:layout_width="363dp"
+            android:layout_width="362dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="24dp"
@@ -63,21 +63,62 @@
             android:id="@+id/imgPost"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginStart="104dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="8dp"
+            android:background="#ccc"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblAddPostPic"
-            android:background="#ccc" />
+            app:layout_constraintTop_toBottomOf="@+id/lblSelectGallery" />
 
         <TextView
             android:id="@+id/lblAddPostPic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="16dp"
             android:text="Add a photo (optional)"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtPostContent" />
+
+        <TextView
+            android:id="@+id/lblSelectGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="8dp"
+            android:text="Select From Gallery"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblAddPostPic" />
+
+        <TextView
+            android:id="@+id/lblOr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="8dp"
+            android:text="OR"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgPost" />
+
+        <ImageButton
+            android:id="@+id/btnCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="170dp"
+            android:background="@drawable/round_radius"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblCamera" />
+
+        <TextView
+            android:id="@+id/lblCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="8dp"
+            android:text="Take Photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblOr" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

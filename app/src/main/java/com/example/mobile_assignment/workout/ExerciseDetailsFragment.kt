@@ -27,7 +27,6 @@ class ExerciseDetailsFragment : Fragment() {
             exercise?.let {
                 binding.tvExerciseName.text = it.name
                 binding.tvExerciseDuration.text = if (it.duration.isNotEmpty()) "Duration: ${it.duration}" else "Reps: ${it.reps}"
-                binding.tvYouTubeId.text = it.youtubeId
 
                 val stepsText = it.steps.joinToString(separator = "\n") { step -> "• $step" }
                 binding.tvSteps.text = stepsText

@@ -1,6 +1,6 @@
-package ui
+package Nutrition
 
-import Data.NutritionVM
+import Nutrition.Data.NutritionVM
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentNutritionSearchBinding
 import util.FoodAdapter
@@ -19,7 +18,6 @@ import util.FoodAdapter
 class NutritionSearch : Fragment() {
     private lateinit var binding: FragmentNutritionSearchBinding
     private val nav by lazy { findNavController() }
-
     private val nutritionViewModel: NutritionVM by activityViewModels()
 
     override fun onCreateView(
@@ -28,16 +26,18 @@ class NutritionSearch : Fragment() {
     ): View? {
         binding = FragmentNutritionSearchBinding.inflate(inflater, container, false)
 
-        nutritionViewModel.loadFoodItems()
+        binding.searchView.requestFocus()
 
-        val adapter = FoodAdapter { h, f ->
-            h.binding.root.setOnClickListener { detail(f.foodId) }
+        val adapter = FoodAdapter { holder, foodItem ->
+            holder.binding.root.setOnClickListener {
+                detail(foodItem.foodId)
+            }
         }
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
-        nutritionViewModel.foodItems.observe(viewLifecycleOwner) { foodItems ->
+        nutritionViewModel.getFoodLD().observe(viewLifecycleOwner) { foodItems ->
             adapter.submitList(foodItems)
         }
 
@@ -49,10 +49,23 @@ class NutritionSearch : Fragment() {
             }
         })
 
+        nutritionViewModel.getResultLD().observe(viewLifecycleOwner) { filteredFoodItems ->
+            adapter.submitList(filteredFoodItems)
+        }
 
 
         return binding.root
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        // Reset search when fragment is resumed
+        binding.searchView.setQuery("", false)
+        nutritionViewModel.search("")
+    }
+
+
 
     private fun detail(foodId: String) {
         nav.navigate(R.id.nutritionDetails, bundleOf(
