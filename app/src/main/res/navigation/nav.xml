@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/workoutHome"
-        android:name="com.example.mobile_assignment.workout.workoutHome"
+        android:name="com.example.mobile_assignment.workout.Ui.workoutHome"
         android:label="Workout"
         tools:layout="@layout/fragment_workout_home" />
 
@@ -60,18 +60,18 @@
 
     <fragment
         android:id="@+id/addCustomPlan"
-        android:name="com.example.mobile_assignment.workout.addCustomPlan"
+        android:name="com.example.mobile_assignment.workout.Ui.addCustomPlan"
         android:label="Add Workout Plan" />
 
     <fragment
         android:id="@+id/addExercise"
-        android:name="com.example.mobile_assignment.workout.addExercise"
+        android:name="com.example.mobile_assignment.workout.Ui.addExercise"
         android:label="fragment_add_exercise"
         tools:layout="@layout/fragment_add_exercise" />
 
     <fragment
         android:id="@+id/addNewExercise"
-        android:name="com.example.mobile_assignment.workout.AddNewExercise"
+        android:name="com.example.mobile_assignment.workout.Ui.AddNewExercise"
         android:label="AddNewExercise" />
 
     <fragment
@@ -174,41 +174,41 @@
 
     <fragment
         android:id="@+id/fragment_workout_plan_details"
-        android:name="com.example.mobile_assignment.workout.fragment_workout_plan_details"
+        android:name="com.example.mobile_assignment.workout.Ui.fragment_workout_plan_details"
         android:label="Workout Plan Details" />
     <fragment
         android:id="@+id/manageExercises"
-        android:name="com.example.mobile_assignment.workout.manageExercises"
+        android:name="com.example.mobile_assignment.workout.Ui.manageExercises"
         android:label="Manage Exercise"
         tools:layout="@layout/fragment_manage_exercises" />
     <fragment
         android:id="@+id/editCustomWorkoutPlan"
-        android:name="com.example.mobile_assignment.workout.EditCustomWorkoutPlan"
+        android:name="com.example.mobile_assignment.workout.Ui.EditCustomWorkoutPlan"
         android:label="Edit Workout Plan" />
 
     <fragment
         android:id="@+id/startExercise"
-        android:name="com.example.mobile_assignment.workout.StartExercise"
+        android:name="com.example.mobile_assignment.workout.Ui.StartExercise"
         android:label="Start Workout"
         tools:layout="@layout/fragment_start_exercise" />
     <fragment
         android:id="@+id/restTimer"
-        android:name="com.example.mobile_assignment.workout.RestTimer"
+        android:name="com.example.mobile_assignment.workout.Ui.RestTimer"
         android:label="Rest"
         tools:layout="@layout/fragment_rest_timer" />
     <fragment
         android:id="@+id/viewAllWorkoutPlan"
-        android:name="com.example.mobile_assignment.workout.viewAllWorkoutPlan"
+        android:name="com.example.mobile_assignment.workout.Ui.viewAllWorkoutPlan"
         android:label="All Workout Plan"
         tools:layout="@layout/fragment_view_all_workout_plan" />
     <fragment
         android:id="@+id/workoutDoneScreen2"
-        android:name="com.example.mobile_assignment.workout.workoutDoneScreen"
+        android:name="com.example.mobile_assignment.workout.Ui.workoutDoneScreen"
         android:label="Workout Completed"
         tools:layout="@layout/fragment_workout_done_screen" />
     <fragment
         android:id="@+id/exerciseDetailsFragment"
-        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
+        android:name="com.example.mobile_assignment.workout.Ui.ExerciseDetailsFragment"
         android:label="Exercise Details"
         tools:layout="@layout/fragment_exercise_details" />
 

@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,8 +14,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mobile_assignment.databinding.ActivityMainBinding
-import com.example.mobile_assignment.workout.Data.ExerciseViewModel
-import com.example.mobile_assignment.workout.WorkoutSharedViewModel
+import com.example.mobile_assignment.workout.Data.WorkoutSharedViewModel
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {

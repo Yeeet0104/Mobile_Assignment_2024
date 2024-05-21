@@ -6,7 +6,6 @@ import Login.data.UserVM
 import Login.util.errorDialog
 import Login.util.toBitmap
 import Login.util.toBlob
-import Login.util.toast
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,9 +16,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.databinding.FragmentEditProfileBinding
-import com.example.mobile_assignment.databinding.FragmentLoginBinding
-import com.example.mobile_assignment.databinding.FragmentProfileBinding
-import java.sql.Blob
+
 
 
 class EditProfileFragment : Fragment() {

@@ -2,7 +2,6 @@ package Login.ui
 
 import Login.data.UserVM
 import Login.util.errorDialog
-import Login.util.toast
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,6 +16,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import util.toast
 import java.security.MessageDigest
 
 class ResetPasswordFragment : Fragment() {

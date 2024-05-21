@@ -1,5 +1,6 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
+import Login.data.AuthVM
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -20,6 +21,7 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentStartExerciseBinding
 import com.example.mobile_assignment.workout.Data.CustomPlan
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
+import com.example.mobile_assignment.workout.Data.WorkoutSharedViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import util.toBitmap
 
@@ -29,6 +31,7 @@ class StartExercise : Fragment() {
     private val sharedViewModel: WorkoutSharedViewModel by activityViewModels()
     private val ExerciseViewModel: ExerciseViewModel by activityViewModels()
     private var countDownTimer: CountDownTimer? = null
+    private val auth: AuthVM by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,7 +51,7 @@ class StartExercise : Fragment() {
         }
 
         binding.btnDone.setOnClickListener {
-            sharedViewModel.addProgress(ExerciseViewModel.getCurrentUserId())
+            sharedViewModel.addProgress(getCurrentUserId())
             sharedViewModel.nextExercise()
             stopAndNavigate()
         }
@@ -109,7 +112,7 @@ class StartExercise : Fragment() {
 
             override fun onFinish() {
                 binding.progressBarDuration.progress = 0
-                sharedViewModel.addProgress(ExerciseViewModel.getCurrentUserId())
+                sharedViewModel.addProgress(getCurrentUserId())
                 navigateToNextExercise()
             }
         }
@@ -123,7 +126,7 @@ class StartExercise : Fragment() {
         countDownTimer?.cancel()
     }
     private fun navigateToNextExercise() {
-        val userId = ExerciseViewModel.getCurrentUserId()
+        val userId = getCurrentUserId()
         val totalExercises = sharedViewModel.selectedWorkoutPlan.value?.exerciseIds?.size ?: 0
         val currentProgress = sharedViewModel.workoutProgress.value ?: 0
 
@@ -135,5 +138,10 @@ class StartExercise : Fragment() {
         } else {
             findNavController().navigate(R.id.restTimer)
         }
+    }
+    private fun getCurrentUserId(): String {
+        val sharedPreferences = auth.getPreferences()
+        val userId = sharedPreferences.getString("id", "")
+        return userId ?: "U001"
     }
 }

@@ -3,7 +3,7 @@ package Login.ui
 import Login.data.AuthVM
 import Login.data.UserVM
 import Login.util.errorDialog
-import Login.util.toast
+import util.toast
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
