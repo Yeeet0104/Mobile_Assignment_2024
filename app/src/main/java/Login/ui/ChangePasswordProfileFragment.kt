@@ -12,8 +12,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.databinding.FragmentChangePasswordProfileBinding
-import com.example.mobile_assignment.databinding.FragmentLoginBinding
-import com.example.mobile_assignment.databinding.FragmentProfileBinding
+import util.toast
 import java.security.MessageDigest
 
 

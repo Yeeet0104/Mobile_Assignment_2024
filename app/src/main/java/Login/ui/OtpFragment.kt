@@ -3,7 +3,6 @@ package Login.ui
 import Login.data.AuthVM
 import Login.data.UserVM
 import Login.util.errorDialog
-import Login.util.snackbar
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentOtpBinding
+import util.toast
 import kotlin.random.Random
 
 
@@ -50,7 +50,7 @@ class OtpFragment : Fragment() {
 
         auth.getOTP(userId) { otpFromDatabase ->
             if (otpFromDatabase == otpCode) {
-                snackbar("Verification is successful. Reset your password now.")
+                toast("Verification is successful. Reset your password now.")
 
                 //generate again otp to replace otp in database
                 // Generate a new OTP

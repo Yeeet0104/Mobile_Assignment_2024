@@ -41,7 +41,7 @@ class SimpleEmail(
 
     private val username = "magnetic636@gmail.com" // EMAIL ACCOUNT
     private val password = "tqbp zars jlzu wpof"   // APP PASSWORD
-    private val personal = "OTP"   // DISPLAY NAME
+    private val personal = "NutriFit Coach"   // DISPLAY NAME
 
     private val host = "smtp.gmail.com"
     private val port = "587"

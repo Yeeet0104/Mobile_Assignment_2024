@@ -16,7 +16,11 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.databinding.FragmentEditProfileBinding
-
+import com.example.mobile_assignment.databinding.FragmentLoginBinding
+import com.example.mobile_assignment.databinding.FragmentProfileBinding
+import util.toast
+import java.sql.Blob
+import kotlin.random.Random
 
 
 class EditProfileFragment : Fragment() {
@@ -79,6 +83,9 @@ class EditProfileFragment : Fragment() {
         // Access shared preferences from AuthVM
         val sharedPreferences = auth.getPreferences()
         val userId = sharedPreferences.getString("id", "") ?: return
+        val pwd = sharedPreferences.getString("password", "") ?: ""
+        val role = sharedPreferences.getInt("role",0)
+        val otpCode = Random.nextInt(1000, 9999)
 
         // Retrieve values from UI
         val username = binding.edtEdtProfileUsername.text.toString().trim()
@@ -111,11 +118,15 @@ class EditProfileFragment : Fragment() {
                     weight = weight,
                     height = height,
                     gender = gender,
-                    photo = newPhoto
+                    photo = newPhoto,
+                    password = pwd,
+                    role = role,
+                    otp = otpCode
                 )
 
                 // Update user in Firestore
                 userVM.set(updatedUser)
+                toast("Profile update successfully!")
 
                 // Navigate back to ProfileFragment
                 nav.navigateUp()

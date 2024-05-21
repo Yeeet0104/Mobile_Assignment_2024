@@ -25,7 +25,7 @@ class   ProfileFragment : Fragment() {
     private val nav by lazy { findNavController() }
     private val auth: AuthVM by activityViewModels()
     private val userVM: UserVM by activityViewModels()
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,7 +83,6 @@ class   ProfileFragment : Fragment() {
             nav.navigate(R.id.loginFragment)
         }
     }
-
     private fun logout() {
         auth.logout()
         nav.popBackStack(R.id.home2, false)
