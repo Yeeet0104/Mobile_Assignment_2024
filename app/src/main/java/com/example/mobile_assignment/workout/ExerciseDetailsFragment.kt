@@ -26,7 +26,7 @@ class ExerciseDetailsFragment : Fragment() {
         exerciseViewModel.selectedExercise.observe(viewLifecycleOwner, { exercise ->
             exercise?.let {
                 binding.tvExerciseName.text = it.name
-                binding.tvExerciseDuration.text = if (it.duration.isNotEmpty()) "Duration: ${it.duration}" else "Reps: ${it.reps}"
+                binding.tvExerciseDuration.text = if (it.duration != 0) "Duration: ${it.duration}" else "Reps: ${it.reps}"
 
                 val stepsText = it.steps.joinToString(separator = "\n") { step -> "• $step" }
                 binding.tvSteps.text = stepsText

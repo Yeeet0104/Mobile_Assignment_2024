@@ -1,13 +1,23 @@
 package com.example.mobile_assignment
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mobile_assignment.databinding.ActivityMainBinding
+import com.example.mobile_assignment.workout.Data.ExerciseViewModel
+import com.example.mobile_assignment.workout.WorkoutSharedViewModel
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -17,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        scheduleDailyProgressReset(this)
         abc = AppBarConfiguration(
             setOf(
                 R.id.home2,
@@ -57,5 +67,42 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return nav.navigateUp(abc)
+    }
+
+    private fun scheduleDailyProgressReset(context: Context) {
+        val userId = getCurrentUserId()  // Get the user ID here
+        val intent = Intent(context, ResetProgressReceiver::class.java).apply {
+            putExtra("userId", userId)  // Add the user ID to the intent
+        }
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            if (before(Calendar.getInstance())) {
+                add(Calendar.DAY_OF_MONTH, 1)
+            }
+        }
+
+        alarmManager.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
+    }
+    private fun getCurrentUserId(): String {
+        val sharedPref = getSharedPreferences("your_shared_prefs", Context.MODE_PRIVATE)
+        return sharedPref.getString("userId", "U001") ?: "U001"
+    }
+}
+class ResetProgressReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        val userId = intent.getStringExtra("userId") ?: return
+        val viewModel = ViewModelProvider(context as MainActivity).get(WorkoutSharedViewModel::class.java)
+        viewModel.resetProgress(userId)
     }
 }

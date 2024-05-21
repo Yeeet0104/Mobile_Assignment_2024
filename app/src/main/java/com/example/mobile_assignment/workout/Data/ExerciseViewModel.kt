@@ -31,10 +31,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     private val _selectedExercises = MutableLiveData<List<Exercise>>()
     val selectedExercises: LiveData<List<Exercise>> get() = _selectedExercises
-
-//    private val _addExerciseStatus = MutableLiveData<Boolean>()
-//    val addExerciseStatus: LiveData<Boolean> get() = _addExerciseStatus
-
+    
     private val _customPlans = MutableLiveData<List<CustomPlan>>()
     val customPlans: LiveData<List<CustomPlan>> get() = _customPlans
 
@@ -287,4 +284,9 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
         _todaysCustomPlans.value = filteredPlans
     }
+
+    fun getExerciseInfo(ExerciseID : String) : Exercise? {
+        return _exercises.value?.find { it.id == ExerciseID }
+    }
+
 }
