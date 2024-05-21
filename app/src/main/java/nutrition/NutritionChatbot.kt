@@ -1,8 +1,8 @@
 package nutrition
 
-import nutrition.Data.ChatMessage
-import nutrition.Data.OpenAIRequest
-import nutrition.Data.OpenAIResponse
+import nutrition.data.ChatMessage
+import nutrition.data.OpenAIRequest
+import nutrition.data.OpenAIResponse
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

@@ -1,6 +1,6 @@
 package nutrition
 
-import nutrition.Data.NutritionVM
+import nutrition.data.NutritionVM
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle

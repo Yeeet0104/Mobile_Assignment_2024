@@ -1,4 +1,4 @@
-package nutrition.Data
+package nutrition.data
 
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId

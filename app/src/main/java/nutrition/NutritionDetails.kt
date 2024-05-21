@@ -1,8 +1,8 @@
 package nutrition
 
-import nutrition.Data.NutritionVM
-import nutrition.Data.getDailyFoodReference
-import nutrition.Data.getDateReference
+import nutrition.data.NutritionVM
+import nutrition.data.getDailyFoodReference
+import nutrition.data.getDateReference
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ContentValues
@@ -207,7 +207,7 @@ class NutritionDetails : Fragment() {
                 if (document != null && document.exists()) {
                     // DateItem document exists, no need to create a new one
                     val trackerItemRef = getDailyFoodReference(userId, date)
-                    val trackerItem = nutrition.Data.TrackerItem(
+                    val trackerItem = nutrition.data.TrackerItem(
                         foodId = food.foodId,
                         foodName = food.foodName,
                         calories = food.calories,
@@ -228,12 +228,12 @@ class NutritionDetails : Fragment() {
 
                 } else {
                     // DateItem document doesn't exist, create a new one with caloriesTarget set to 2000
-                    val dateItem = nutrition.Data.DateItem(date = date, caloriesTarget = 2000)
+                    val dateItem = nutrition.data.DateItem(date = date, caloriesTarget = 2000)
                     dateRef.set(dateItem)
                         .addOnSuccessListener {
                             // DateItem document successfully written or updated
                             val trackerItemRef = getDailyFoodReference(userId, date)
-                            val trackerItem = nutrition.Data.TrackerItem(
+                            val trackerItem = nutrition.data.TrackerItem(
                                 foodId = food.foodId,
                                 foodName = food.foodName,
                                 calories = food.calories,

@@ -1,4 +1,4 @@
-package nutrition.Data
+package nutrition.data
 
 data class ChatMessage(val role: String, val content: String)
 

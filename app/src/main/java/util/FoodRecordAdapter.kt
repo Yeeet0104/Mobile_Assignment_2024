@@ -1,6 +1,6 @@
 package util
 
-import nutrition.Data.TrackerItem
+import nutrition.data.TrackerItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
