@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/lblAddPost"
@@ -28,10 +28,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="50dp"
+            android:background="@drawable/black_border"
             android:ems="10"
             android:hint="Title"
             android:inputType="textMultiLine"
             android:maxLines="2"
+            android:padding="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblAddPost" />
 
@@ -41,10 +43,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="24dp"
+            android:background="@drawable/black_border"
             android:ems="10"
             android:hint="Tell people what you have to say"
             android:inputType="textMultiLine"
             android:maxLines="10"
+            android:padding="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtPostTitle" />
 
@@ -61,14 +65,16 @@
 
         <ImageView
             android:id="@+id/imgPost"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="32dp"
             android:background="#ccc"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblSelectGallery" />
+            app:layout_constraintTop_toBottomOf="@+id/selectBtn" />
 
         <TextView
             android:id="@+id/lblAddPostPic"
@@ -82,43 +88,56 @@
             app:layout_constraintTop_toBottomOf="@+id/edtPostContent" />
 
         <TextView
-            android:id="@+id/lblSelectGallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="8dp"
-            android:text="Select From Gallery"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblAddPostPic" />
-
-        <TextView
             android:id="@+id/lblOr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:text="OR"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgPost" />
+            app:layout_constraintStart_toEndOf="@+id/selectBtn"
+            app:layout_constraintTop_toTopOf="@+id/selectBtn" />
 
         <ImageButton
             android:id="@+id/btnCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="170dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/round_radius"
             android:src="@drawable/ic_camera"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblCamera" />
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/selectBtn" />
 
-        <TextView
-            android:id="@+id/lblCamera"
+        <Button
+            android:id="@+id/selectBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="8dp"
-            android:text="Take Photo"
+            android:text="Select From Gallery"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblOr" />
+            app:layout_constraintTop_toBottomOf="@+id/lblAddPostPic" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Use Camera"
+            app:layout_constraintStart_toEndOf="@+id/lblOr"
+            app:layout_constraintTop_toTopOf="@+id/selectBtn" />
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="Reset"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</ScrollView>

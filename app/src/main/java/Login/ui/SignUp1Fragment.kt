@@ -4,7 +4,6 @@ import Login.data.User
 import Login.data.UserVM
 import Login.util.errorDialog
 import Login.util.toBlob
-import Login.util.toast
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentSignUp1Binding
 import com.google.firebase.firestore.FirebaseFirestore
+import util.toast
 import java.security.MessageDigest
 import kotlin.random.Random
 
@@ -49,130 +49,6 @@ class SignUp1Fragment : Fragment() {
 
         binding.edtSignUp1Username.requestFocus()
     }
-
-//    private fun register() {
-//        val confPass = binding.edtSignUp1ConfPassword.text.toString()
-//        val pwd = binding.edtSignUp1Password.text.toString()
-//        val otpCode = Random.nextInt(1000, 9999)
-//
-//        if (confPass == pwd) {
-//            val userPhoto = BitmapFactory.decodeResource(resources, R.drawable.suzy)
-//            if (userPhoto == null) {
-//                toast("Failed to load user photo")
-//                return
-//            }
-//
-//            // Generate ID asynchronously
-//            autoGenerateID { generatedId ->
-//                val user = User(
-//                    id = generatedId,
-//                    username = binding.edtSignUp1Username.text.toString().trim(),
-//                    email = binding.edtSignUp1Email.text.toString().trim(),
-//                    password = binding.edtSignUp1Password.text.toString().trim(),
-//                    otp = otpCode,
-//                    role = 0,
-//                    photo = userPhoto.toBlob()
-//                )
-//
-//                val e = vm.validate(user)
-//                if (e != "") {
-//                    errorDialog(e)
-//                    return@autoGenerateID
-//
-//                }else if(confPass == ""){
-//                    errorDialog("Confirm Password required.")
-//                    binding.edtSignUp1ConfPassword.text.clear()
-//                    return@autoGenerateID
-//                }
-//
-//                vm.set(user)
-//                toast("Successfully registered! Login now!")
-//                nav.navigateUp()
-//            }
-//        } else {
-//            errorDialog("Password and Confirm Password not same. Try again!")
-//        }
-//    }
-
-//    private fun register() {
-//        val userName = binding.edtSignUp1Username.text.toString().trim()
-//        val userEmail = binding.edtSignUp1Email.text.toString().trim()
-//        val confPass = binding.edtSignUp1ConfPassword.text.toString()
-//        val pwd = binding.edtSignUp1Password.text.toString()
-//        val otpCode = Random.nextInt(1000, 9999)
-//
-//        //validation
-//        when {
-//            userName.isEmpty() -> {
-//                errorDialog("Username cannot be empty")
-//                return
-//            }
-//            userName.length < 3 -> {
-//                errorDialog("Username must be at least 3 characters")
-//                return
-//            }
-//            userEmail.isEmpty() -> {
-//                errorDialog("Email cannot be empty")
-//                return
-//            }
-//            !android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches() -> {
-//                errorDialog("Invalid email format")
-//                return
-//            }
-//            pwd.isEmpty() -> {
-//                errorDialog("Password cannot be empty")
-//                return
-//            }
-//            pwd.length < 5 -> {
-//                errorDialog("Password must be at least 5 characters")
-//                return
-//            }
-//            confPass.isEmpty() -> {
-//                errorDialog("Confirm Password cannot be empty")
-//                return
-//            }
-//            confPass != pwd -> {
-//                errorDialog("Password and Confirm Password do not match")
-//                return
-//            }
-//        }
-//
-//        if (confPass == pwd) {
-//            val userPhoto = BitmapFactory.decodeResource(resources, R.drawable.suzy)
-//            if (userPhoto == null) {
-//                toast("Failed to load user photo")
-//                return
-//            }
-//
-//            // Hash the password
-//            val hashedPassword = hashPassword(pwd)
-//
-//            // Generate ID asynchronously
-//            autoGenerateID { generatedId ->
-//                val user = User(
-//                    id = generatedId,
-//                    username = userName,
-//                    email = userEmail,
-//                    password = hashedPassword, // Store hashed password
-//                    otp = otpCode,
-//                    role = 0,
-//                    photo = userPhoto.toBlob()
-//                )
-//
-//                val e = vm.validate(user)
-//                if (e != "") {
-//                    errorDialog(e)
-//                    return@autoGenerateID
-//                }
-//
-//                vm.set(user)
-//                toast("Successfully registered! Login now!")
-//                nav.navigateUp()
-//            }
-//        } else {
-//            errorDialog("Password and Confirm Password not same. Try again!")
-//        }
-//    }
 
     private fun register() {
         val userName = binding.edtSignUp1Username.text.toString().trim()
