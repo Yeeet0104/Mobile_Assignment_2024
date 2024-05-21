@@ -1,6 +1,6 @@
 package nutrition
 
-import nutrition.Data.NutritionVM
+import nutrition.data.NutritionVM
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

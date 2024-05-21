@@ -1,6 +1,6 @@
 package util
 
-import nutrition.Data.FoodItem
+import nutrition.data.FoodItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

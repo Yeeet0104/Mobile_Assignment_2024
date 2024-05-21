@@ -1,4 +1,4 @@
-package nutrition.Data
+package nutrition.data
 
 import android.app.Application
 import android.content.Context
@@ -230,7 +230,7 @@ class NutritionVM(application: Application) : AndroidViewModel(application) {
                     // Document for the current date already exists, no need to create a new one
                 } else {
                     // Document for the current date doesn't exist, create a new one
-                    val dateItem = nutrition.Data.DateItem(date = date, caloriesTarget = 2000)
+                    val dateItem = nutrition.data.DateItem(date = date, caloriesTarget = 2000)
                     dateRef.set(dateItem)
                         .addOnFailureListener { e ->
                             // Handle failure to set DateItem

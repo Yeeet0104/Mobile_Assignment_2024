@@ -1,6 +1,6 @@
 package util
 
-import nutrition.Data.ChatMessage
+import nutrition.data.ChatMessage
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
