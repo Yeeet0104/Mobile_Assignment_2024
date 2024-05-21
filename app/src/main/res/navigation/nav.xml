@@ -175,5 +175,9 @@
         android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
         android:label="fragment_exercise_details"
         tools:layout="@layout/fragment_exercise_details" />
+    <fragment
+        android:id="@+id/liveChatNameList"
+        android:name="Forum.ui.LiveChatNameList"
+        android:label="LiveChatNameList" />
 
 </navigation>

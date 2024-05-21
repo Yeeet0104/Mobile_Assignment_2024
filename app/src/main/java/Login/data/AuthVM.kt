@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.GnssAntennaInfo.Listener
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
@@ -92,6 +93,19 @@ class AuthVM (val app: Application) : AndroidViewModel(app) {
         if(email != null && password != null){
             login(email,password)
         }
+    }
+
+    suspend fun getUserPhotoBlob(): Blob? {
+        val currentUserId = getPreferences().getString("id", null)
+        if (currentUserId != null) {
+            val user = USERS
+                .document(currentUserId)
+                .get()
+                .await()
+                .toObject<User>()
+            return user?.photo
+        }
+        return null
     }
 
 }

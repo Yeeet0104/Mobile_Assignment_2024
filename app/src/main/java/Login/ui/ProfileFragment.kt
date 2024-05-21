@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentHomeBinding
 import com.example.mobile_assignment.databinding.FragmentLoginBinding
 import com.example.mobile_assignment.databinding.FragmentProfileBinding
@@ -17,7 +18,7 @@ class   ProfileFragment : Fragment() {
 
     private lateinit var binding : FragmentProfileBinding
     private val nav by lazy { findNavController() }
-
+    private val auth: AuthVM by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,12 +26,8 @@ class   ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-
-
-
         return binding.root
     }
-
 }
 
 //private lateinit var binding: FragmentHomeBinding
