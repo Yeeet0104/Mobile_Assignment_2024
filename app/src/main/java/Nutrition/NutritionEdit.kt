@@ -19,18 +19,23 @@ import util.toast
 
 class NutritionEdit : Fragment() {
     private val nav by lazy { findNavController() }
-    private val nutritionVM: NutritionVM by activityViewModels()
+    private lateinit var nutritionVM: NutritionVM // Move declaration here
+
+    //USER ID
+    private lateinit var userId: String
     private lateinit var binding: FragmentNutritionEditBinding
     private val foodId by lazy { arguments?.getString("foodId") ?: "" }
 
-    private var userId = "U001"
 
-    @RequiresApi(Build.VERSION_CODES.R)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNutritionEditBinding.inflate(inflater, container, false)
+        nutritionVM = activityViewModels<NutritionVM>().value
+        userId = nutritionVM.getCurrentUserId()
+
 
         val food = nutritionVM.get(foodId)
         if (food == null) {

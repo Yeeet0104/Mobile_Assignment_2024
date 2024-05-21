@@ -5,8 +5,12 @@ import Nutrition.Data.getDailyFoodReference
 import Nutrition.Data.getDateReference
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.ContentValues
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +23,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentNutritionDetailsBinding
+import com.google.gson.Gson
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import util.setImageBlob
 import util.toast
 import java.time.LocalDate
@@ -26,38 +37,88 @@ import java.time.LocalDateTime
 
 class NutritionDetails : Fragment() {
     private lateinit var binding: FragmentNutritionDetailsBinding
+    private lateinit var nutritionVM: NutritionVM // Move declaration here
 
+    //USER ID
+    private lateinit var userId: String
     private val nav by lazy { findNavController() }
     private val foodId by lazy { arguments?.getString("foodId") ?: "" }
-    private val nutritionViewModel: NutritionVM by activityViewModels()
 
-    //DATABASE ITEM TEST
-    // TODO: Replace with actual user ID and calories target
-    @RequiresApi(Build.VERSION_CODES.O)
     private var date = LocalDateTime.now().toLocalDate().toString()
-    private var userId = "U001"
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNutritionDetailsBinding.inflate(inflater, container, false)
+        nutritionVM = activityViewModels<NutritionVM>().value
+        userId = nutritionVM.getCurrentUserId()
 
-        nutritionViewModel.getFoodById(foodId).observe(viewLifecycleOwner) { food ->
+        nutritionVM.getFoodById(foodId).observe(viewLifecycleOwner) { food ->
             if (food == null) {
                 nav.navigateUp()
+                toast("Food not found")
                 return@observe
             }
 
-            binding.ivFood.setImageBlob(food.image)
+            binding.ivFood.setImageBlob(food!!.image)
             binding.tvFoodName.text = food.foodName
             binding.tvCalories.text = "${food.calories} kcal"
             binding.tvProtein.text = "${food.protein} g"
             binding.tvCarbs.text = "${food.carbs} g"
             binding.tvFat.text = "${food.fat} g"
             binding.tvDescription.text = food.description
+        }
+
+        binding.btnExport.setOnClickListener {
+            // Get the current food object
+            val food = nutritionVM.get(foodId)
+            if (food != null) {
+                // Create a new object with only the desired fields
+                val foodData = mapOf(
+                    "foodId" to food.foodId,
+                    "userId" to userId
+                )
+
+                // Convert the new object to a JSON string
+                val gson = Gson()
+                val foodJson = gson.toJson(foodData)
+
+                // Generate a QR code from the JSON string with increased size
+                val hints = mapOf(
+                    EncodeHintType.ERROR_CORRECTION to ErrorCorrectionLevel.L
+                )
+
+                try {
+                    val qrCodeWriter = QRCodeWriter()
+                    // Increase the size to 1000x1000 pixels
+                    val bitMatrix = qrCodeWriter.encode(foodJson, BarcodeFormat.QR_CODE, 1000, 1000, hints)
+                    val barcodeEncoder = BarcodeEncoder()
+                    val qrCodeBitmap = barcodeEncoder.createBitmap(bitMatrix)
+
+                    // Save the QR code as an image file
+                    val filename = "${food.foodName}.png"
+                    val resolver = context?.contentResolver
+                    val contentValues = ContentValues().apply {
+                        put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                        put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+                        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                    }
+
+                    val uri = resolver?.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+                    resolver?.openOutputStream(uri ?: return@setOnClickListener)?.use { outputStream ->
+                        qrCodeBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                    }
+
+                    // Show a message to the user
+                    toast("QR code saved as $filename in the Downloads directory")
+                } catch (e: WriterException) {
+                    // Handle exception
+                    e.printStackTrace()
+                }
+            }
         }
 
         binding.btnAddCal.setOnClickListener {
@@ -116,7 +177,7 @@ class NutritionDetails : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        val food = nutritionViewModel.get(foodId)
+        val food = nutritionVM.get(foodId)
         if (food == null) {
             nav.navigateUp()
             return
@@ -133,7 +194,7 @@ class NutritionDetails : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addCalories(date: String) {
-        val food = nutritionViewModel.get(foodId)
+        val food = nutritionVM.get(foodId)
         if (food == null) {
             if (isAdded) {
                 toast("Food not found")
@@ -214,7 +275,7 @@ class NutritionDetails : Fragment() {
     }
 
     private fun deleteCal() {
-        nutritionViewModel.delete(userId, foodId)
+        nutritionVM.delete(userId, foodId)
         toast("Food deleted from database")
         // Optionally, navigate back to the previous screen after deletion
         nav.navigateUp()
