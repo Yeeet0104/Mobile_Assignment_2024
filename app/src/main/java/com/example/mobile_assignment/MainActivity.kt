@@ -18,8 +18,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mobile_assignment.databinding.ActivityMainBinding
-import com.example.mobile_assignment.workout.Data.ExerciseViewModel
-import com.example.mobile_assignment.workout.WorkoutSharedViewModel
+import com.example.mobile_assignment.workout.Data.WorkoutSharedViewModel
 import java.util.Calendar
 
 

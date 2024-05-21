@@ -14,8 +14,7 @@
         android:id="@+id/scheduleIcon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_workout"
-        android:tint="@color/colorIcon" />
+        android:src="@drawable/ic_workout" />
 
     <TextView
         android:id="@+id/scheduleText"
@@ -31,6 +30,5 @@
         android:id="@+id/viewAllExerciseArrow"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_arrow_right"
-        android:tint="@color/colorIcon" />
+        android:src="@drawable/ic_arrow_right" />
 </LinearLayout>

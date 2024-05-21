@@ -1,4 +1,4 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

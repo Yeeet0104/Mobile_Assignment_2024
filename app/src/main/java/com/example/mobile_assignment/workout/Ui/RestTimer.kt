@@ -1,6 +1,5 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Ui
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
@@ -18,6 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentRestTimerBinding
+import com.example.mobile_assignment.workout.Data.WorkoutSharedViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 

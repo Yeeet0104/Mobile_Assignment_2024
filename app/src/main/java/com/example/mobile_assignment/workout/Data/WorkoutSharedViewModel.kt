@@ -1,10 +1,9 @@
-package com.example.mobile_assignment.workout
+package com.example.mobile_assignment.workout.Data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mobile_assignment.workout.Data.CustomPlan
 import com.google.firebase.firestore.FirebaseFirestore
 
 class WorkoutSharedViewModel  : ViewModel() {

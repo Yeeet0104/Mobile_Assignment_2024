@@ -1,14 +1,12 @@
-package Nutrition
+package nutrition
 
-import Nutrition.Data.NutritionVM
-import android.os.Build
+import nutrition.data.NutritionVM
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,18 +17,23 @@ import util.toast
 
 class NutritionEdit : Fragment() {
     private val nav by lazy { findNavController() }
-    private val nutritionVM: NutritionVM by activityViewModels()
+    private lateinit var nutritionVM: NutritionVM // Move declaration here
+
+    //USER ID
+    private lateinit var userId: String
     private lateinit var binding: FragmentNutritionEditBinding
     private val foodId by lazy { arguments?.getString("foodId") ?: "" }
 
-    private var userId = "U001"
 
-    @RequiresApi(Build.VERSION_CODES.R)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNutritionEditBinding.inflate(inflater, container, false)
+        nutritionVM = activityViewModels<NutritionVM>().value
+        userId = nutritionVM.getCurrentUserId()
+
 
         val food = nutritionVM.get(foodId)
         if (food == null) {
@@ -69,7 +72,6 @@ class NutritionEdit : Fragment() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.R)
     private fun save() {
         val foodName = binding.edtFoodName.text.toString()
         val carbs = binding.edtProtein.text.toString().toIntOrNull() ?: 0

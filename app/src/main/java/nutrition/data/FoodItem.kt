@@ -1,10 +1,8 @@
-package Nutrition.Data
+package nutrition.data
 
-import com.google.firebase.Firebase
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
 
 data class FoodItem (
     @DocumentId
@@ -39,8 +37,8 @@ data class DateItem (
     var caloriesTarget: Int = 0
 )
 
+data class QRCodeData(val userId: String, val foodId: String)
 
-val FOOD = Firebase.firestore.collection("foodList")
 
 fun getDateReference(userId: String, date: String) =
     FirebaseFirestore.getInstance().collection("trackerList")

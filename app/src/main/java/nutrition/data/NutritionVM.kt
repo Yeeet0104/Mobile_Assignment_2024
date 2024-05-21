@@ -1,23 +1,23 @@
-package Nutrition.Data
+package nutrition.data
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.firestore
 
-class NutritionVM : ViewModel() {
+class NutritionVM(application: Application) : AndroidViewModel(application) {
 
     private val db = Firebase.firestore
     private val foodLD = MutableLiveData<List<FoodItem>>(emptyList())
     private var listener : ListenerRegistration? = null
     private val resultLD = MutableLiveData<List<FoodItem>>()
-
-    private var userId = "U001"
+    private val userId: String = getCurrentUserId()
 
     init {
         listener = getPersonalFoodReference(userId).addSnapshotListener { snap, _ ->
@@ -31,6 +31,10 @@ class NutritionVM : ViewModel() {
         listener?.remove()
     }
 
+    fun getCurrentUserId(): String {
+        val sharedPref = getApplication<Application>().getSharedPreferences("AUTH", Context.MODE_PRIVATE)
+        return sharedPref.getString("id", "U001") ?: "U001"
+    }
 
     fun init() = Unit
 
@@ -42,7 +46,8 @@ class NutritionVM : ViewModel() {
 
     fun getFoodById(id: String): LiveData<FoodItem?> {
         val foodItemLD = MutableLiveData<FoodItem?>()
-        db.collection("foodList").document(id).addSnapshotListener { snapshot, _ ->
+        db.collection("trackerList").document(userId)
+            .collection("personalFood").document(id).addSnapshotListener { snapshot, _ ->
             if (snapshot != null && snapshot.exists()) {
                 foodItemLD.value = snapshot.toObject(FoodItem::class.java)
             } else {
@@ -71,7 +76,8 @@ class NutritionVM : ViewModel() {
     }
 
     fun generateCustomId(callback: (String) -> Unit) {
-        db.collection("foodList")
+        db.collection("trackerList").document(userId)
+            .collection("personalFood")
             .get()
             .addOnSuccessListener { result ->
                 val idList = result.documents.map { it.id }
@@ -150,9 +156,7 @@ class NutritionVM : ViewModel() {
         return trackerItemsLiveData
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun deleteTrackerItem(date: String, item: TrackerItem) {
-        val userId = "A001" // Get the user ID from wherever it's stored
+    fun deleteTrackerItem(userId:String, date: String, item: TrackerItem) {
         val itemId = item.documentId // Get the ID of the item to delete
 
         // Reference to the tracker item document to delete
@@ -214,7 +218,6 @@ class NutritionVM : ViewModel() {
         return targetCaloriesLiveData
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun initializeTrackerForNewDay(userId: String, date: String) {
         val dateRef = db.collection("trackerList")
             .document(userId)
@@ -227,7 +230,7 @@ class NutritionVM : ViewModel() {
                     // Document for the current date already exists, no need to create a new one
                 } else {
                     // Document for the current date doesn't exist, create a new one
-                    val dateItem = Nutrition.Data.DateItem(date = date, caloriesTarget = 2000)
+                    val dateItem = nutrition.data.DateItem(date = date, caloriesTarget = 2000)
                     dateRef.set(dateItem)
                         .addOnFailureListener { e ->
                             // Handle failure to set DateItem
@@ -266,6 +269,12 @@ class NutritionVM : ViewModel() {
                 }
             }
         }
+    }
+
+    fun getImportFoodReference(userId: String, foodId: String): DocumentReference {
+        return FirebaseFirestore.getInstance().collection("trackerList")
+            .document(userId).collection("personalFood")
+            .document(foodId)
     }
 
 

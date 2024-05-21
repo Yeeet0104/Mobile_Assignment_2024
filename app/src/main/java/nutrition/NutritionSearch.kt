@@ -1,6 +1,6 @@
-package Nutrition
+package nutrition
 
-import Nutrition.Data.NutritionVM
+import nutrition.data.NutritionVM
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +19,7 @@ class NutritionSearch : Fragment() {
     private lateinit var binding: FragmentNutritionSearchBinding
     private val nav by lazy { findNavController() }
     private val nutritionViewModel: NutritionVM by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
