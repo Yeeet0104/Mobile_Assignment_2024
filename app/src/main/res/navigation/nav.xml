@@ -3,7 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/splashScreenFragment">
+    <!--app:startDestination="@id/home2">-->
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="Login.ui.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
 
     <fragment
         android:id="@+id/home2"
@@ -144,11 +155,7 @@
             android:id="@+id/action_signUp1Fragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/signUp2Fragment"
-        android:name="Login.ui.SignUp2Fragment"
-        android:label="fragment_sign_up2"
-        tools:layout="@layout/fragment_sign_up2" />
+
     <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="Login.ui.ResetPasswordFragment"

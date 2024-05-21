@@ -13,6 +13,7 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 import util.errorDialog
+import util.toast
 import java.security.MessageDigest
 
 
@@ -45,31 +46,16 @@ class LoginFragment : Fragment() {
         binding.edtLoginEmail.requestFocus()
     }
 
-//    private fun login() {
-//        val email    = binding.edtLoginEmail.text.toString().trim()
-//        val password = binding.edtLoginPassword.text.toString().trim()
-//        val remember = binding.chkRememberMe.isChecked
-//
-//        //hash password
-//
-//        //Login -> auth.login(...)
-//        //Clear navigation backstack
-//        lifecycleScope.launch {
-//            val success = auth.login(email, password, remember)
-//            if(success){
-//                nav.popBackStack(R.id.home2, false)
-//                nav.navigateUp()
-//            }else{
-//                errorDialog("Invalid Login Credentials.")
-//            }
-//        }
-//
-//    }
-
     private fun login() {
         val email = binding.edtLoginEmail.text.toString().trim()
         val password = binding.edtLoginPassword.text.toString().trim()
         val remember = binding.chkRememberMe.isChecked
+
+        // Check if Remember Me is checked
+        if (!binding.chkRememberMe.isChecked) {
+            errorDialog("Please check the Remember Me checkbox to login.")
+            return
+        }
 
         // Hash the entered password
         val hashedPassword = hashPassword(password)
@@ -79,8 +65,9 @@ class LoginFragment : Fragment() {
         lifecycleScope.launch {
             val success = auth.login(email, hashedPassword, remember)
             if (success) {
-                nav.popBackStack(R.id.home2, false)
-                nav.navigateUp()
+                //nav.popBackStack(R.id.home2, false)
+                //nav.navigateUp()
+                nav.navigate(R.id.home2)
             } else {
                 errorDialog("Invalid Login Credentials.")
             }

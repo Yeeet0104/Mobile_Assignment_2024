@@ -3,7 +3,6 @@ package Login.ui
 import Login.data.AuthVM
 import Login.data.UserVM
 import Login.util.errorDialog
-import Login.util.toast
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.databinding.FragmentChangePasswordProfileBinding
-import com.example.mobile_assignment.databinding.FragmentLoginBinding
-import com.example.mobile_assignment.databinding.FragmentProfileBinding
+import util.toast
 import java.security.MessageDigest
 
 
