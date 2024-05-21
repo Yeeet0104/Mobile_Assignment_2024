@@ -7,25 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".workout.addCustomPlan">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tvAddCustomPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Custom Plans"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/llWorkoutPlanInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddCustomPlan">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cvworkoutInfo"
@@ -92,14 +80,79 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/outline_add_circle_outline_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTimePicker"
+        android:layout_width="414dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llWorkoutPlanInfo">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clTimePickerInner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnSelectDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Days"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/etDaysSelected"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:background="@drawable/edittext_background"
+                android:hint="Workout Days"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clTimePickerInner">
+            <TextView
+                android:id="@+id/etTimeSelected"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_background"
+                android:hint="Exerise Time"
+                android:textSize="18dp"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnSelectTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Time"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clexerciseInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llWorkoutPlanInfo">
+        app:layout_constraintTop_toBottomOf="@+id/clTimePicker">
 
         <TextView
             android:id="@+id/tvLblExercises"
@@ -122,7 +175,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!-- No Data TextView -->
+    <!-- No Nutrition.Data TextView -->
     <TextView
         android:id="@+id/tvNoExercises"
         android:layout_width="wrap_content"

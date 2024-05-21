@@ -38,20 +38,34 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Workout Done"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Target : 3 Workout"
-                android:textColor="@color/colorTextSecondary"
-                android:textSize="14sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Workout Done"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/workoutTargetDaily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Target : 3 Workout"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/workoutProgress"
@@ -63,13 +77,13 @@
                 app:trackThickness="8dp" />
 
             <TextView
+                android:id="@+id/workoutLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="2 Plan Left"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -89,9 +103,10 @@
                 android:textColor="@color/colorTextPrimary"/>
 
             <TextView
+                android:id="@+id/txtTargetDailyCalBurnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Target : 1500 Kcal"
+                android:text="Target : 0 Kcal"
                 android:textSize="14sp"
                 android:textColor="@color/colorTextSecondary"/>
 
@@ -105,9 +120,10 @@
                 app:trackThickness="8dp"/>
 
             <TextView
+                android:id="@+id/dailyTargetCalBurntLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="750 Kcal Left"
+                android:text="0 Kcal Left"
                 android:textSize="14sp"
                 android:textColor="@color/colorTextSecondary"
                 android:layout_gravity="center"/>
@@ -118,7 +134,7 @@
 
     <!-- Workout Schedule Section -->
     <include
-        android:id="@+id/workoutSchedule"
+        android:id="@+id/workoutViewAll"
         layout="@layout/item_workout_schedule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -137,7 +153,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/workoutSchedule" />
+        app:layout_constraintTop_toBottomOf="@id/workoutViewAll" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWorkouts"

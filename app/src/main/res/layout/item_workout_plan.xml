@@ -10,6 +10,7 @@
     android:layout_marginBottom="8dp"
     android:background="@color/colorWorkoutPlansCon"
     android:elevation="2dp"
+    android:fadingEdge="vertical"
     android:orientation="vertical"
     android:padding="16dp">
 

@@ -31,7 +31,7 @@ class SelectedExerciseAdapter (
         val exercise = getItem(position)
 
         holder.binding.tvExerciseName.text = exercise.name
-        holder.binding.tvExerciseDuration.text = exercise.duration
+        holder.binding.tvExerciseDuration.text = exercise.duration.toString()
 
         exercise.photo?.let {
             val imageBytes = it.toBytes()
@@ -47,4 +47,5 @@ class SelectedExerciseAdapter (
             holder.itemView.findNavController().navigate(R.id.exerciseDetailsFragment)
         }
     }
+
 }

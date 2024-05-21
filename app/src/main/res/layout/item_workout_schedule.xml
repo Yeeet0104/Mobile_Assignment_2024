@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/workoutViewAllContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -13,7 +14,7 @@
         android:id="@+id/scheduleIcon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_calander"
+        android:src="@drawable/ic_workout"
         android:tint="@color/colorIcon" />
 
     <TextView
@@ -22,12 +23,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginStart="16dp"
-        android:text="Workout Schedule"
+        android:text="View All Workout Plans"
         android:textColor="@color/colorTextPrimary"
         android:textSize="16sp" />
 
     <ImageView
-        android:id="@+id/scheduleArrow"
+        android:id="@+id/viewAllExerciseArrow"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_arrow_right"

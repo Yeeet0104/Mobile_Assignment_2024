@@ -67,7 +67,7 @@ class AuthVM (val app: Application) : AndroidViewModel(app) {
         return true
     }
 
-    // TODO(2): Logout
+     //TODO(2): Logout
     fun logout() {
         // TODO(2A): Remove snapshot listener
         //           Update live data -> null
@@ -81,6 +81,7 @@ class AuthVM (val app: Application) : AndroidViewModel(app) {
     // [OR] app.deleteSharedPreferences("AUTH")
 
     }
+
 
     // TODO(6): Get shared preferences
     public fun getPreferences() = app.getSharedPreferences("AUTH", Context.MODE_PRIVATE)

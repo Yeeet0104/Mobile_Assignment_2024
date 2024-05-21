@@ -13,7 +13,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="15dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,25 +87,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvScheduleWorkout" />
 
-    <Button
+    <ImageView
         android:id="@+id/btnEditWorkoutPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="Edit Plan"
-        android:textColor="@android:color/white"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_edit_post"
         app:layout_constraintBottom_toBottomOf="@+id/tvPlanName"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tvPlanName"
-        app:layout_constraintTop_toTopOf="@+id/tvPlanName" />
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteWorkoutPlan"
+        app:layout_constraintTop_toTopOf="@+id/tvPlanName">
 
-    <Button
+    </ImageView>
+
+
+    <ImageView
         android:id="@+id/btnDeleteWorkoutPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Plan"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/trashcan"
         app:layout_constraintBottom_toBottomOf="@+id/btnEditWorkoutPlan"
-        app:layout_constraintStart_toEndOf="@+id/btnEditWorkoutPlan"
-        app:layout_constraintTop_toTopOf="@+id/btnEditWorkoutPlan" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnEditWorkoutPlan">
+
+    </ImageView>
 </androidx.constraintlayout.widget.ConstraintLayout>
