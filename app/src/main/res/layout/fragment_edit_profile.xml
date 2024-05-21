@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context="Login.ui.EditProfileFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="180dp"
@@ -20,7 +28,7 @@
         android:id="@+id/edt_edt_profile_username"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/input_box"
         android:drawableLeft="@drawable/ic_username"
         android:drawablePadding="20dp"
@@ -35,20 +43,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_edt_profile_chg_img" />
+        app:layout_constraintTop_toBottomOf="@+id/lbl_chg_profile_img" />
 
-    <Button
-        android:id="@+id/btn_edt_profile_chg_img"
+    <EditText
+        android:id="@+id/edt_edt_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/btn_login"
-        android:text="Change Image"
-        android:textSize="20sp"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_box"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="20dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:paddingTop="8dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp"
+        android:text="Email"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_edt_profile_username"
+        app:layout_constraintStart_toStartOf="@+id/edt_edt_profile_username"
+        app:layout_constraintTop_toBottomOf="@+id/edt_edt_profile_username" />
 
     <EditText
         android:id="@+id/edt_edt_profile_weight"
@@ -66,9 +81,9 @@
         android:paddingBottom="8dp"
         android:text="70"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/edt_edt_profile_username"
-        app:layout_constraintStart_toStartOf="@+id/edt_edt_profile_username"
-        app:layout_constraintTop_toBottomOf="@+id/edt_edt_profile_username" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_edt_email"
+        app:layout_constraintStart_toStartOf="@+id/edt_edt_email"
+        app:layout_constraintTop_toBottomOf="@+id/edt_edt_email" />
 
     <EditText
         android:id="@+id/edt_edt_profile_height"
@@ -90,18 +105,61 @@
         app:layout_constraintStart_toStartOf="@+id/edt_edt_profile_weight"
         app:layout_constraintTop_toBottomOf="@+id/edt_edt_profile_weight" />
 
-    <Button
-        android:id="@+id/btn_edt_profile_save"
-        android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_edt_profile_save"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/btn_login"
+                android:text="SAVE"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/edt_edt_profile_height"
+                app:layout_constraintStart_toStartOf="@+id/edt_edt_profile_height"
+                app:layout_constraintTop_toBottomOf="@+id/rgp_gender" />
+
+    <RadioGroup
+        android:id="@+id/rgp_gender"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/btn_login"
-        android:text="SAVE"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/edt_edt_profile_height"
         app:layout_constraintStart_toStartOf="@+id/edt_edt_profile_height"
-        app:layout_constraintTop_toBottomOf="@+id/edt_edt_profile_height" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_edt_profile_height">
+
+        <RadioButton
+            android:id="@+id/rad_male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="80dp"
+            android:text="Male"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/rad_female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:textSize="24sp" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/lbl_chg_profile_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Click the image above to change your profile image."
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
