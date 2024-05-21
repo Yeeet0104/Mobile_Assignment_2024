@@ -177,33 +177,47 @@
             android:id="@+id/action_otpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/exerciseDetailsFragment"
-        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
-        android:label="fragment_exercise_details"
-        tools:layout="@layout/fragment_exercise_details" />
+
+
     <fragment
         android:id="@+id/fragment_workout_plan_details"
         android:name="com.example.mobile_assignment.workout.fragment_workout_plan_details"
-        android:label="fragment_workout_plan_details" />
+        android:label="Workout Plan Details" />
     <fragment
         android:id="@+id/manageExercises"
         android:name="com.example.mobile_assignment.workout.manageExercises"
-        android:label="fragment_manage_exercises"
+        android:label="Manage Exercise"
         tools:layout="@layout/fragment_manage_exercises" />
     <fragment
         android:id="@+id/editCustomWorkoutPlan"
         android:name="com.example.mobile_assignment.workout.EditCustomWorkoutPlan"
-        android:label="EditCustomWorkoutPlan" />
+        android:label="Edit Workout Plan" />
+
+    <fragment
+        android:id="@+id/startExercise"
+        android:name="com.example.mobile_assignment.workout.StartExercise"
+        android:label="Start Workout"
+        tools:layout="@layout/fragment_start_exercise" />
+    <fragment
+        android:id="@+id/restTimer"
+        android:name="com.example.mobile_assignment.workout.RestTimer"
+        android:label="Rest"
+        tools:layout="@layout/fragment_rest_timer" />
+    <fragment
+        android:id="@+id/viewAllWorkoutPlan"
+        android:name="com.example.mobile_assignment.workout.viewAllWorkoutPlan"
+        android:label="All Workout Plan"
+        tools:layout="@layout/fragment_view_all_workout_plan" />
+    <fragment
+        android:id="@+id/workoutDoneScreen2"
+        android:name="com.example.mobile_assignment.workout.workoutDoneScreen"
+        android:label="Workout Completed"
+        tools:layout="@layout/fragment_workout_done_screen" />
     <fragment
         android:id="@+id/exerciseDetailsFragment"
         android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
-        android:label="fragment_exercise_details"
+        android:label="Exercise Details"
         tools:layout="@layout/fragment_exercise_details" />
 
-    android:id="@+id/exerciseDetailsFragment"
-        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
-        android:label="fragment_exercise_details"
-        tools:layout="@layout/fragment_exercise_details" />
 
 </navigation>

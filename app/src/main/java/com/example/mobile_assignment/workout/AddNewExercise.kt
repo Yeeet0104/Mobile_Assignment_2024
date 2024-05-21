@@ -14,7 +14,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.set
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentAddNewExerciseBinding
 import com.example.mobile_assignment.workout.Data.Exercise
@@ -37,26 +39,27 @@ class AddNewExercise : Fragment() {
     ): View? {
         binding = FragmentAddNewExerciseBinding.inflate(inflater, container, false)
         binding.rbDuration.isChecked = true
-
+        binding.etCaloriesBurnt.inputType = InputType.TYPE_CLASS_NUMBER
         exerciseViewModel.selectedExercise.observe(viewLifecycleOwner) { exercise ->
             exercise?.let {
                 currentExercise = it
                 binding.etExerciseName.setText(it.name)
                 binding.etYouTubeId.setText("https://www.youtube.com/watch?v=${it.youtubeId}")
                 binding.etSteps.setText(it.steps.joinToString(", "))
-                if (it.duration.isNotEmpty()) {
+                if (it.duration != 0) {
                     binding.rbDuration.isChecked = true
-                    binding.etExerciseValue.setText(it.duration)
+                    binding.etExerciseValue.setText(it.duration.toString())
                     binding.etExerciseValue.hint = "Duration (e.g., 30s)"
                 } else {
                     binding.rbReps.isChecked = true
-                    binding.etExerciseValue.setText(it.reps)
+                    binding.etExerciseValue.setText(it.reps.toString())
                     binding.etExerciseValue.hint = "Reps (e.g., 15)"
                 }
                 it.photo?.let { photo ->
                     binding.ivnewExerciseImage.setImageBlob(photo)
                 }
                 binding.tvAddNewExercise.text = "Edit Exercise"
+                binding.etCaloriesBurnt.setText(it.caloriesBurn.toString())
                 setToolbarTitle("Edit Exercise")
             } ?: run {
                 currentExercise = null
@@ -66,6 +69,8 @@ class AddNewExercise : Fragment() {
                 binding.etExerciseValue.text.clear()
                 binding.ivnewExerciseImage.setImageDrawable(null)
                 binding.tvAddNewExercise.text = "Add New Exercise"
+                binding.rbDuration.isChecked = true
+                binding.etCaloriesBurnt.text.clear()
                 setToolbarTitle("Add New Exercise")
             }
         }
@@ -81,6 +86,7 @@ class AddNewExercise : Fragment() {
             val steps = binding.etSteps.text.toString().split(",").map { it.trim() }
             val isDuration = binding.rbDuration.isChecked
             val isReps = binding.rbReps.isChecked
+            val caloriesBurnt = binding.etCaloriesBurnt.text.toString().toInt()
 
             if (name.isNotEmpty() && (isDuration || isReps) && youtubeUrl.isNotEmpty()) {
                 val youtubeId = extractYouTubeId(youtubeUrl)
@@ -88,14 +94,17 @@ class AddNewExercise : Fragment() {
                     if (currentExercise != null) {
                         // Update existing exercise
                         val photo = if (imageUri != null) binding.ivnewExerciseImage.cropToBlob(300, 300) else currentExercise?.photo
-                        saveExercise(currentExercise!!.id, name, binding.etExerciseValue.text.toString(), youtubeId, photo, steps, isDuration)
+                        saveExercise(currentExercise!!.id, name, binding.etExerciseValue.text.toString().toInt(), youtubeId, photo, steps, isDuration,caloriesBurnt)
                     } else {
                         // Create new exercise
                         exerciseViewModel.generateCustomId { customId ->
                             val photo = if (imageUri != null) binding.ivnewExerciseImage.cropToBlob(300, 300) else null
-                            saveExercise(customId, name, binding.etExerciseValue.text.toString(), youtubeId, photo, steps, isDuration)
+                            saveExercise(customId, name, binding.etExerciseValue.text.toString().toInt(), youtubeId, photo, steps, isDuration,caloriesBurnt)
+
                         }
                     }
+                    toast("Exercise Created Successfully")
+                    findNavController().navigateUp()
                 } else {
                     toast("Invalid YouTube URL")
                 }
@@ -108,7 +117,7 @@ class AddNewExercise : Fragment() {
             when (checkedId) {
                 R.id.rbDuration -> {
                     binding.etExerciseValue.hint = "Duration (e.g., 30s)"
-                    binding.etExerciseValue.inputType = InputType.TYPE_CLASS_TEXT
+                    binding.etExerciseValue.inputType = InputType.TYPE_CLASS_NUMBER
                 }
                 R.id.rbReps -> {
                     binding.etExerciseValue.hint = "Reps (e.g., 15)"
@@ -128,15 +137,16 @@ class AddNewExercise : Fragment() {
     private fun openFileChooser() {
         getContent.launch("image/*")
     }
-    private fun saveExercise(customId: String, name: String, value: String, youtubeId: String, photo: Blob?, steps: List<String>, isDuration: Boolean) {
+    private fun saveExercise(customId: String, name: String, value: Int, youtubeId: String, photo: Blob?, steps: List<String>, isDuration: Boolean,caloriesBurnt:Int) {
         val exercise = Exercise(
             id = customId,
             name = name,
-            duration = if (isDuration) value else "",
-            reps = if (!isDuration) value else "",
+            duration = if (isDuration) value else 0,
+            reps = if (!isDuration) value else 0,
             youtubeId = youtubeId,
             photo = photo,
-            steps = steps
+            steps = steps,
+            caloriesBurn = caloriesBurnt
         )
         exerciseViewModel.addExercise(exercise)
     }
