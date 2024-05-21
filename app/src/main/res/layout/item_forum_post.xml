@@ -130,8 +130,8 @@
             android:id="@+id/showPostImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="136dp"
             android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblPostContent"
             tools:srcCompat="@tools:sample/avatars" />
@@ -180,15 +180,6 @@
             android:textOn=""
             app:layout_constraintStart_toEndOf="@+id/forumLikeCount"
             app:layout_constraintTop_toBottomOf="@+id/showPostImg" />
-
-        <Button
-            android:id="@+id/btnMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="195dp"
-            android:text="Message"
-            app:layout_constraintStart_toEndOf="@+id/imgUserProfilePost"
-            app:layout_constraintTop_toTopOf="@+id/lblUsername" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

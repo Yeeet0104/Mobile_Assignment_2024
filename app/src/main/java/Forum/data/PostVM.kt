@@ -1,5 +1,6 @@
 package Forum.data
 
+import Login.data.User
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +11,6 @@ import com.google.firebase.ktx.Firebase
 
 class PostVM : ViewModel() {
     val postList = MutableLiveData<List<Post>>()
-    val currentUserId = "user1"
 
     // Collection reference
     private val col = Firebase.firestore.collection("posts")
@@ -115,5 +115,29 @@ class PostVM : ViewModel() {
     fun deleteComment(postId: String, comment: Comment) {
         Firebase.firestore.collection("posts").document(postId).collection("comments")
             .document(comment.commentId).delete()
+    }
+
+    fun getUser(userId: String): LiveData<User?> {
+        val userLiveData = MutableLiveData<User?>()
+
+        if (userId.isNotEmpty()) {
+            Firebase.firestore.collection("users").document(userId)
+                .addSnapshotListener { snapshot, _ ->
+                    val user = snapshot?.toObject(User::class.java)
+                    userLiveData.value = user
+                }
+        }
+
+        return userLiveData
+    }
+
+    fun updatePost(p: Post) {
+        // Update the post in the database
+        col.document(p.postId).set(p)
+    }
+
+    fun updateComment(postId: String, comment: Comment) {
+        Firebase.firestore.collection("posts").document(postId).collection("comments")
+            .document(comment.commentId).set(comment)
     }
 }

@@ -2,6 +2,7 @@ package Forum.ui
 
 import Forum.data.Post
 import Forum.data.PostVM
+import Login.data.AuthVM
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,18 +10,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentForumEditPostBinding
+import com.google.firebase.firestore.Blob
+import kotlinx.coroutines.launch
 import util.cropToBlobNullable
 import util.errorDialog
 import util.toBitmap
+import util.toast
 
 class ForumEditPost : Fragment() {
     private var postId: String? = null
     private lateinit var binding : FragmentForumEditPostBinding
     private val viewModel: PostVM by activityViewModels()
     private val nav by lazy { findNavController() }
+    private val auth: AuthVM by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +38,7 @@ class ForumEditPost : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (postId != null) {
-            // Fetch the Post object from your database using postId
+            // Fetch the Post object from database using postId
             val post = viewModel.getPost(postId!!)
 
             // Populate the fields with the data from the Post object
@@ -59,25 +65,35 @@ class ForumEditPost : Fragment() {
     }
 
     private fun update() {
-        val postImgBlob = binding.imgUpdatePic.cropToBlobNullable(300, 300)
-        val p = Post(
-            postId = postId!!,
-            userId = "user1",
-            postTitle = binding.updtPostTitle.text.toString().trim(),
-            postContent = binding.updtPostContent.text.toString().trim(),
-            timePosted = System.currentTimeMillis(),
-            postImg = postImgBlob,
-            isEdited = true
-        )
+        lifecycleScope.launch {
+            val postImgBlob = binding.imgUpdatePic.cropToBlobNullable(800, 750)
+            val sharedPreferences = auth.getPreferences()
+            val currentUserId = sharedPreferences.getString("id", "")
+            val currentUsername = sharedPreferences.getString("username", "")
+            val currentUserPhotoBlob = auth.getUserPhotoBlob() ?: Blob.fromBytes(ByteArray(0))
 
-        val e = viewModel.validate(p, false)
-        if (e.isNotEmpty()) {
-            errorDialog(e)
-            return
+            val p = Post(
+                postId = postId!!,
+                userId = currentUserId ?: "",
+                postUsername = currentUsername ?: "",
+                postTitle = binding.updtPostTitle.text.toString().trim(),
+                postContent = binding.updtPostContent.text.toString().trim(),
+                timePosted = System.currentTimeMillis(),
+                postImg = postImgBlob,
+                isEdited = true,
+                userProfilePic = currentUserPhotoBlob
+            )
+
+            val e = viewModel.validate(p, false)
+            if (e.isNotEmpty()) {
+                errorDialog(e)
+                return@launch
+            }
+
+            viewModel.set(p)
+            nav.navigate(R.id.forumHome)
+            toast("Post updated")
         }
-
-        viewModel.set(p)
-        findNavController().navigate(R.id.forumHome)
     }
 
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){
