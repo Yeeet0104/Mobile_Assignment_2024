@@ -4,6 +4,7 @@ import Login.data.User
 import Login.data.UserVM
 import Login.util.errorDialog
 import Login.util.toBlob
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -26,6 +27,7 @@ class SignUp1Fragment : Fragment() {
     private lateinit var binding :FragmentSignUp1Binding
     private val nav by lazy { findNavController() }
     private val vm: UserVM by activityViewModels()
+    private var roleForSignUp: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +58,10 @@ class SignUp1Fragment : Fragment() {
         val confPass = binding.edtSignUp1ConfPassword.text.toString()
         val pwd = binding.edtSignUp1Password.text.toString()
         val otpCode = Random.nextInt(1000, 9999)
+
+        // Get the roleForSignUp from SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        roleForSignUp = sharedPreferences.getInt("roleForSignUp", 0)
 
         //validation
         when {
@@ -116,7 +122,7 @@ class SignUp1Fragment : Fragment() {
                             email = userEmail,
                             password = hashedPassword, // Store hashed password
                             otp = otpCode,
-                            role = 0,
+                            role = roleForSignUp,
                             photo = userPhoto.toBlob()
                         )
 

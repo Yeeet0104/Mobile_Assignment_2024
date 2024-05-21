@@ -35,18 +35,19 @@ class MainActivity : AppCompatActivity() {
         scheduleDailyProgressReset(this)
         abc = AppBarConfiguration(
             setOf(
-                R.id.home2,
+                //R.id.home2,
                 R.id.workoutHome,
                 R.id.forumHome,
                 R.id.profileFragment,
-                R.id.nutritionMain,
-                R.id.loginFragment
+                R.id.nutritionMain
+                //R.id.firstPageFragment
+                //R.id.loginFragment
             ),
             binding.root
         )
 
         nav.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.loginFragment || destination.id == R.id.signUp1Fragment || destination.id == R.id.forgetPasswordFragment || destination.id == R.id.resetPasswordFragment || destination.id == R.id.otpFragment || destination.id == R.id.splashScreenFragment) {
+            if (destination.id == R.id.loginFragment || destination.id == R.id.signUp1Fragment || destination.id == R.id.forgetPasswordFragment || destination.id == R.id.resetPasswordFragment || destination.id == R.id.otpFragment || destination.id == R.id.splashScreenFragment || destination.id == R.id.firstPageFragment) {
                 // Hide navigation components when on loginFragment
                 supportActionBar?.hide()
                 binding.bv.visibility = android.view.View.GONE
@@ -61,39 +62,10 @@ class MainActivity : AppCompatActivity() {
                 binding.bv.setupWithNavController(nav)
                 binding.nv.setupWithNavController(nav)
 
-//                // TODO(5): Observe login status -> userLiveData
-//                auth.getUserLD().observe(this) { user ->
-//                    // TODO(5A): Clear menu + remove header
-//                    binding.nv.menu.clear()
-//                    val h = binding.nv.getHeaderView(0)
-//                    binding.nv.removeHeaderView(h)
-//
-//                    // TODO(5B): Inflate menu + header (based on login status)
-//                    if (user == null) {
-//                        binding.nv.inflateHeaderView(R.layout.header)
-//                        nav.navigateUp()
-//                    }
-//                    else {
-//                        binding.nv.inflateHeaderView(R.layout.header1)
-//                        setHeader(user)
-//                    }
-//
-//                }
-//
-//                // TODO(8): Auto login -> auth.loginFromPreferences(...)
-//                lifecycleScope.launch{auth.loginFromPreferences()}
             }
         }
 
     }
-
-//    private fun setHeader(user: User) {
-//        val h = binding.nv.getHeaderView(0)
-//        val b = HeaderBinding.bind(h)
-//        b.imgPhoto.setImageBlob(user.photo)
-//        b.txtName.text  = user.username
-//        b.txtEmail.text = user.email
-//    }
 
     override fun onSupportNavigateUp(): Boolean {
         return nav.navigateUp(abc)

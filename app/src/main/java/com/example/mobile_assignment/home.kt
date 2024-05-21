@@ -31,8 +31,8 @@ class home : Fragment() {
         val role = sharedPreferences.getInt("role",0).toString()
 
 
-// Display values in textView
-binding.textView.text = "Email: $email\nPassword: $password\nID: $id\n" + "ID: $role"
+        // Display values in textView
+        binding.textView.text = "Email: $email\nPassword: $password\nID: $id\n" + "ID: $role"
 
 
         return binding.root
