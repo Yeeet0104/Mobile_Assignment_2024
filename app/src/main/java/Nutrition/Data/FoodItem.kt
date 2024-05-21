@@ -39,8 +39,8 @@ data class DateItem (
     var caloriesTarget: Int = 0
 )
 
+data class QRCodeData(val userId: String, val foodId: String)
 
-val FOOD = Firebase.firestore.collection("foodList")
 
 fun getDateReference(userId: String, date: String) =
     FirebaseFirestore.getInstance().collection("trackerList")

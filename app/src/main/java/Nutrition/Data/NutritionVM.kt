@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.firestore
@@ -42,7 +43,8 @@ class NutritionVM : ViewModel() {
 
     fun getFoodById(id: String): LiveData<FoodItem?> {
         val foodItemLD = MutableLiveData<FoodItem?>()
-        db.collection("foodList").document(id).addSnapshotListener { snapshot, _ ->
+        db.collection("trackerList").document(userId)
+            .collection("personalFood").document(id).addSnapshotListener { snapshot, _ ->
             if (snapshot != null && snapshot.exists()) {
                 foodItemLD.value = snapshot.toObject(FoodItem::class.java)
             } else {
@@ -71,7 +73,8 @@ class NutritionVM : ViewModel() {
     }
 
     fun generateCustomId(callback: (String) -> Unit) {
-        db.collection("foodList")
+        db.collection("trackerList").document(userId)
+            .collection("personalFood")
             .get()
             .addOnSuccessListener { result ->
                 val idList = result.documents.map { it.id }
@@ -150,9 +153,7 @@ class NutritionVM : ViewModel() {
         return trackerItemsLiveData
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun deleteTrackerItem(date: String, item: TrackerItem) {
-        val userId = "A001" // Get the user ID from wherever it's stored
+    fun deleteTrackerItem(userId:String, date: String, item: TrackerItem) {
         val itemId = item.documentId // Get the ID of the item to delete
 
         // Reference to the tracker item document to delete
@@ -214,7 +215,6 @@ class NutritionVM : ViewModel() {
         return targetCaloriesLiveData
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun initializeTrackerForNewDay(userId: String, date: String) {
         val dateRef = db.collection("trackerList")
             .document(userId)
@@ -266,6 +266,12 @@ class NutritionVM : ViewModel() {
                 }
             }
         }
+    }
+
+    fun getImportFoodReference(userId: String, foodId: String): DocumentReference {
+        return FirebaseFirestore.getInstance().collection("trackerList")
+            .document(userId).collection("personalFood")
+            .document(foodId)
     }
 
 

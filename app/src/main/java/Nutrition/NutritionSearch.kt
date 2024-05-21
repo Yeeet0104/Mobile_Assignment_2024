@@ -20,6 +20,8 @@ class NutritionSearch : Fragment() {
     private val nav by lazy { findNavController() }
     private val nutritionViewModel: NutritionVM by activityViewModels()
 
+    private var userId = "U001"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
