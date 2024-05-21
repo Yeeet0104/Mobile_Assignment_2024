@@ -11,11 +11,16 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile_assignment.R
@@ -54,8 +59,6 @@ class addCustomPlan : Fragment() {
         // Set up click listener for the exercises section
         binding.btnDone.setOnClickListener {
             saveCustomPlan()
-            clearInputs()
-            toast("Custom Plan Created Successfully!")
         }
 
         binding.btnSelectDays.setOnClickListener {
@@ -74,6 +77,29 @@ class addCustomPlan : Fragment() {
                 binding.etTimeSelected.text = time
             }
         }
+
+        // Adding MenuProvider to handle options menu
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        exerciseViewModel.clearSelectedExercises() // Clear selected exercises
+                        exerciseViewModel.clearSelectedDaysAndTime() // Clear selected exercises
+                        exerciseViewModel.clearSelectedImageUri() // Clear selected exercises
+                        Log.d("WorkoutPlanDetailsWOI", "Navigating up")
+                        findNavController().navigateUp()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+
         return binding.root
     }
 
@@ -154,6 +180,8 @@ class addCustomPlan : Fragment() {
             } else {
                 // No duplicate found, proceed to save the custom plan
                 saveCustomPlanToDb(planName, targetedBodyPart, restDuration, exerciseIds, imageBlob, daysOfWeek, timeOfDay, userId)
+                clearInputs()
+                toast("Custom Plan Saved")
             }
         }
     }
@@ -161,9 +189,12 @@ class addCustomPlan : Fragment() {
     private fun checkDuplicatePlanName(planName: String, userId: String, callback: (Boolean) -> Unit) {
         db.collection("customPlans").document(userId).collection("plans").document(planName).get()
             .addOnSuccessListener { document ->
+                Log.d("addCustomPlan", "Checking for duplicate plan name: ${userId}")
+                Log.d("addCustomPlan", "Document exists: ${document.exists()}")
                 callback(document.exists())
             }
             .addOnFailureListener { e ->
+                Log.d("addCustomPlan", "Error checking for duplicate plan name: ${e.message}")
                 toast("Error checking for duplicate plan name: ${e.message}")
             }
     }
