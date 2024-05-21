@@ -206,6 +206,11 @@
         android:name="com.example.mobile_assignment.workout.workoutDoneScreen"
         android:label="Workout Completed"
         tools:layout="@layout/fragment_workout_done_screen" />
+    <fragment
+        android:id="@+id/exerciseDetailsFragment"
+        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
+        android:label="Exercise Details"
+        tools:layout="@layout/fragment_exercise_details" />
 
 
 </navigation>
