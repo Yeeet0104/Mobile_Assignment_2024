@@ -35,20 +35,27 @@
             android:id="@+id/action_forumCreatePost_to_forumHome"
             app:destination="@id/forumHome" />
     </fragment>
-
+    <fragment
         android:id="@+id/profileFragment"
         android:name="Login.ui.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordProfileFragment"
+            app:destination="@id/changePasswordProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="Login.ui.EditProfileFragment"
-        android:label="fragment_edit_profile"
+        android:label="Edit Profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/changePasswordProfileFragment"
         android:name="Login.ui.ChangePasswordProfileFragment"
-        android:label="fragment_change_password_profile"
+        android:label="Change Password"
         tools:layout="@layout/fragment_change_password_profile" />
 
     <fragment
@@ -143,7 +150,13 @@
             android:id="@+id/action_otpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
         android:id="@+id/exerciseDetailsFragment"
+        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
+        android:label="fragment_exercise_details"
+        tools:layout="@layout/fragment_exercise_details" />
+
+    android:id="@+id/exerciseDetailsFragment"
         android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
         android:label="fragment_exercise_details"
         tools:layout="@layout/fragment_exercise_details" />

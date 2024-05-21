@@ -21,12 +21,77 @@ class UserVM(val app: Application) : AndroidViewModel(app) {
         listener = USERS.addSnapshotListener { snap, _ -> usersLD.value = snap?.toObjects() }
     }
 
+//    init {
+//        listener = USERS.addSnapshotListener { snap, _ ->
+//            if (snap != null && !snap.isEmpty) {
+//                usersLD.value = snap.toObjects(User::class.java)
+//            }
+//        }
+//    }
+
     override fun onCleared() {
         listener?.remove()
     }
 
     // ---------------------------------------------------------------------------------------------
 
+    fun getOTP(userId: String, onComplete: (Int?) -> Unit) {
+        USERS.document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    onComplete(user?.otp)
+                } else {
+                    onComplete(null)
+                }
+            }
+            .addOnFailureListener {
+                onComplete(null)
+            }
+    }
+
+    fun get1(id: String, onComplete: (User?) -> Unit) {
+        USERS.document(id).get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    onComplete(user)
+                } else {
+                    onComplete(null)
+                }
+            }
+            .addOnFailureListener {
+                onComplete(null)
+            }
+    }
+
+
+    fun updateOTP(userId: String, newOtp: Int, onComplete: (Boolean) -> Unit) {
+        USERS.document(userId).update("otp", newOtp)
+            .addOnSuccessListener {
+                onComplete(true)
+            }
+            .addOnFailureListener {
+                onComplete(false)
+            }
+    }
+
+    fun getUserById(userId: String, onComplete: (User?) -> Unit) {
+        USERS.document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    onComplete(user)
+                } else {
+                    onComplete(null)
+                }
+            }
+            .addOnFailureListener {
+                onComplete(null)
+            }
+    }
+
+    //----------------------------------------------------------------------------------------------
     fun init() = Unit
 
     fun getUsersLD() = usersLD
@@ -35,7 +100,12 @@ class UserVM(val app: Application) : AndroidViewModel(app) {
 
     fun get(id: String) = usersLD.value?.find { it.id == id }
 
+//    fun set(user: User) {
+//        USERS.document(user.id).set(user)
+//    }
+
     fun set(user: User) {
+        println("Setting user with ID: ${user.id}")
         USERS.document(user.id).set(user)
     }
 
@@ -92,9 +162,9 @@ class UserVM(val app: Application) : AndroidViewModel(app) {
         else if (user.password.length > 100) "- Password too long (max 100 chars).\n"
         else ""
 
-        e += if (user.username == "") "- Name required.\n"
-        else if (user.username.length < 3) "- Name too short (min 3 chars).\n"
-        else if (user.username.length > 100) "- Name too long (max 100 chars).\n"
+        e += if (user.username == "") "- Username required.\n"
+        else if (user.username.length < 3) "- Username too short (min 3 chars).\n"
+        else if (user.username.length > 100) "- Username too long (max 100 chars).\n"
         else ""
 
 //        e += if (user.photo.toBytes().isEmpty()) "- Photo required.\n"

@@ -14,6 +14,7 @@ import com.example.mobile_assignment.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 import util.errorDialog
 
+
 class LoginFragment : Fragment() {
 
     private lateinit var binding : FragmentLoginBinding
@@ -61,5 +62,6 @@ class LoginFragment : Fragment() {
         }
 
     }
+
 
 }

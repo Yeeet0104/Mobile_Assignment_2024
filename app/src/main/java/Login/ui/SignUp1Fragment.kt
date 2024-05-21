@@ -19,6 +19,7 @@ import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentLoginBinding
 import com.example.mobile_assignment.databinding.FragmentProfileBinding
 import com.example.mobile_assignment.databinding.FragmentSignUp1Binding
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
 class SignUp1Fragment : Fragment() {
@@ -50,54 +51,70 @@ class SignUp1Fragment : Fragment() {
         binding.edtSignUp1Username.requestFocus()
     }
 
-
     private fun register() {
         val confPass = binding.edtSignUp1ConfPassword.text.toString()
         val pwd = binding.edtSignUp1Password.text.toString()
         val otpCode = Random.nextInt(1000, 9999)
 
-        if(confPass == pwd){
+
+
+        if (confPass == pwd) {
             val userPhoto = BitmapFactory.decodeResource(resources, R.drawable.suzy)
             if (userPhoto == null) {
                 toast("Failed to load user photo")
                 return
             }
 
-            // Insert user
-            val user = User(
-                id = autoGenerateID(),
-                username = binding.edtSignUp1Username.text.toString().trim(),
-                email    = binding.edtSignUp1Email.text.toString().trim(),
-                password = binding.edtSignUp1Password.text.toString().trim(),
-                otp = otpCode,
-                role = 0,
-                photo = userPhoto.toBlob()
-            )
+            // Generate ID asynchronously
+            autoGenerateID { generatedId ->
+                val user = User(
+                    id = generatedId,
+                    username = binding.edtSignUp1Username.text.toString().trim(),
+                    email = binding.edtSignUp1Email.text.toString().trim(),
+                    password = binding.edtSignUp1Password.text.toString().trim(),
+                    otp = otpCode,
+                    role = 0,
+                    photo = userPhoto.toBlob()
+                )
 
-            val e = vm.validate(user)
-            if (e != "") {
-                errorDialog(e)
-                return
+                val e = vm.validate(user)
+                if (e != "") {
+                    errorDialog(e)
+                    return@autoGenerateID
+
+                }else if(confPass == ""){
+                    errorDialog("Confirm Password required.")
+                    binding.edtSignUp1ConfPassword.text.clear()
+                    return@autoGenerateID
+                }
+
+                //hass password
+
+                vm.set(user)
+                toast("Successfully registered! Login now!")
+                nav.navigateUp()
             }
-
-            vm.set(user)
-            nav.navigateUp()
-        }else{
-            toast("Password and Confirm Password not same. Try again!")
+        } else {
+            errorDialog("Password and Confirm Password not same. Try again!")
         }
-
     }
 
-    private fun autoGenerateID():String{
-        val latestUserId = vm.getUsersLD().value?.lastOrNull()?.id
-
-        // Extract the numeric part of the ID
-        val lastIdNumeric = latestUserId?.substring(1)?.toIntOrNull() ?: 0
-        val nextIdNumeric = lastIdNumeric + 1
-
-        // Format the next ID to be in the "Uxxx" format
-        val nextId = "U${nextIdNumeric.toString().padStart(3, '0')}"
-        return nextId
+    private fun autoGenerateID(callback: (String) -> Unit) {
+        FirebaseFirestore.getInstance().collection("users")
+            .get()
+            .addOnSuccessListener { result ->
+                val idList = result.documents.map { it.id }
+                var newId = "U001"
+                var idNumber = 1
+                while (idList.contains(newId)) {
+                    idNumber++
+                    newId = "U" + String.format("%03d", idNumber)
+                }
+                callback(newId)
+            }
+            .addOnFailureListener {
+                callback("U001") // Default ID in case of error
+            }
     }
 
 }
