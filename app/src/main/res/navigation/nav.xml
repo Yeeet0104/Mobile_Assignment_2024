@@ -248,6 +248,11 @@
         android:name="com.example.mobile_assignment.workout.Ui.workoutChatBot"
         android:label="Workout Expert Bot"
         tools:layout="@layout/fragment_workout_chat_bot" />
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="Login.ui.TimerFragment"
+        android:label="Stop Watch"
+        tools:layout="@layout/fragment_timer" />
 
 
 </navigation>

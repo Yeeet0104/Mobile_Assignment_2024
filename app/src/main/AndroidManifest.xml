@@ -43,6 +43,7 @@
             android:screenOrientation="fullSensor"
             tools:ignore="DiscouragedApi"
             tools:replace="screenOrientation" />
+        <service android:name="Login.ui.TimerService"/>
     </application>
 
 </manifest>
