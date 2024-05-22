@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/home2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:icon="@drawable/ic_home"
-        android:title="Home" />
+<!--    <item-->
+<!--        android:id="@+id/home2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:icon="@drawable/ic_home"-->
+<!--        android:title="Home" />-->
     <item
         android:id="@+id/workoutHome"
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
         android:id="@+id/nutritionMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/ic_workout"
+        android:icon="@drawable/ic_nutrition_main"
         android:title="Nutrition" />
 
     <item

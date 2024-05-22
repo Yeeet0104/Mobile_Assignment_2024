@@ -3,7 +3,6 @@ package com.example.mobile_assignment.workout.Data
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
-
 data class CustomPlan(
     @DocumentId
     val id: String = "",
@@ -33,3 +32,19 @@ data class Exercise(
 
     override fun toString() = name
 }
+
+data class OpenAIWorkoutRequest(
+    val model: String,
+    val messages: List<Message>
+)
+
+data class OpenAiWorkoutResponse(
+    val choices: List<WorkoutChoice>
+)
+data class Message(
+    val role: String,
+    val content: String
+)
+data class WorkoutChoice(
+    val message: Message
+)
