@@ -248,6 +248,16 @@
         android:name="com.example.mobile_assignment.workout.Ui.workoutChatBot"
         android:label="Workout Expert Bot"
         tools:layout="@layout/fragment_workout_chat_bot" />
+    <activity
+        android:id="@+id/runningTracker"
+        android:name="com.example.mobile_assignment.workout.Ui.runningTracker"
+        android:label="activity_running_tracker"
+        tools:layout="@layout/activity_running_tracker" />
+    <fragment
+        android:id="@+id/running_history"
+        android:name="com.example.mobile_assignment.running_history"
+        android:label="fragment_running_history"
+        tools:layout="@layout/fragment_running_history" />
 
 
 </navigation>

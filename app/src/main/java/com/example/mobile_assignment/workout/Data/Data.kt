@@ -48,3 +48,10 @@ data class Message(
 data class WorkoutChoice(
     val message: Message
 )
+
+data class RunningSession(
+    val startTime: Long,
+    val endTime: Long,
+    val distance: Double,
+    val averageSpeed: Double
+)

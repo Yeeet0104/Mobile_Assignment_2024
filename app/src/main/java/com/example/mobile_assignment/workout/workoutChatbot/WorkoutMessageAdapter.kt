@@ -21,7 +21,6 @@ class WorkoutMessageAdapter (private val messages: List<Message>) : RecyclerView
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val message = messages[position]
 
-
         // Customize appearance based on whether the message is from the user or the bot
         if (message.role == "user") {
             holder.binding.tvMessage.visibility = View.VISIBLE

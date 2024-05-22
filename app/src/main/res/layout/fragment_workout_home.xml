@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/DailyTargetlbl"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/DailyTargetlbl">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,7 +37,6 @@
             android:background="@drawable/rounded_corner_background"
             android:orientation="vertical"
             android:padding="16dp">
-
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,25 +89,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/rounded_corner_background"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@drawable/rounded_corner_background">
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Calories Burnt"
-                android:textStyle="bold"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="16sp"
-                android:textColor="@color/colorTextPrimary"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtTargetDailyCalBurnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Target : 0 Kcal"
-                android:textSize="14sp"
-                android:textColor="@color/colorTextSecondary"/>
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="14sp" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/caloriesProgress"
@@ -117,16 +116,16 @@
                 android:layout_gravity="center"
                 app:indicatorColor="@color/colorProgress"
                 app:trackColor="@color/colorProgressBackground"
-                app:trackThickness="8dp"/>
+                app:trackThickness="8dp" />
 
             <TextView
                 android:id="@+id/dailyTargetCalBurntLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="0 Kcal Left"
-                android:textSize="14sp"
                 android:textColor="@color/colorTextSecondary"
-                android:layout_gravity="center"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -183,19 +182,53 @@
         android:id="@+id/btnManageExercises"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginBottom="16dp"
         android:text="Manage Exercises"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <ImageView
         android:id="@+id/workoutChatBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Workout Expert"
+        android:src="@drawable/ic_workout_bot"
+        app:layout_constraintBottom_toTopOf="@+id/dailyTargetContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/workoutChatBot"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:text="Workout Expert"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <ImageView
+        android:id="@+id/btnRun"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_jogging"
+        app:layout_constraintBottom_toTopOf="@+id/dailyTargetContainer"
+        app:layout_constraintEnd_toStartOf="@+id/workoutChatBot"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/runHistory"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_history"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnRun"
+        app:layout_constraintEnd_toStartOf="@+id/btnRun"
+        app:layout_constraintTop_toTopOf="@+id/btnRun" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,7 @@ import com.example.mobile_assignment.workout.Data.CustomPlan
 class WorkoutPlanAdapter(
     private val onItemClicked: (CustomPlan) -> Unit,
     private val onStartWorkoutClicked: (CustomPlan) -> Unit,
-    private val showStartWorkoutButton: Boolean = true // Add a flag to show/hide the button
+    private val showStartWorkoutButton: Boolean = true
 //    val fn: (ViewHolder, CustomPlan) -> Unit = { _, _ -> }
 ) : ListAdapter<CustomPlan, WorkoutPlanAdapter.ViewHolder>(Diff) {
 
