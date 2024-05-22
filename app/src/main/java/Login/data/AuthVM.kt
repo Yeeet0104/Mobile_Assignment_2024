@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.location.GnssAntennaInfo.Listener
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.Blob
 import com.google.firebase.firestore.FieldPath
@@ -109,5 +110,24 @@ class AuthVM (val app: Application) : AndroidViewModel(app) {
         return null
     }
 
+    private val _filteredUsers = MutableLiveData<List<User>>()
+    val filteredUsers: LiveData<List<User>> get() = _filteredUsers
+    suspend fun searchUser(query: String) {
+        val sharedPreferences = getPreferences()
+        val currentUserId = sharedPreferences.getString("id", "")
+        val db = Firebase.firestore
+        val usersRef = db.collection("users")
+        usersRef.get()
+            .addOnSuccessListener { result ->
+                val users = result.mapNotNull { document ->
+                    val user = document.toObject(User::class.java)
+                    if (user.id != currentUserId && user.username.contains(query, ignoreCase = true)) user else null
+                }
+                _filteredUsers.value = users
+            }
+    }
+    suspend fun getAllUsers(): List<User> {
+        return USERS.get().await().toObjects<User>()
+    }
 }
 

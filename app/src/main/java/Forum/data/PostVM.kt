@@ -5,12 +5,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObjects
 import com.google.firebase.ktx.Firebase
 
 class PostVM : ViewModel() {
     val postList = MutableLiveData<List<Post>>()
+    val updatedList = MutableLiveData<List<Post>>()
 
     // Collection reference
     private val col = Firebase.firestore.collection("posts")
@@ -20,6 +24,8 @@ class PostVM : ViewModel() {
     }
 
     fun get(id: String) = postList.value?.find { it.postId == id }
+
+    fun getAll() = postList.value ?: emptyList()
 
     fun delete(id: String) {
         // TODO: Delete record by id
@@ -36,13 +42,20 @@ class PostVM : ViewModel() {
                 // Format the next ID as "p001", "p002", etc.
                 p.postId = "p%03d".format(nextId)
                 // Update the last used ID in the database
-                lastIdDoc.set(mapOf("lastId" to p.postId))
-                // Set record (insert or update)
-                col.document(p.postId).set(p)
+                lastIdDoc.set(mapOf("lastId" to p.postId)).addOnSuccessListener {
+                    // Set record (insert or update)
+                    col.document(p.postId).set(p)
+                }.addOnFailureListener { e ->
+                    Log.w("PostVM", "Error updating lastPostId", e)
+                }
+            }.addOnFailureListener { e ->
+                Log.w("PostVM", "Error getting lastPostId", e)
             }
         } else {
             // Set record (insert or update)
-            col.document(p.postId).set(p)
+            col.document(p.postId).set(p).addOnFailureListener { e ->
+                Log.w("PostVM", "Error setting post", e)
+            }
         }
     }
 
@@ -59,7 +72,7 @@ class PostVM : ViewModel() {
 
         e += if (p.postContent == "") "- Content is required.\n"
         else if (p.postContent.length < 3) "- Content is too short (at least 3 letters).\n"
-        else if (p.postContent.length > 100) "- Content is too long (at most 100 letters).\n"
+        else if (p.postContent.length > 200) "- Content is too long (at most 100 letters).\n"
         else ""
 
         return e
@@ -139,5 +152,39 @@ class PostVM : ViewModel() {
     fun updateComment(postId: String, comment: Comment) {
         Firebase.firestore.collection("posts").document(postId).collection("comments")
             .document(comment.commentId).set(comment)
+    }
+
+    private var name = ""
+    private var field = ""
+
+    fun search(name: String) {
+        this.name = name
+        updateResult()
+    }
+
+    fun sort(field: String) {
+        this.field = field
+        updateResult()
+    }
+
+    fun getPostLD() = postList
+
+    fun getResultLD() = updatedList
+
+    fun updateResult() {
+        var list = getAll()
+
+        // Search by name
+        list = list.filter {
+            (it.postUsername.contains(name, true) || it.postTitle.contains(name, true))
+        }
+
+        list = when (field) {
+            "Oldest" -> list.sortedBy { it.timePosted }
+            "Newest" -> list.sortedByDescending { it.timePosted }
+            else -> list
+        }
+
+        updatedList.value = list
     }
 }

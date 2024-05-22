@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
@@ -69,33 +70,36 @@ class ForumEditPost : Fragment() {
             val postImgBlob = binding.imgUpdatePic.cropToBlobNullable(800, 750)
             val sharedPreferences = auth.getPreferences()
             val currentUserId = sharedPreferences.getString("id", "")
-            val currentUsername = sharedPreferences.getString("username", "")
             val currentUserPhotoBlob = auth.getUserPhotoBlob() ?: Blob.fromBytes(ByteArray(0))
 
-            val p = Post(
-                postId = postId!!,
-                userId = currentUserId ?: "",
-                postUsername = currentUsername ?: "",
-                postTitle = binding.updtPostTitle.text.toString().trim(),
-                postContent = binding.updtPostContent.text.toString().trim(),
-                timePosted = System.currentTimeMillis(),
-                postImg = postImgBlob,
-                isEdited = true,
-                userProfilePic = currentUserPhotoBlob
-            )
+            // Observe the user LiveData to get the username
+            viewModel.getUser(currentUserId ?: "").observe(viewLifecycleOwner, Observer { user ->
+                val currentUsername = user?.username
 
-            val e = viewModel.validate(p, false)
-            if (e.isNotEmpty()) {
-                errorDialog(e)
-                return@launch
-            }
+                val p = Post(
+                    postId = postId!!,
+                    userId = currentUserId ?: "",
+                    postUsername = currentUsername ?: "",
+                    postTitle = binding.updtPostTitle.text.toString().trim(),
+                    postContent = binding.updtPostContent.text.toString().trim(),
+                    timePosted = System.currentTimeMillis(),
+                    postImg = postImgBlob,
+                    isEdited = true,
+                    userProfilePic = currentUserPhotoBlob
+                )
 
-            viewModel.set(p)
-            nav.navigate(R.id.forumHome)
-            toast("Post updated")
+                val e = viewModel.validate(p, false)
+                if (e.isNotEmpty()) {
+                    errorDialog(e)
+                    return@Observer
+                }
+
+                viewModel.set(p)
+                nav.navigate(R.id.forumHome)
+                toast("Post updated")
+            })
         }
     }
-
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){
         binding.imgUpdatePic.setImageURI(it)
     }
