@@ -258,12 +258,12 @@
     <activity
         android:id="@+id/runningTracker"
         android:name="com.example.mobile_assignment.workout.Ui.runningTracker"
-        android:label="activity_running_tracker"
+        android:label="Running Tracker"
         tools:layout="@layout/activity_running_tracker" />
     <fragment
         android:id="@+id/running_history"
         android:name="com.example.mobile_assignment.running_history"
-        android:label="fragment_running_history"
+        android:label="Running History"
         tools:layout="@layout/fragment_running_history" />
 
 

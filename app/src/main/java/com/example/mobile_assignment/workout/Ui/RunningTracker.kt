@@ -67,7 +67,7 @@ class runningTracker : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         binding = ActivityRunningTrackerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        supportActionBar?.title = "Running Tracker"
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         binding.mapView.onCreate(savedInstanceState)
