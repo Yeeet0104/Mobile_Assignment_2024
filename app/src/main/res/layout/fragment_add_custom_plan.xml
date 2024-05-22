@@ -84,7 +84,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clTimePicker"
-        android:layout_width="414dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,10 +111,10 @@
                 android:id="@+id/etDaysSelected"
                 android:layout_width="246dp"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
                 android:background="@drawable/edittext_background"
                 android:hint="Workout Days"
                 android:padding="8dp"
+                android:textSize="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
