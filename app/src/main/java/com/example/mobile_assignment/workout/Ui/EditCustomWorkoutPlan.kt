@@ -9,11 +9,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile_assignment.R
@@ -95,9 +101,37 @@ class EditCustomWorkoutPlan : Fragment() {
         exerciseViewModel.selectedImageUri.value?.let {
             binding.ivCustomImage.setImageURI(it)
         }
+
+
+        // Adding MenuProvider to handle options menu
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        clearAllSelected()
+                        findNavController().navigateUp()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            clearAllSelected()
+            findNavController().navigateUp()
+        }
         return binding.root
     }
-
+    private fun clearAllSelected() {
+        exerciseViewModel.clearSelectedExercises() // Clear selected exercises
+        exerciseViewModel.clearSelectedDaysAndTime() // Clear selected exercises
+        exerciseViewModel.clearSelectedImageUri() // Clear selected exercises
+    }
     private fun displayWorkoutPlanDetails() {
         exerciseViewModel.selectedCustomPlan.observe(viewLifecycleOwner) { customPlan ->
             customPlan?.let {
