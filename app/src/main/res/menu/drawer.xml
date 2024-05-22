@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item
-        android:id="@+id/home2"
-        android:title="Home" />
+<!--    <item-->
+<!--        android:id="@+id/home2"-->
+<!--        android:title="Home" />-->
     <item
         android:id="@+id/workoutHome"
         android:title="Workout" />
@@ -14,15 +14,15 @@
         android:id="@+id/forumHome"
         android:title="Forum" />
 
-    <item
-        android:id="@+id/profileFragment"
-        android:title="Profile" />
-
       <item
         android:id="@+id/nutritionMain"
         android:title="Nutrition" />
 
     <item
-        android:id="@+id/loginFragment"
-        android:title="Login" />
+        android:id="@+id/profileFragment"
+        android:title="Profile" />
+
+<!--    <item-->
+<!--        android:id="@+id/loginFragment"-->
+<!--        android:title="Login" />-->
 </menu>

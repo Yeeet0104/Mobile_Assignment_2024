@@ -31,12 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         abc = AppBarConfiguration(
             setOf(
-                R.id.home2,
+                //R.id.home2,
                 R.id.workoutHome,
                 R.id.forumHome,
                 R.id.profileFragment,
                 R.id.nutritionMain,
-                R.id.loginFragment
+                //R.id.loginFragment
             ),
             binding.root
         )
@@ -57,39 +57,11 @@ class MainActivity : AppCompatActivity() {
                 binding.bv.setupWithNavController(nav)
                 binding.nv.setupWithNavController(nav)
 
-//                // TODO(5): Observe login status -> userLiveData
-//                auth.getUserLD().observe(this) { user ->
-//                    // TODO(5A): Clear menu + remove header
-//                    binding.nv.menu.clear()
-//                    val h = binding.nv.getHeaderView(0)
-//                    binding.nv.removeHeaderView(h)
-//
-//                    // TODO(5B): Inflate menu + header (based on login status)
-//                    if (user == null) {
-//                        binding.nv.inflateHeaderView(R.layout.header)
-//                        nav.navigateUp()
-//                    }
-//                    else {
-//                        binding.nv.inflateHeaderView(R.layout.header1)
-//                        setHeader(user)
-//                    }
-//
-//                }
-//
-//                // TODO(8): Auto login -> auth.loginFromPreferences(...)
-//                lifecycleScope.launch{auth.loginFromPreferences()}
             }
         }
 
     }
 
-//    private fun setHeader(user: User) {
-//        val h = binding.nv.getHeaderView(0)
-//        val b = HeaderBinding.bind(h)
-//        b.imgPhoto.setImageBlob(user.photo)
-//        b.txtName.text  = user.username
-//        b.txtEmail.text = user.email
-//    }
 
     override fun onSupportNavigateUp(): Boolean {
         return nav.navigateUp(abc)

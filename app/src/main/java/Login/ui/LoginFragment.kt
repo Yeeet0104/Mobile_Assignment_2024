@@ -65,9 +65,8 @@ class LoginFragment : Fragment() {
         lifecycleScope.launch {
             val success = auth.login(email, hashedPassword, remember)
             if (success) {
-                //nav.popBackStack(R.id.home2, false)
-                //nav.navigateUp()
-                nav.navigate(R.id.home2)
+                toast("Login Successfully!")
+                nav.navigate(R.id.profileFragment)
             } else {
                 errorDialog("Invalid Login Credentials.")
             }

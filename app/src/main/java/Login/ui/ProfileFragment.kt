@@ -79,14 +79,14 @@ class   ProfileFragment : Fragment() {
         if (userId.isNotEmpty()) {
             userVM.delete(userId)
             auth.logout()
-            nav.popBackStack(R.id.home2, false)
+            nav.popBackStack(R.id.loginFragment, false)
             nav.navigate(R.id.loginFragment)
         }
     }
 
     private fun logout() {
         auth.logout()
-        nav.popBackStack(R.id.home2, false)
+        nav.popBackStack(R.id.loginFragment, false)
         nav.navigate(R.id.loginFragment)
     }
 
