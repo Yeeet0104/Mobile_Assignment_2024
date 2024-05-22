@@ -41,7 +41,6 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     private val _selectedImageUri = MutableLiveData<Uri?>()
     val selectedImageUri: LiveData<Uri?> get() = _selectedImageUri
 
-
     private val _selectedDays = MutableLiveData<List<String>>()
     val selectedDays: LiveData<List<String>> get() = _selectedDays
 
@@ -142,10 +141,6 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     fun selectCustomPlan(customPlan: CustomPlan) {
         _selectedCustomPlan.value = customPlan
-    }
-
-    fun updateSelectedExercises(exercises: List<Exercise>) {
-        _selectedExercises.value = exercises
     }
 
     fun clearSelectedExercises() {

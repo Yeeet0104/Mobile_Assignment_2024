@@ -15,6 +15,7 @@ import com.example.mobile_assignment.databinding.FragmentWorkoutHomeBinding
 import com.example.mobile_assignment.workout.Data.ExerciseViewModel
 import com.example.mobile_assignment.workout.WorkoutPlanAdapter
 import com.example.mobile_assignment.workout.Data.WorkoutSharedViewModel
+import util.toast
 
 
 class workoutHome : Fragment() {
@@ -26,27 +27,41 @@ class workoutHome : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentWorkoutHomeBinding.inflate(inflater, container, false)
 
-        binding.workoutProgress.progress = 0
-        binding.caloriesProgress.max = 0
-        binding.caloriesProgress.progress = 0
-
         setupRecyclerView()
         setupObservers()
 
         binding.btnAddMore.setOnClickListener {
+            val userId = auth.getPreferences().getString("id", "")
+            if (userId == "") {
+                toast("User not found")
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.addCustomPlan)
         }
 
         binding.btnManageExercises.setOnClickListener {
+            val userId = auth.getPreferences().getString("id", "")
+            if (userId == "") {
+                toast("User not found")
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.manageExercises)
         }
         binding.workoutViewAll.workoutViewAllContainer.setOnClickListener {
+            val userId = auth.getPreferences().getString("id", "")
+            if (userId == "") {
+                toast("User not found")
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.viewAllWorkoutPlan)
         }
         if (getCurrentRole() == 1){
             binding.btnManageExercises.visibility = View.VISIBLE
         }else{
             binding.btnManageExercises.visibility = View.GONE
+        }
+        binding.workoutChatBot.setOnClickListener {
+            findNavController().navigate(R.id.workoutChatBot2)
         }
         return binding.root
     }
@@ -69,10 +84,11 @@ class workoutHome : Fragment() {
     }
 
     private fun setupObservers() {
-
-//        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-//        val userId = sharedPref.getString("userId", "U001") ?: "U001"
-
+        val userId = auth.getPreferences().getString("id", "")
+        if (userId == "") {
+            toast("User not found")
+            return
+        }
         exerciseViewModel.todaysCustomPlans.observe(viewLifecycleOwner) { customPlans ->
             binding.workoutProgress.max = customPlans.size
             binding.workoutTargetDaily.text = "Target : " +  customPlans.size.toString() + " Workouts"
@@ -110,6 +126,7 @@ class workoutHome : Fragment() {
         }
 
         exerciseViewModel.fetchCustomPlans(getCurrentUserId())
+
     }
 
     private fun getCurrentUserId(): String {

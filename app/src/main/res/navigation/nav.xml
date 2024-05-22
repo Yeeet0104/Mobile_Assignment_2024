@@ -243,6 +243,11 @@
         android:name="nutrition.NutritionChatbot"
         android:label="Nutritionist Expert"
         tools:layout="@layout/fragment_nutrition_chatbot" />
+    <fragment
+        android:id="@+id/workoutChatBot2"
+        android:name="com.example.mobile_assignment.workout.Ui.workoutChatBot"
+        android:label="Workout Expert Bot"
+        tools:layout="@layout/fragment_workout_chat_bot" />
 
 
 </navigation>

@@ -37,5 +37,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvAddDate"
         app:layout_constraintTop_toTopOf="@+id/tvAddDate"
-        app:srcCompat="@drawable/ic_calander" />
+        app:srcCompat="@drawable/ic_calender" />
 </androidx.constraintlayout.widget.ConstraintLayout>
