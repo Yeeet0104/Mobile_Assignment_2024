@@ -30,14 +30,14 @@ fun Fragment.snackbar(text: String) {
 }
 
 // Usage: Show an error dialog from fragment
-fun Fragment.errorDialog(text: String) {
-    AlertDialog.Builder(context)
-        .setIcon(R.drawable.ic_error)
-        .setTitle("Error")
-        .setMessage(text)
-        .setPositiveButton("Dismiss", null)
-        .show()
-}
+//fun Fragment.errorDialog(text: String) {
+//    AlertDialog.Builder(context)
+//        .setIcon(R.drawable.ic_error)
+//        .setTitle("Error")
+//        .setMessage(text)
+//        .setPositiveButton("Dismiss", null)
+//        .show()
+//}
 
 // Usage: Show an information dialog from fragment
 fun Fragment.infoDialog(text: String) {

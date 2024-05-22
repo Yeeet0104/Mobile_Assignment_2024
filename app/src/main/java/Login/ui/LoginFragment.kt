@@ -60,9 +60,15 @@ class LoginFragment : Fragment() {
         val password = binding.edtLoginPassword.text.toString().trim()
         val remember = binding.chkRememberMe.isChecked
 
-        // Get the roleForSignUp from SharedPreferences
-        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-        roleForSignUp = sharedPreferences.getInt("roleForSignUp", 0)
+        if(email == ""){
+            errorDialog("Email cannot be empty.")
+            return
+        }
+
+        if(password == ""){
+            errorDialog("Password cannot be empty.")
+            return
+        }
 
         // Check if Remember Me is checked
         if (!binding.chkRememberMe.isChecked) {

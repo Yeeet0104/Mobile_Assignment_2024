@@ -2,7 +2,6 @@ package Login.ui
 
 import Login.data.User
 import Login.data.UserVM
-import Login.util.errorDialog
 import Login.util.toBlob
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -18,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentSignUp1Binding
 import com.google.firebase.firestore.FirebaseFirestore
+import util.errorDialog
 import util.toast
 import java.security.MessageDigest
 import kotlin.random.Random
