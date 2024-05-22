@@ -11,9 +11,15 @@
         android:name="Login.ui.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen">
+<!--        <action-->
+<!--            android:id="@+id/action_splashScreenFragment_to_home2"-->
+<!--            app:destination="@id/home2" />-->
         <action
-            android:id="@+id/action_splashScreenFragment_to_home2"
-            app:destination="@id/home2" />
+            android:id="@+id/action_splashScreenFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment

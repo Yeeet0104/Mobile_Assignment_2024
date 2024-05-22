@@ -86,13 +86,25 @@ class AuthVM (val app: Application) : AndroidViewModel(app) {
     // TODO(6): Get shared preferences
     public fun getPreferences() = app.getSharedPreferences("AUTH", Context.MODE_PRIVATE)
 
-    // TODO(7): Auto login from shared preferences
-    suspend fun loginFromPreferences() {
-        val email = getPreferences().getString("email",null)
+//    // TODO(7): Auto login from shared preferences
+//    suspend fun loginFromPreferences() {
+//        val email = getPreferences().getString("email",null)
+//        val password = getPreferences().getString("password", null)
+//
+//        if(email != null && password != null){
+//            login(email,password)
+//        }
+//    }
+
+    // Assuming your existing code for AuthVM is fine, ensure loginFromPreferences is implemented.
+    suspend fun loginFromPreferences(): Boolean {
+        val email = getPreferences().getString("email", null)
         val password = getPreferences().getString("password", null)
 
-        if(email != null && password != null){
-            login(email,password)
+        return if (email != null && password != null) {
+            login(email, password, true)
+        } else {
+            false
         }
     }
 

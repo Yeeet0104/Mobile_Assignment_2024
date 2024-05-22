@@ -27,7 +27,10 @@
         android:title="Nutrition" />
 
     <item
-        android:id="@+id/loginFragment"
-        android:icon="@drawable/ic_arrow_right"
-        android:title="Login" />
+        android:id="@+id/profileFragment"
+        android:title="Profile" />
+
+<!--    <item-->
+<!--        android:id="@+id/loginFragment"-->
+<!--        android:title="Login" />-->
 </menu>

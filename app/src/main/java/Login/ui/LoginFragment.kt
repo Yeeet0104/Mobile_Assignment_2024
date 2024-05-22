@@ -78,24 +78,8 @@ class LoginFragment : Fragment() {
         lifecycleScope.launch {
             val success = auth.login(email, hashedPassword, remember)
             if (success) {
-                val user = auth.getUser() // Assuming auth.getUser() fetches the logged-in user
-
-                // Check role
-                if (roleForSignUp == user?.role) {
-                    toast("Login successful!")
-                    nav.navigate(R.id.profileFragment)
-                } else {
-                    val errorMessage = when (roleForSignUp) {
-                        0 -> if (user?.role == 1) "You are not an admin." else ""
-                        1 -> if (user?.role == 0) "Please login as admin." else ""
-                        else -> "Unexpected role error."
-                    }
-                    if (errorMessage.isNotEmpty()) {
-                        errorDialog(errorMessage)
-                    }
-                }
-//                toast("Login successfully!")
-//                nav.navigate(R.id.profileFragment)
+                toast("Login Successfully!")
+                nav.navigate(R.id.profileFragment)
             } else {
                 errorDialog("Invalid Login Credentials.")
             }
