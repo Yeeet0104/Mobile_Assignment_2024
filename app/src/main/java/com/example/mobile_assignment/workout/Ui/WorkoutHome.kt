@@ -114,6 +114,7 @@ class workoutHome : Fragment() {
                     exercise!!.caloriesBurn.toString().toInt()
                 }
             }
+
             binding.txtTargetDailyCalBurnt.text ="Target : " + "$totalCaloriesBurnt Calories"
             // Count the number of completed workouts
             val completedWorkouts = customPlans.count { it.status == 1 }
