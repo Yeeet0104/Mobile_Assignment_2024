@@ -28,7 +28,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="85"
+            android:layout_weight="80"
             android:background="@drawable/black_border"
             android:hint="Type a message"
             android:inputType="text"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="47dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="15"
+            android:layout_weight="20"
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_menu_send" />
 
