@@ -49,9 +49,16 @@ class NutritionChatbot : Fragment() {
     }
 
     private fun sendMessageToBot(message: String) {
+        val initialContext = ChatMessage(
+            role = "system",
+            content = "You are a nutritionist expert. Provide professional advice related to nutrition."
+        )
+
+        val userMessage = ChatMessage("user", message)
+
         val openAIRequest = OpenAIRequest(
             model = "gpt-3.5-turbo",
-            messages = listOf(ChatMessage("user", message))
+            messages = listOf(initialContext, userMessage)
         )
 
         RetrofitInstance.api.sendMessage(openAIRequest).enqueue(object : Callback<OpenAIResponse> {
@@ -69,4 +76,5 @@ class NutritionChatbot : Fragment() {
             }
         })
     }
+
 }
