@@ -159,7 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_calander"
+        android:src="@drawable/ic_calender"
         app:layout_constraintBottom_toBottomOf="@+id/txtDailyCal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtDailyCal"
