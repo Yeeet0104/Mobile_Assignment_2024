@@ -6,29 +6,117 @@
     android:layout_height="match_parent"
     tools:context=".workout.Ui.workoutHome">
 
-
-    <TextView
-        android:id="@+id/DailyTargetlbl"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dailyTargetContainerTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Daily Target"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/DailyTargetlbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daily Target"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <LinearLayout
+            android:id="@+id/workoutChatBotContainer"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chat"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="10dp">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/workoutChatBot"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_workout_bot" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/workoutRunningContainer"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/workoutChatBotContainer"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jog"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="10dp">
+
+            </TextView>
+            <ImageView
+                android:id="@+id/btnRun"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_jogging"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/workoutHistoryRunContainer"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/workoutRunningContainer"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="10dp"/>
+
+            <ImageView
+                android:id="@+id/runHistory"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_history"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnRun"
+                app:layout_constraintEnd_toStartOf="@+id/btnRun"
+                app:layout_constraintTop_toTopOf="@+id/btnRun" />
+    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/dailyTargetContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DailyTargetlbl">
+        app:layout_constraintTop_toBottomOf="@+id/dailyTargetContainerTitle">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -188,47 +276,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/workoutChatBot"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_workout_bot"
-        app:layout_constraintBottom_toTopOf="@+id/dailyTargetContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-<!--    <Button-->
-<!--        android:id="@+id/workoutChatBot"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:text="Workout Expert"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <ImageView
-        android:id="@+id/btnRun"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_jogging"
-        app:layout_constraintBottom_toTopOf="@+id/dailyTargetContainer"
-        app:layout_constraintEnd_toStartOf="@+id/workoutChatBot"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/runHistory"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/ic_history"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnRun"
-        app:layout_constraintEnd_toStartOf="@+id/btnRun"
-        app:layout_constraintTop_toTopOf="@+id/btnRun" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

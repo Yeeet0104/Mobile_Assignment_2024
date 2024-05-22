@@ -43,6 +43,7 @@ class StartExercise : Fragment() {
         val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bv)
         bottomNav?.visibility = View.GONE
         sharedViewModel.selectedWorkoutPlan.observe(viewLifecycleOwner) { workoutPlan ->
+            Log.d("StartExercise", "Workout Plan: $workoutPlan")
             workoutPlan?.let { updateUI(it) }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -84,22 +85,23 @@ class StartExercise : Fragment() {
         val currentExerciseIndex = sharedViewModel.currentExerciseIndex.value ?: 0
         if (currentExerciseIndex < workoutPlan.exerciseIds.size) {
             val exerciseId = workoutPlan.exerciseIds[currentExerciseIndex]
-            Log.d("StartExercise", "currentExerciseIndex ID: $currentExerciseIndex")
-            Log.d("StartExercise", "Exercise ID: $exerciseId")
             val exercises = ExerciseViewModel.getExerciseInfo(exerciseId)
-            binding.tvExerciseName.text = exercises!!.name
-            binding.ivExerciseImage.setImageBitmap(exercises.photo!!.toBitmap())
-            if (exercises.duration != null) {
-                binding.tvSetsAndReps.visibility = View.GONE
-                binding.progressBarDuration.visibility = View.VISIBLE
-                binding.tvcountDown.visibility = View.VISIBLE
-                startDurationTimer(exercises.duration)
-            } else {
-                binding.tvSetsAndReps.visibility = View.VISIBLE
-                binding.progressBarDuration.visibility = View.GONE
-                binding.tvcountDown.visibility = View.GONE
-                binding.tvSetsAndReps.text = "${exercises.reps} reps"
+            if(exercises != null){
+                binding.tvExerciseName.text = exercises.name
+                binding.ivExerciseImage.setImageBitmap(exercises.photo!!.toBitmap())
+                if (exercises.duration != 0) {
+                    binding.tvSetsAndReps.visibility = View.GONE
+                    binding.progressBarDuration.visibility = View.VISIBLE
+                    binding.tvcountDown.visibility = View.VISIBLE
+                    startDurationTimer(exercises.duration)
+                } else {
+                    binding.tvSetsAndReps.visibility = View.VISIBLE
+                    binding.progressBarDuration.visibility = View.GONE
+                    binding.tvcountDown.visibility = View.GONE
+                    binding.tvSetsAndReps.text = "${exercises.reps} reps"
+                }
             }
+
         } else {
             // handle the case when currentExerciseIndex is out of bounds
         }
@@ -115,8 +117,10 @@ class StartExercise : Fragment() {
 
             override fun onFinish() {
                 binding.progressBarDuration.progress = 0
+                Log.d("StartExercise", "Exercise Completed")
                 sharedViewModel.addProgress(getCurrentUserId())
-                navigateToNextExercise()
+                sharedViewModel.nextExercise()
+                stopAndNavigate()
             }
         }
         countDownTimer?.start()
@@ -132,7 +136,6 @@ class StartExercise : Fragment() {
         val userId = getCurrentUserId()
         val totalExercises = sharedViewModel.selectedWorkoutPlan.value?.exerciseIds?.size ?: 0
         val currentProgress = sharedViewModel.workoutProgress.value ?: 0
-
         if (sharedViewModel.isLastExercise()) {
             if (currentProgress == totalExercises) {
                 sharedViewModel.markAsCompleted(userId)

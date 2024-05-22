@@ -64,9 +64,19 @@ class workoutHome : Fragment() {
             findNavController().navigate(R.id.workoutChatBot2)
         }
         binding.btnRun.setOnClickListener {
+            val userId = auth.getPreferences().getString("id", "")
+            if (userId == "") {
+                toast("User not found")
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.runningTracker)
         }
         binding.runHistory.setOnClickListener {
+            val userId = auth.getPreferences().getString("id", "")
+            if (userId == "") {
+                toast("User not found")
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.running_history)
         }
         return binding.root

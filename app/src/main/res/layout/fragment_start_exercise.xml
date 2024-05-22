@@ -21,20 +21,21 @@
         android:id="@+id/ivExerciseImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:layout_constraintTop_toBottomOf="@id/tvExerciseName"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvExerciseName" />
 
     <TextView
         android:id="@+id/tvSetsAndReps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="4 sets 8 reps"
-        app:layout_constraintTop_toBottomOf="@id/ivExerciseImage"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivExerciseImage" />
 
     <TextView
         android:id="@+id/tvcountDown"
@@ -57,30 +58,33 @@
         android:indeterminate="false"
         android:max="100"
         android:progress="0"
-        android:visibility="gone"
+
         android:progressDrawable="@drawable/circular_progress_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSetsAndReps" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSetsAndReps"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="600dp"
         android:text="Done"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="16dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnSkip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="600dp"
+        android:layout_marginEnd="28dp"
         android:text="Skip"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

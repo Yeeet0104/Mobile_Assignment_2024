@@ -1,12 +1,15 @@
 package com.example.mobile_assignment.workout.workoutChatbot
 
 import android.app.Application
+import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mobile_assignment.workout.Data.Message
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.InputStream
 
 class WorkoutChatBotWM (application: Application) : AndroidViewModel(application) {
     private val repository = ChatBotRepository()
