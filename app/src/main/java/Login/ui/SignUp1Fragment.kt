@@ -2,6 +2,8 @@ package Login.ui
 
 import Login.data.User
 import Login.data.UserVM
+import Login.util.SimpleEmail
+import Login.util.snackbar
 import Login.util.toBlob
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -131,6 +133,23 @@ class SignUp1Fragment : Fragment() {
                             errorDialog(e)
                             return@autoGenerateID
                         }
+
+                        ////////send email after sign up
+                        val subject = "Thank for signing up"
+                        val content = """
+                        <p>Congratulation, your account has been successfully created!</p>
+                        <h1 style="color: green">Good Health and Well-Being with NutriFit Coach</h1>
+                        <p>Thank you!</p>
+                        """.trimIndent()
+
+                        // send otp to email
+                        SimpleEmail()
+                            .to(userEmail)
+                            .subject(subject)
+                            .content(content)
+                            .isHtml()
+                            .send{}
+                        /////////
 
                         vm.set(user)
                         toast("Successfully registered! Login now!")

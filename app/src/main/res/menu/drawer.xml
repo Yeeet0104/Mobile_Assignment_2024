@@ -16,10 +16,10 @@
         android:icon="@drawable/ic_forum"
         android:title="Forum" />
 
-    <item
-        android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_username1"
-        android:title="Profile" />
+<!--    <item-->
+<!--        android:id="@+id/profileFragment"-->
+<!--        android:icon="@drawable/ic_username1"-->
+<!--        android:title="Profile" />-->
 
     <item
         android:id="@+id/nutritionMain"
@@ -28,6 +28,7 @@
 
     <item
         android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_username1"
         android:title="Profile" />
 
 <!--    <item-->
