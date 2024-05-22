@@ -235,7 +235,7 @@
     <fragment
         android:id="@+id/nutritionChatbot"
         android:name="nutrition.NutritionChatbot"
-        android:label="Nutrition Expert"
+        android:label="Nutritionist Expert"
         tools:layout="@layout/fragment_nutrition_chatbot" />
 
 
