@@ -35,7 +35,7 @@ class ManageExerciseAdapter(
         val exercise = getItem(position)
 
         holder.binding.tvExerciseName.text = exercise.name
-        holder.binding.tvExerciseDuration.text = exercise.duration
+        holder.binding.tvExerciseDuration.text = exercise.duration.toString()
         exercise.photo?.let {
             val imageBytes = it.toBytes()
             val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)

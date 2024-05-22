@@ -24,5 +24,6 @@
     <color name="colorIcon">#7b6f72</color>
     <color name="colorWorkoutContainerPrimary">#e9edfe</color>
     <color name="colorWorkoutPlansCon">#ccd4ff</color>
+    <color name="blue">#219af4</color>
 
 </resources>

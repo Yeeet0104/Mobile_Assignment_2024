@@ -25,7 +25,6 @@ class SplashScreenFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-
         lifecycleScope.launch {
             val isLoggedIn = auth.loginFromPreferences()
             binding.root.postDelayed({

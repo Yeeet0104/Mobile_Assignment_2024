@@ -3,6 +3,7 @@ package com.example.mobile_assignment.workout
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +12,10 @@ import com.example.mobile_assignment.databinding.ItemWorkoutPlanBinding
 import com.example.mobile_assignment.workout.Data.CustomPlan
 
 class WorkoutPlanAdapter(
-    val fn: (ViewHolder, CustomPlan) -> Unit = { _, _ -> }
+    private val onItemClicked: (CustomPlan) -> Unit,
+    private val onStartWorkoutClicked: (CustomPlan) -> Unit,
+    private val showStartWorkoutButton: Boolean = true // Add a flag to show/hide the button
+//    val fn: (ViewHolder, CustomPlan) -> Unit = { _, _ -> }
 ) : ListAdapter<CustomPlan, WorkoutPlanAdapter.ViewHolder>(Diff) {
 
     companion object Diff : DiffUtil.ItemCallback<CustomPlan>() {
@@ -28,17 +32,29 @@ class WorkoutPlanAdapter(
         val customPlan = getItem(position)
 
         holder.binding.tvWorkoutTitle.text = customPlan.name
-        holder.binding.tvWorkoutDetails.text = "${customPlan.exerciseIds.size} Exercises | ${customPlan.restDuration} mins"
+        holder.binding.tvWorkoutDetails.text = "${customPlan.exerciseIds.size} Exercises"
         holder.binding.tvWorkoutTime.text = customPlan.timeOfDay
         customPlan.photo?.let {
             val imageBytes = it.toBytes()
             val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
             holder.binding.workoutPlanImg.setImageBitmap(bitmap)
         }
+        customPlan.status.let {
+            if (it == 1) {
+                holder.binding.btnStartWorkout.text = "Completed"
+            }
+        }
+        holder.binding.btnStartWorkout.visibility = if (showStartWorkoutButton) View.VISIBLE else View.GONE
+
+        // Set click listener for the item view to view details
         holder.itemView.setOnClickListener {
-            Log.d("WorkoutPlanAdapter", "Selected custom plan: $customPlan")
-            Log.d("WorkoutPlanAdapter", "Selected custom plan: $position")
-            fn(holder, customPlan)
+            onItemClicked(customPlan)
+        }
+
+        // Set click listener for the "Start Workout" button
+        holder.binding.btnStartWorkout.setOnClickListener {
+            onStartWorkoutClicked(customPlan)
         }
     }
+
 }

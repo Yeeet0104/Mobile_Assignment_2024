@@ -1,6 +1,7 @@
 package Login.ui
 
 import Login.data.AuthVM
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,6 +23,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding : FragmentLoginBinding
     private val nav by lazy { findNavController() }
     private val auth: AuthVM by activityViewModels()
+    private var roleForSignUp: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,13 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        // Get the roleForSignUp from SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        roleForSignUp = sharedPreferences.getInt("roleForSignUp", 0)
+
+        // Set visibility of lbl_admin_login based on roleForSignUp
+        binding.lblAdminLogin.visibility = if (roleForSignUp == 1) View.VISIBLE else View.GONE
 
         reset()
         binding.btnLogin.setOnClickListener { login() }
@@ -50,6 +59,10 @@ class LoginFragment : Fragment() {
         val email = binding.edtLoginEmail.text.toString().trim()
         val password = binding.edtLoginPassword.text.toString().trim()
         val remember = binding.chkRememberMe.isChecked
+
+        // Get the roleForSignUp from SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        roleForSignUp = sharedPreferences.getInt("roleForSignUp", 0)
 
         // Check if Remember Me is checked
         if (!binding.chkRememberMe.isChecked) {

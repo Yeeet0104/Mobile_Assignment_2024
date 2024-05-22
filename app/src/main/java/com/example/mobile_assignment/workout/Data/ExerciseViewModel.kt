@@ -31,10 +31,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     private val _selectedExercises = MutableLiveData<List<Exercise>>()
     val selectedExercises: LiveData<List<Exercise>> get() = _selectedExercises
-
-//    private val _addExerciseStatus = MutableLiveData<Boolean>()
-//    val addExerciseStatus: LiveData<Boolean> get() = _addExerciseStatus
-
+    
     private val _customPlans = MutableLiveData<List<CustomPlan>>()
     val customPlans: LiveData<List<CustomPlan>> get() = _customPlans
 
@@ -206,8 +203,8 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         _selectedExercise.value = null
     }
     fun getCurrentUserId(): String {
-        val sharedPref = getApplication<Application>().getSharedPreferences("userID", Context.MODE_PRIVATE)
-        return sharedPref.getString("userId", "U001") ?: "U001"
+        val sharedPref = getApplication<Application>().getSharedPreferences("AUTH", Context.MODE_PRIVATE)
+        return sharedPref.getString("id", "U001") ?: "U001"
     }
 
     fun updateSelectedExercisesByIds(exerciseIds: List<String>) {
@@ -286,5 +283,47 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
             .sortedBy { it.timeOfDay }
 
         _todaysCustomPlans.value = filteredPlans
+    }
+
+    fun getExerciseInfo(ExerciseID : String) : Exercise? {
+        return _exercises.value?.find { it.id == ExerciseID }
+    }
+    fun fetchCustomPlanByOtherId(planId: String,userId: String, onSuccess: (CustomPlan?) -> Unit, onFailure: () -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("customPlans").document(userId).collection("plans").document(planId).get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val customPlan = document.toObject(CustomPlan::class.java)
+                    onSuccess(customPlan)
+                } else {
+                    onSuccess(null)
+                }
+            }
+            .addOnFailureListener {
+                onFailure()
+            }
+    }
+
+    fun checkAndAddCustomPlan(userId: String, plan: CustomPlan, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val planRef = db.collection("customPlans").document(userId).collection("plans").document(plan.id)
+
+        planRef.get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    onFailure()
+                } else {
+                    planRef.set(plan)
+                        .addOnSuccessListener {
+                            onSuccess()
+                        }
+                        .addOnFailureListener { e ->
+                            onFailure()
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                onFailure()
+            }
     }
 }

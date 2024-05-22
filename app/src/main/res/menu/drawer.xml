@@ -9,13 +9,21 @@
 <!--        android:title="Home" />-->
     <item
         android:id="@+id/workoutHome"
+        android:icon="@drawable/ic_workout"
         android:title="Workout" />
     <item
         android:id="@+id/forumHome"
+        android:icon="@drawable/ic_forum"
         android:title="Forum" />
 
-      <item
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_username1"
+        android:title="Profile" />
+
+    <item
         android:id="@+id/nutritionMain"
+        android:icon="@drawable/ic_nutrition_main"
         android:title="Nutrition" />
 
     <item

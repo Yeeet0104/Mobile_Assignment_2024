@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/workoutHome"
-        android:name="com.example.mobile_assignment.workout.workoutHome"
+        android:name="com.example.mobile_assignment.workout.Ui.workoutHome"
         android:label="Workout"
         tools:layout="@layout/fragment_workout_home" />
 
@@ -38,7 +38,7 @@
         android:id="@+id/forumHome"
         android:name="Forum.ui.ForumHome"
         android:label="Forum"
-        tools:layout="@layout/fragment_forum_home" >
+        tools:layout="@layout/fragment_forum_home">
         <action
             android:id="@+id/action_forumHome_to_forumCreatePost"
             app:destination="@id/forumCreatePost" />
@@ -47,7 +47,7 @@
         android:id="@+id/forumCreatePost"
         android:name="Forum.ui.ForumCreatePost"
         android:label="fragment_forum_create_post"
-        tools:layout="@layout/fragment_forum_create_post" >
+        tools:layout="@layout/fragment_forum_create_post">
         <action
             android:id="@+id/action_forumCreatePost_to_forumHome"
             app:destination="@id/forumHome" />
@@ -77,45 +77,45 @@
 
     <fragment
         android:id="@+id/addCustomPlan"
-        android:name="com.example.mobile_assignment.workout.addCustomPlan"
+        android:name="com.example.mobile_assignment.workout.Ui.addCustomPlan"
         android:label="Add Workout Plan" />
 
     <fragment
         android:id="@+id/addExercise"
-        android:name="com.example.mobile_assignment.workout.addExercise"
+        android:name="com.example.mobile_assignment.workout.Ui.addExercise"
         android:label="fragment_add_exercise"
         tools:layout="@layout/fragment_add_exercise" />
 
     <fragment
         android:id="@+id/addNewExercise"
-        android:name="com.example.mobile_assignment.workout.AddNewExercise"
+        android:name="com.example.mobile_assignment.workout.Ui.AddNewExercise"
         android:label="AddNewExercise" />
 
     <fragment
         android:id="@+id/nutritionDetails"
-        android:name="Nutrition.NutritionDetails"
+        android:name="nutrition.NutritionDetails"
         android:label="Food Details"
         tools:layout="@layout/fragment_nutrition_details" />
 
     <fragment
         android:id="@+id/nutritionMain"
-        android:name="Nutrition.NutritionMain"
+        android:name="nutrition.NutritionMain"
         android:label="Nutrition"
         tools:layout="@layout/fragment_nutrition_main" />
 
     <fragment
         android:id="@+id/nutritionSearch"
-        android:name="Nutrition.NutritionSearch"
+        android:name="nutrition.NutritionSearch"
         android:label="Search Food"
         tools:layout="@layout/fragment_nutrition_search" />
     <fragment
         android:id="@+id/nutritionAdd"
-        android:name="Nutrition.NutritionAdd"
+        android:name="nutrition.NutritionAdd"
         android:label="Add Food"
         tools:layout="@layout/fragment_nutrition_add" />
     <fragment
         android:id="@+id/nutritionEdit"
-        android:name="Nutrition.NutritionEdit"
+        android:name="nutrition.NutritionEdit"
         android:label="Edit Food"
         tools:layout="@layout/fragment_nutrition_edit" />
 
@@ -183,33 +183,66 @@
             android:id="@+id/action_otpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/exerciseDetailsFragment"
-        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
-        android:label="fragment_exercise_details"
-        tools:layout="@layout/fragment_exercise_details" />
+
+
     <fragment
         android:id="@+id/fragment_workout_plan_details"
-        android:name="com.example.mobile_assignment.workout.fragment_workout_plan_details"
-        android:label="fragment_workout_plan_details" />
+        android:name="com.example.mobile_assignment.workout.Ui.fragment_workout_plan_details"
+        android:label="Workout Plan Details" />
     <fragment
         android:id="@+id/manageExercises"
-        android:name="com.example.mobile_assignment.workout.manageExercises"
-        android:label="fragment_manage_exercises"
+        android:name="com.example.mobile_assignment.workout.Ui.manageExercises"
+        android:label="Manage Exercise"
         tools:layout="@layout/fragment_manage_exercises" />
     <fragment
         android:id="@+id/editCustomWorkoutPlan"
-        android:name="com.example.mobile_assignment.workout.EditCustomWorkoutPlan"
-        android:label="EditCustomWorkoutPlan" />
+        android:name="com.example.mobile_assignment.workout.Ui.EditCustomWorkoutPlan"
+        android:label="Edit Workout Plan" />
+
+    <fragment
+        android:id="@+id/startExercise"
+        android:name="com.example.mobile_assignment.workout.Ui.StartExercise"
+        android:label="Start Workout"
+        tools:layout="@layout/fragment_start_exercise" />
+    <fragment
+        android:id="@+id/restTimer"
+        android:name="com.example.mobile_assignment.workout.Ui.RestTimer"
+        android:label="Rest"
+        tools:layout="@layout/fragment_rest_timer" />
+    <fragment
+        android:id="@+id/viewAllWorkoutPlan"
+        android:name="com.example.mobile_assignment.workout.Ui.viewAllWorkoutPlan"
+        android:label="All Workout Plan"
+        tools:layout="@layout/fragment_view_all_workout_plan" />
+    <fragment
+        android:id="@+id/workoutDoneScreen2"
+        android:name="com.example.mobile_assignment.workout.Ui.workoutDoneScreen"
+        android:label="Workout Completed"
+        tools:layout="@layout/fragment_workout_done_screen" />
     <fragment
         android:id="@+id/exerciseDetailsFragment"
-        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
-        android:label="fragment_exercise_details"
+        android:name="com.example.mobile_assignment.workout.Ui.ExerciseDetailsFragment"
+        android:label="Exercise Details"
         tools:layout="@layout/fragment_exercise_details" />
+    <fragment
+        android:id="@+id/liveChatNameList"
+        android:name="Forum.ui.LiveChatNameList"
+        android:label="LiveChatNameList" />
+    <fragment
 
-    android:id="@+id/exerciseDetailsFragment"
-        android:name="com.example.mobile_assignment.workout.ExerciseDetailsFragment"
-        android:label="fragment_exercise_details"
-        tools:layout="@layout/fragment_exercise_details" />
+        android:id="@+id/firstPageFragment"
+        android:name="Login.ui.FirstPageFragment"
+        android:label="fragment_first_page"
+        tools:layout="@layout/fragment_first_page">
+    <action
+        android:id="@+id/action_firstPageFragment_to_loginFragment"
+        app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nutritionChatbot"
+        android:name="nutrition.NutritionChatbot"
+        android:label="Nutritionist Expert"
+        tools:layout="@layout/fragment_nutrition_chatbot" />
+
 
 </navigation>
