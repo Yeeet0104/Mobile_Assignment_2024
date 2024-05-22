@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import com.example.mobile_assignment.databinding.FragmentHomeBinding
 import com.example.mobile_assignment.databinding.FragmentLoginBinding
 import com.example.mobile_assignment.databinding.FragmentProfileBinding
 import com.example.mobile_assignment.databinding.FragmentWorkoutHomeBinding
+import util.toast
 
 class   ProfileFragment : Fragment() {
 
@@ -86,6 +88,7 @@ class   ProfileFragment : Fragment() {
     private fun logout() {
         auth.logout()
         nav.popBackStack(R.id.loginFragment, false)
+        toast("Logout Successfully!")
         nav.navigate(R.id.loginFragment)
     }
 
