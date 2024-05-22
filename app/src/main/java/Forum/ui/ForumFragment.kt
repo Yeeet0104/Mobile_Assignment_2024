@@ -16,6 +16,8 @@ import Login.data.AuthVM
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
+import android.widget.AdapterView
+import android.widget.SearchView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Blob
 import util.ForumAdapter
@@ -38,6 +40,35 @@ class ForumFragment : Fragment(), ForumAdapter.OnEditPostClickListener, ForumAda
         binding.rvForum.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = forumAdapter
+        }
+
+        viewModel.getPostLD().observe(viewLifecycleOwner) { posts ->
+            // Update the adapter
+            forumAdapter.submitList(posts)
+        }
+
+        binding.searchView2.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String) = true
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.search(newText)
+                return true
+            }
+        })
+
+        binding.filterPost.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                viewModel.sort(selectedItem)
+                viewModel.updateResult()
+                binding.rvForum.layoutManager?.scrollToPosition(0)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) = Unit
+        }
+
+        viewModel.getResultLD().observe(viewLifecycleOwner) { posts ->
+            // Update the list in the adapter
+            forumAdapter.submitList(posts)
         }
 
         return binding.root

@@ -14,6 +14,7 @@ import Forum.data.PostVM
 import Login.data.AuthVM
 import androidx.lifecycle.lifecycleScope
 import android.Manifest
+import androidx.lifecycle.Observer
 import com.example.mobile_assignment.R
 import com.google.firebase.firestore.Blob
 import kotlinx.coroutines.launch
@@ -72,28 +73,32 @@ class ForumCreatePost : Fragment() {
             val postImgBlob = binding.imgPost.cropToBlobNullable(800, 750)
             val sharedPreferences = auth.getPreferences()
             val currentUserId= sharedPreferences.getString("id", "")
-            val currentUsername = sharedPreferences.getString("username", "")
             val currentUserPhotoBlob = auth.getUserPhotoBlob() ?: Blob.fromBytes(ByteArray(0))
 
-            val p = Post(
-                userId = currentUserId ?: "",
-                postUsername = currentUsername ?: "",
-                postTitle = binding.edtPostTitle.text.toString().trim(),
-                postContent = binding.edtPostContent.text.toString().trim(),
-                timePosted = System.currentTimeMillis(),
-                postImg = postImgBlob,
-                userProfilePic = currentUserPhotoBlob
-            )
+            // Observe the user LiveData to get the username
+            viewModel.getUser(currentUserId ?: "").observe(viewLifecycleOwner, Observer { user ->
+                val currentUsername = user?.username
 
-            val e = viewModel.validate(p, false)
-            if (e.isNotEmpty()) {
-                errorDialog(e)
-                return@launch
-            }
+                val p = Post(
+                    userId = currentUserId ?: "",
+                    postUsername = currentUsername ?: "",
+                    postTitle = binding.edtPostTitle.text.toString().trim(),
+                    postContent = binding.edtPostContent.text.toString().trim(),
+                    timePosted = System.currentTimeMillis(),
+                    postImg = postImgBlob,
+                    userProfilePic = currentUserPhotoBlob
+                )
 
-            viewModel.set(p)
-            findNavController().navigate(R.id.forumHome)
-            toast("New post created")
+                val e = viewModel.validate(p, false)
+                if (e.isNotEmpty()) {
+                    errorDialog(e)
+                    return@Observer
+                }
+
+                viewModel.set(p)
+                findNavController().navigate(R.id.forumHome)
+                toast("New post created")
+            })
         }
     }
 

@@ -7,11 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile_assignment.databinding.FragmentLiveChatNameListBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 import util.LiveChatNameAdapter
 
 class LiveChatNameList : Fragment(),
@@ -31,9 +34,35 @@ class LiveChatNameList : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLiveChatNameListBinding.inflate(inflater, container, false)
+
+        // Initialize liveChatNameAdapter before setting up the observer
+        liveChatNameAdapter = LiveChatNameAdapter(auth, this)
+        binding.rvChatNameList.adapter = liveChatNameAdapter
+
+        auth.filteredUsers.observe(viewLifecycleOwner) { users ->
+            // Update your RecyclerView adapter here
+            liveChatNameAdapter.submitList(users)
+        }
+
+// Set up the SearchView to call viewModel.searchUser whenever the query text changes
+        binding.svName.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    auth.searchUser(query)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    auth.searchUser(newText)
+                }
+                return false
+            }
+
+        })
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,8 +81,7 @@ class LiveChatNameList : Fragment(),
                     val user = document.toObject(Login.data.User::class.java)
                     if (user.id != currentUserId) user else null // Filter out the current user
                 }
-                liveChatNameAdapter = LiveChatNameAdapter(auth, users, this)
-                binding.rvChatNameList.adapter = liveChatNameAdapter
+                liveChatNameAdapter.submitList(users)
             }
     }
 }
