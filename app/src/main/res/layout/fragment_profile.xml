@@ -280,6 +280,16 @@
                 app:layout_constraintStart_toEndOf="@+id/lbl_ask_dlt_acc"
                 app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
 
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/stopwatch"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

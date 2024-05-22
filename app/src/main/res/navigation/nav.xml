@@ -248,6 +248,13 @@
         android:name="com.example.mobile_assignment.workout.Ui.workoutChatBot"
         android:label="Workout Expert Bot"
         tools:layout="@layout/fragment_workout_chat_bot" />
+
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="Login.ui.TimerFragment"
+        android:label="Stop Watch"
+        tools:layout="@layout/fragment_timer" />
+
     <activity
         android:id="@+id/runningTracker"
         android:name="com.example.mobile_assignment.workout.Ui.runningTracker"
@@ -258,6 +265,7 @@
         android:name="com.example.mobile_assignment.running_history"
         android:label="fragment_running_history"
         tools:layout="@layout/fragment_running_history" />
+
 
 
 </navigation>

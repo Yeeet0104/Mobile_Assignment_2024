@@ -40,6 +40,7 @@ class   ProfileFragment : Fragment() {
         binding.btnChangePassword.setOnClickListener { nav.navigate(R.id.action_profileFragment_to_changePasswordProfileFragment) }
         binding.btnLogout.setOnClickListener { showLogoutConfirmationDialog() }
         binding.lblDltAcc.setOnClickListener { showDeleteAccountConfirmationDialog() }
+        binding.imageView8.setOnClickListener{ nav.navigate(R.id.timerFragment)}
 
 
         return binding.root
