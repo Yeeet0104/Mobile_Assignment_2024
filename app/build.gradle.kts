@@ -98,4 +98,8 @@ dependencies {
     implementation("org.mindrot:jbcrypt:0.4")
     implementation("com.google.zxing:core:3.4.1")
     implementation("com.journeyapps:zxing-android-embedded:4.2.0")
+
+    //running tracker
+    implementation ("com.google.android.gms:play-services-maps:18.0.2")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
 }

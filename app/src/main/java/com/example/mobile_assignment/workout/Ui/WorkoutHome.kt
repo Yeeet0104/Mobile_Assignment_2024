@@ -63,6 +63,12 @@ class workoutHome : Fragment() {
         binding.workoutChatBot.setOnClickListener {
             findNavController().navigate(R.id.workoutChatBot2)
         }
+        binding.btnRun.setOnClickListener {
+            findNavController().navigate(R.id.runningTracker)
+        }
+        binding.runHistory.setOnClickListener {
+            findNavController().navigate(R.id.running_history)
+        }
         return binding.root
     }
 

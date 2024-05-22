@@ -308,6 +308,9 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
                 if (document.exists()) {
                     onFailure()
                 } else {
+                    // Reset the progress and status before adding the plan
+                    plan.progress = 0
+                    plan.status = 0
                     planRef.set(plan)
                         .addOnSuccessListener {
                             onSuccess()
