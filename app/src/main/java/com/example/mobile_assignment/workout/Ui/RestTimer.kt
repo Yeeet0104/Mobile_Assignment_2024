@@ -2,6 +2,7 @@ package com.example.mobile_assignment.workout.Ui
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -31,7 +32,9 @@ class RestTimer : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRestTimerBinding.inflate(inflater, container, false)
-        startRestTimer(45 * 1000L) // 45 seconds
+
+        val restDuration = sharedViewModel.selectedWorkoutPlan.value?.restDuration.toString().toLong()
+        startRestTimer(restDuration * 1000)
 
         // Hide the ActionBar
         (activity as? AppCompatActivity)?.supportActionBar?.hide()
@@ -86,7 +89,5 @@ class RestTimer : Fragment() {
         }.start()
     }
     private fun playSound() {
-//        val mediaPlayer = MediaPlayer.create(context, R.raw.timer_finish_sound)
-//        mediaPlayer.start()
     }
 }

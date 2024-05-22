@@ -84,7 +84,7 @@ class AddNewExercise : Fragment() {
             val isReps = binding.rbReps.isChecked
             val caloriesBurnt = binding.etCaloriesBurnt.text.toString().toInt()
 
-            if (name.isNotEmpty() && (isDuration || isReps) && youtubeUrl.isNotEmpty()) {
+            if (name.isNotEmpty() && (isDuration || isReps) && youtubeUrl.isNotEmpty() && binding.ivnewExerciseImage.drawable != null) {
                 val youtubeId = extractYouTubeId(youtubeUrl)
                 if (youtubeId != null) {
                     if (currentExercise != null) {
