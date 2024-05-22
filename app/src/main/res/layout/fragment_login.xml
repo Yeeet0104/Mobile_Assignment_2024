@@ -132,4 +132,17 @@
         app:layout_constraintStart_toStartOf="@+id/edt_login_password"
         app:layout_constraintTop_toBottomOf="@+id/edt_login_password" />
 
+    <TextView
+        android:id="@+id/lbl_admin_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:text="ADMIN"
+        android:textColor="@color/input_box_background"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/lbl_login"
+        app:layout_constraintTop_toBottomOf="@+id/img_login" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
