@@ -2,7 +2,6 @@ package Login.ui
 
 import Login.data.AuthVM
 import Login.data.UserVM
-import Login.util.errorDialog
 import util.toast
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.databinding.FragmentChangePasswordProfileBinding
+import util.errorDialog
 import util.toast
 import java.security.MessageDigest
 
@@ -98,17 +98,17 @@ class ChangePasswordProfileFragment : Fragment() {
             return
         }
 
-        if(confPassword == ""){
-            errorDialog("Confirm Password cannot be empty.")
-            binding.edtCpNewPassword.text.clear()
-            return
-        }
-
         if (newPassword.length < 5) {
             errorDialog("Password must be at least 5 characters long.")
             binding.edtCpNewPassword.text.clear()
             binding.edtCpConfPassword.text.clear()
             binding.edtCpNewPassword.requestFocus()
+            return
+        }
+
+        if(confPassword == ""){
+            errorDialog("Confirm Password cannot be empty.")
+            binding.edtCpNewPassword.text.clear()
             return
         }
 

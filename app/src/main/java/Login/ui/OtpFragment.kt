@@ -2,7 +2,6 @@ package Login.ui
 
 import Login.data.AuthVM
 import Login.data.UserVM
-import Login.util.errorDialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentOtpBinding
+import util.errorDialog
 import util.toast
 import kotlin.random.Random
 

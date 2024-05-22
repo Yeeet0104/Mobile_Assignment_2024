@@ -3,7 +3,6 @@ package Login.ui
 import Login.data.AuthVM
 import Login.data.UserVM
 import Login.util.SimpleEmail
-import Login.util.errorDialog
 import Login.util.hideKeyboard
 import Login.util.snackbar
 import android.content.Context
@@ -18,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.R
 import com.example.mobile_assignment.databinding.FragmentForgetPasswordBinding
+import util.errorDialog
 
 
 class ForgetPasswordFragment : Fragment() {

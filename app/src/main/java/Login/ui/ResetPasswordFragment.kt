@@ -1,7 +1,6 @@
 package Login.ui
 
 import Login.data.UserVM
-import Login.util.errorDialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,6 +15,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import util.errorDialog
 import util.toast
 import java.security.MessageDigest
 
@@ -49,12 +49,6 @@ class ResetPasswordFragment : Fragment() {
             return
         }
 
-        if(confPassword == ""){
-            errorDialog("Confirm Password cannot be empty.")
-            binding.edtRpNewPassword.text.clear()
-            return
-        }
-
         if (newPassword.length < 5) {
             errorDialog("Password must be at least 5 characters long.")
             binding.edtRpNewPassword.text.clear()
@@ -62,6 +56,14 @@ class ResetPasswordFragment : Fragment() {
             binding.edtRpNewPassword.requestFocus()
             return
         }
+
+        if(confPassword == ""){
+            errorDialog("Confirm Password cannot be empty.")
+            binding.edtRpNewPassword.text.clear()
+            return
+        }
+
+
 
         if (newPassword != confPassword) {
             errorDialog("New password and Confirm password not same. Please enter again.");

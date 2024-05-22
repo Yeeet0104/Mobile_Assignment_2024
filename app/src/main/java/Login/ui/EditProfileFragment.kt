@@ -3,7 +3,6 @@ package Login.ui
 import Login.data.AuthVM
 import Login.data.User
 import Login.data.UserVM
-import Login.util.errorDialog
 import Login.util.toBitmap
 import Login.util.toBlob
 import android.os.Bundle
@@ -18,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mobile_assignment.databinding.FragmentEditProfileBinding
 import com.example.mobile_assignment.databinding.FragmentLoginBinding
 import com.example.mobile_assignment.databinding.FragmentProfileBinding
+import util.errorDialog
 import util.toast
 import java.sql.Blob
 import kotlin.random.Random
@@ -139,6 +139,8 @@ class EditProfileFragment : Fragment() {
 
         if (username.isEmpty()) {
             errors.append("- Username cannot be empty.\n")
+        } else if (username.length < 3){
+            errors.append("- Username too short (min 3 chars).\n")
         }
         if (email.isEmpty()) {
             errors.append("- Email cannot be empty.\n")
